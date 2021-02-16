@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Format type data generated 02/04/2021 08:56:49 by COMPANY\ArtD
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 02/04/2021 08:56:49 by COMPANY\ArtD-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADAuditTrail</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>DomainController</PropertyName>
+        <Label>DomainController</Label>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>EventType</Label>
+                <PropertyName>EventType</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Since</Label>
+                <PropertyName>Since</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>TargetCount</Label>
+                <PropertyName>TargetCount</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Targets</Label>
+                <PropertyName>Targets</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Administrators</Label>
+                <PropertyName>Administrators</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

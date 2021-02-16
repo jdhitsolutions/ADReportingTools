@@ -15,7 +15,7 @@ RootModule = 'ADReportingTools.psm1'
 ModuleVersion = '0.1.0'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @("Desktop","Core")
 
 # ID used to uniquely identify this module
 GUID = '1e812b1f-dbe7-4d21-b4ea-7aff65d854ba'
@@ -33,7 +33,7 @@ Copyright = '2021 JDH Information Technology Solutions, Inc.'
 Description = 'A set of PowerShell commands to gather information from Active Directory'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.1'
+PowerShellVersion = '5.1'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -63,22 +63,22 @@ PowerShellVersion = '7.1'
 # TypesToProcess = @()
 
 # Format files (.ps1xml) to be loaded when importing this module
-# FormatsToProcess = @()
+FormatsToProcess = @("formats\adaudittrail.format.ps1xml")
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Show-Domain,Get-ADUserAudit,Get-ADSummary,Get-ADFSMO'
+FunctionsToExport = 'Show-Domain','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = '*'
+CmdletsToExport = ''
 
 # Variables to export from this module
-VariablesToExport = '*'
+VariablesToExport = ''
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = '*'
+AliasesToExport = 'dt'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
@@ -95,7 +95,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @("ActiveDirectory")
 
         # A URL to the license for this module.
         # LicenseUri = ''
@@ -116,7 +116,7 @@ PrivateData = @{
         # RequireLicenseAcceptance = $false
 
         # External dependent modules of this module
-        # ExternalModuleDependencies = @()
+        ExternalModuleDependencies = @("ActiveDirectory")
 
     } # End of PSData hashtable
 
