@@ -2,6 +2,38 @@
 
 This module contains a collection of PowerShell tools that you can use to generate reports and gather information about your Active Directory domain. Many of these commands will require the ActiveDirectory module.
 
+## Completed
+
++ Get-ADBranch
++ Get-ADDomainAdmin
++ Get-ADFSMO
++ Get-ADSiteDetail
++ Get-ADSiteSummary
++ Get-ADSummary
++ Get-ADUserAudit
++ Show-DomainTree
+
+## Planned
+
++ Create an HTML based report from Get-ADBranch
++ Get-ADGroupReport
+  + group type
+  + group scope
+  + group members
++ Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy)
++ Get-ADDomainControllerHealth
+  + IPv4
+  + OperatingSystem
+  + Uptime
+  + Freespace on C:\
+  + Roles
+  + IsGlobalCatalog
+  + IsReadOnly
+
+## To-Do
+
++ help documentation
+
 *__This project is in the early stages of development__*
 
-last updated 2021-02-23 22:38:16Z
+last updated 2021-02-24 21:36:44Z
