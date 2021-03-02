@@ -22,7 +22,7 @@ Function Get-ADBranch {
                 Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Adding 'Get-AD*:$param' to script PSDefaultParameterValues"
                 $script:PSDefaultParameterValues["Get-AD*:$param"] = $PSBoundParameters.Item($param)
             }
-        }
+        } #foreach
 
         #define a private helper function
         function _getbranchmember {
@@ -123,5 +123,5 @@ Function Get-ADBranch {
     } #end
 }
 
-Update-Typedata -TypeName ADBranchMember -MemberType AliasProperty -MemberName DN -Value DistinguishedName
+Update-Typedata -TypeName ADBranchMember -MemberType AliasProperty -MemberName DN -Value DistinguishedName -force
 

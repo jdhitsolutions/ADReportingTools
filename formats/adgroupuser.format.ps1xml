@@ -12,7 +12,7 @@ https://github.com/jdhitsolutions/PSScriptTools
       <!--Created 02/24/2021 12:29:52 by COMPANY\artd-->
       <Name>default</Name>
       <ViewSelectedBy>
-        <TypeName>ADDomainAdmin</TypeName>
+        <TypeName>ADGroupUser</TypeName>
       </ViewSelectedBy>
       <GroupBy>
         <!--
@@ -23,7 +23,18 @@ https://github.com/jdhitsolutions/PSScriptTools
 
             Use <Label> to set the displayed value.
 -->
-        <ScriptBlock>"{0} [{1}]" -f $_.DistinguishedName,$_.displayname</ScriptBlock>
+        <ScriptBlock>
+        if ($host.name -match 'console' -AND (-not $_.Enabled)) {
+          <!-- show disabled accounts in red-->
+          $dn = "$([char]0x1b)[91m$($_.DistinguishedName)$([char]0x1b)[0m"
+          $name = "$([char]0x1b)[91m$($_.DisplayName)$([char]0x1b)[0m"
+        }
+        else {
+          $dn = $_.DistinguishedName
+          $name = $_.displayname
+        }
+        "{0} [{1}]" -f $dn,$name
+        </ScriptBlock>
         <Label>DistinguishedName</Label>
       </GroupBy>
       <TableControl>
@@ -37,17 +48,12 @@ https://github.com/jdhitsolutions/PSScriptTools
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Title</Label>
-            <Width>25</Width>
+            <Width>26</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Description</Label>
-            <Width>33</Width>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Enabled</Label>
-            <Width>10</Width>
+            <Width>35</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -58,6 +64,7 @@ https://github.com/jdhitsolutions/PSScriptTools
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
+          <Wrap/>
             <TableColumnItems>
               <!--
             By default the entries use property names, but you can replace them with scriptblocks.
@@ -71,9 +78,6 @@ https://github.com/jdhitsolutions/PSScriptTools
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Description</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Enabled</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>PasswordLastSet</PropertyName>

@@ -1,10 +1,11 @@
 
+#an earlier version of this function can be found at  https://gist.github.com/jdhitsolutions/a4e6291741ec95e3bfe53f15a380da47
 
-#you might need to increase the size of the Security eventlog
+<#
+you might need to increase the size of the Security eventlog
+ limit-eventlog -LogName security -ComputerName dom2,dom1 -MaximumSize 1024MB
+#>
 
-# https://gist.github.com/jdhitsolutions/a4e6291741ec95e3bfe53f15a380da47
-
-# limit-eventlog -LogName security -ComputerName dom2,dom1 -MaximumSize 1024MB
 Function Get-ADUserAudit {
     [cmdletbinding()]
     Param(

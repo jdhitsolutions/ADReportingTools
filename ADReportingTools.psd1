@@ -67,7 +67,7 @@ FormatsToProcess = @(
 'formats\adaudittrail.format.ps1xml'
 ,'formats\adfsmorole.format.ps1xml',
 'formats\adsitesummary.format.ps1xml',
-'formats\addomainadmin.format.ps1xml',
+'formats\adgroupuser.format.ps1xml',
 'formats\adbranchmember.format.ps1xml'
 )
 
@@ -76,7 +76,7 @@ FormatsToProcess = @(
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO','Get-ADSiteSummary','Get-ADSiteDetail',
-'Get-ADDomainAdmin','Get-ADBranch'
+'Get-ADGroupUser','Get-ADBranch'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = ''
