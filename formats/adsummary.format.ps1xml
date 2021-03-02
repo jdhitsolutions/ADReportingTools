@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Format type data generated 03/02/2021 14:57:23 by COMPANY\artd
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 03/02/2021 14:57:23 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADSummary</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>"{0} [{1}]" -f $_.Forest,$_.ForestMode</ScriptBlock>
+        <Label>Forest</Label>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <ListItem>
+                <Label>RootDomain</Label>
+                <PropertyName>RootDomain</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Domains</Label>
+                <PropertyName>Domains</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Domain</Label>
+                <PropertyName>Domain</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>DomainMode</Label>
+                <PropertyName>DomainMode</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>DomainControllers</Label>
+                <PropertyName>DomainControllers</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>GlobalCatalogs</Label>
+                <PropertyName>GlobalCatalogs</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>SiteCount</Label>
+                <PropertyName>SiteCount</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

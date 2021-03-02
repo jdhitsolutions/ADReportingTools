@@ -11,6 +11,7 @@ This module contains a collection of PowerShell tools that you can use to genera
 + Get-ADSiteSummary
 + Get-ADSummary
 + Get-ADUserAudit
++ Get-ADDomainControllerHealth
 + Show-DomainTree
 
 ## Planned
@@ -22,14 +23,6 @@ This module contains a collection of PowerShell tools that you can use to genera
   + group scope
   + group members
 + Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy)
-+ Get-ADDomainControllerHealth
-  + IPv4
-  + OperatingSystem
-  + Uptime
-  + Freespace on C:\
-  + Roles
-  + IsGlobalCatalog
-  + IsReadOnly
 
 ## To-Do
 

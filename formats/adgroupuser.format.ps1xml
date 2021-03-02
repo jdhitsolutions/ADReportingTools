@@ -64,7 +64,7 @@ https://github.com/jdhitsolutions/PSScriptTools
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
-          <Wrap/>
+            <Wrap />
             <TableColumnItems>
               <!--
             By default the entries use property names, but you can replace them with scriptblocks.
@@ -86,6 +86,69 @@ https://github.com/jdhitsolutions/PSScriptTools
           </TableRowEntry>
         </TableRowEntries>
       </TableControl>
+    </View>
+    <View>
+      <!--Created 03/02/2021 14:49:14 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADGroupUser</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <PropertyName>Group</PropertyName>
+        <Label>Group</Label>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <ListItem>
+                <Label>DistinguishedName</Label>
+                <PropertyName>DistinguishedName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Name</Label>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Displayname</Label>
+                <PropertyName>Displayname</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Description</Label>
+                <PropertyName>Description</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Title</Label>
+                <PropertyName>Title</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Department</Label>
+                <PropertyName>Department</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Enabled</Label>
+                <PropertyName>Enabled</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>PasswordLastSet</Label>
+                <PropertyName>PasswordLastSet</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
     </View>
   </ViewDefinitions>
 </Configuration>

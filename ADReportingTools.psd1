@@ -12,7 +12,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '0.2.2'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -64,11 +64,13 @@ PowerShellVersion = '5.1'
 
 # Format files (.ps1xml) to be loaded when importing this module
 FormatsToProcess = @(
-'formats\adaudittrail.format.ps1xml'
-,'formats\adfsmorole.format.ps1xml',
+'formats\adaudittrail.format.ps1xml',
+'formats\adfsmorole.format.ps1xml',
 'formats\adsitesummary.format.ps1xml',
 'formats\adgroupuser.format.ps1xml',
-'formats\adbranchmember.format.ps1xml'
+'formats\adbranchmember.format.ps1xml',
+'formats\adsummary.format.ps1xml',
+'formats\addchealth.format.ps1xml'
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
@@ -76,13 +78,13 @@ FormatsToProcess = @(
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO','Get-ADSiteSummary','Get-ADSiteDetail',
-'Get-ADGroupUser','Get-ADBranch'
+'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = ''
+#CmdletsToExport = ''
 
 # Variables to export from this module
-VariablesToExport = ''
+#VariablesToExport = ''
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 AliasesToExport = 'dt'

@@ -15,14 +15,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADSiteSummary</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <ScriptBlock>"$($_.site)`r`n   Description: $($_.SiteDescription)"</ScriptBlock>
         <Label>Site</Label>
       </GroupBy>
