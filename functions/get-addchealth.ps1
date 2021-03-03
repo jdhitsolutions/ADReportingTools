@@ -13,7 +13,6 @@ Function Get-ADDomainControllerHealth {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
 
         #set some default parameter values
-
         if ($PSBoundParameters.ContainsKey("Server")) {
             Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Adding 'Get-AD*:Server' to script PSDefaultParameterValues"
             $script:PSDefaultParameterValues["Get-AD*:Server"] = $PSBoundParameters.Item("server")

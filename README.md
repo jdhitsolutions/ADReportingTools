@@ -12,12 +12,11 @@ This module contains a collection of PowerShell tools that you can use to genera
 + Get-ADSummary
 + Get-ADUserAudit
 + Get-ADDomainControllerHealth
++ New-ADDomainReport
 + Show-DomainTree
 
 ## Planned
 
-+ Create an HTML based report from Get-ADBranch
-  + item detail in mouseover
 + Get-ADGroupReport
   + group type
   + group scope
@@ -35,4 +34,4 @@ This module contains a collection of PowerShell tools that you can use to genera
 
 *__This project is in the early stages of development__*
 
-last updated 2021-03-02 22:52:11Z
+last updated 2021-03-03 22:10:16Z

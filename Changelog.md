@@ -1,6 +1,11 @@
 # Changelog for ADReportingTools
 
-## TODO
+## 0.3.0
+
++ Updated `Get-ADGroupUser` to get member detail depending on the class.
++ Modified `Get-ADBranch` to include an `Enabled` property.
++ Added private helper functions `_inserttoggle` and `_getpopData`.
++ Added `New-ADDomainReport`.
 
 ## 0.2.0
 

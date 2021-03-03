@@ -214,7 +214,6 @@ table.footer {
     padding-left: 10px;
     margin-left: 70%;
     font-size: 10pt;
-    cellpadding: 0;
 }
 td.size {
     text-align: right;
