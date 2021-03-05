@@ -34,6 +34,6 @@ This module contains a collection of PowerShell tools that you can use to genera
 + a tool set to build html reports on the fly
 + a WPF based OU browser or a simplified version of ADUC
 
-*__This project is in the early stages of development__*
+*__This project is in development and not ready for the PowerShell Gallery__*
 
 last updated 2021-03-05 00:35:16Z
