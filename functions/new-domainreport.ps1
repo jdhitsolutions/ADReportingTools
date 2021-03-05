@@ -11,6 +11,10 @@ Function New-ADDomainReport {
         [alias("domain")]
         [string]$Name = $env:USERDOMAIN,
         [Parameter(Mandatory, HelpMessage = "Specify the output HTML file.")]
+        [ValidateScript({
+            #validate the parent folder
+            Test-Path (Split-Path $_)
+        })]
         [string]$FilePath,
         [Parameter(HelpMessage = "Enter the name of the report to be displayed in the web browser")]
         [ValidateNotNullOrEmpty()]
@@ -18,7 +22,7 @@ Function New-ADDomainReport {
         [Parameter(HelpMessage = "Specify the path the CSS file. If you don't specify one, the default module file will be used.")]
         [ValidateScript( { Test-Path $_ })]
         [string]$CSSPath = "$PSScriptRoot\..\formats\domainreport.css",
-        [Parameter(HelpMessage = "Embed the CSS file into the HTML document head. ou can only embed from a file, not a URL.")]
+        [Parameter(HelpMessage = "Embed the CSS file into the HTML document head. You can only embed from a file, not a URL.")]
         [switch]$EmbedCSS,
         [Parameter(HelpMessage = "Specify a domain controller to query.")]
         [alias("dc", "domaincontroller")]
@@ -258,7 +262,13 @@ $cssContent
 
     #region create report
     $cHtml.Body = $Fragments
-    ConvertTo-Html @cHtml  | Out-File -FilePath (Convert-Path $FilePath)
+
+    #convert filepath to a valid filesystem name
+    $parent =  (Split-Path -Path $filePath)
+    $file = Join-Path -path $parent -ChildPath (Split-Path -Path $filePath -leaf)
+
+    Write-Verbose "[$((Get-Date).TimeofDay)] Saving file to $file"
+    ConvertTo-Html @cHtml  | Out-File -FilePath $file
 
     #endregion
 

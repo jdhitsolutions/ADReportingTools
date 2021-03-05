@@ -65,7 +65,17 @@ Function Get-ADDomainControllerHealth {
                 $cimParam["filter"] = "name='ntds' or name='kdc' or name='adws' or name='dfsr' or name='dfs' or name='netlogon' or name = 'samss' or name='w32time'"
                 $cimParam["Property"] = "Displayname","Name", "State", "ProcessID", "StartMode", "Started"
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting critical service satus"
-                $services = Get-CimInstance @cimParam | Select-Object -Property $cimParam.property
+                $services = Get-CimInstance @cimParam | Foreach-Object {
+                    #create a custom typed object for each service
+                    $h =[ordered]@{
+                        PSTypename = "ADDomainControllerService"
+                        Computername = $dc.hostname
+                    }
+                    foreach ($p in $cimParam.property) {
+                        $h.Add($p,$_.$p)
+                    }
+                    New-Object -TypeName psobject -Property $h
+                }
 
                 $cimParam["Classname"] = "win32_operatingsystem"
                 $cimParam.remove("filter")
@@ -104,12 +114,3 @@ Function Get-ADDomainControllerHealth {
 
 } #close Get-ADDomainControllerHealth
 
-Update-TypeData -TypeName "ADDomainControllerHealth" -MemberType ScriptProperty -MemberName "ServiceAlert" -Value {
-    $list = "Stopped","StartPending","StopPending","ContinuePending","PausePending","Paused"
-    if ($this.services.state.where({$list -contains $_})) {
-        $True
-    }
-    Else {
-        $False
-    }
-} -force

@@ -5,6 +5,7 @@ This module contains a collection of PowerShell tools that you can use to genera
 ## Completed
 
 + Get-ADBranch
++ Get-ADCanonicalUser
 + Get-ADGroupUser
 + Get-ADFSMO
 + Get-ADSiteDetail
@@ -14,6 +15,7 @@ This module contains a collection of PowerShell tools that you can use to genera
 + Get-ADDomainControllerHealth
 + New-ADDomainReport
 + Show-DomainTree
++ Get-ADReportingTools
 
 ## Planned
 
@@ -21,11 +23,11 @@ This module contains a collection of PowerShell tools that you can use to genera
   + group type
   + group scope
   + group members
+
+## Possible
+
 + Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy)
 
-## To-Do
-
-+ help documentation
 
 ## Magical Thinking
 
@@ -34,4 +36,4 @@ This module contains a collection of PowerShell tools that you can use to genera
 
 *__This project is in the early stages of development__*
 
-last updated 2021-03-03 22:10:16Z
+last updated 2021-03-05 00:35:16Z

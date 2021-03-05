@@ -1,57 +1,51 @@
 # ADReportingTools
+
 ## about_ADReportingTools
 
-```
-ABOUT TOPIC NOTE:
-The first header of the about topic should be the topic name.
-The second header contains the lookup name used by the help system.
-
-IE:
-# Some Help Topic Name
-## SomeHelpTopicFileName
-
-This will be transformed into the text file
-as `about_SomeHelpTopicFileName`.
-Do not include file extensions.
-The second header should have no spaces.
-```
-
 # SHORT DESCRIPTION
-{{ Short Description Placeholder }}
 
-```
-ABOUT TOPIC NOTE:
-About topics can be no longer than 80 characters wide when rendered to text.
-Any topics greater than 80 characters will be automatically wrapped.
-The generated about topic will be encoded UTF-8.
-```
+The commands in the ADReportingTools module are designed to be easy to use, and to get commonly requested or useful information from Active Directory.
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
 
-## Optional Subtopics
-{{ Optional Subtopic Placeholder }}
+The Active Directory module from Microsoft is a useful tool. However, it requires a bit of effort to get the information you might want to see in the proper form. The commands in this module are designed, as the module name implies, as reporting tools. Many of the commands have custom default formatting to present the information in an easy to read format. Although, you can also export or convert the output.
+
+Some of the commands present information to the screen using ANSI escape sequences. You must run the command in a console or terminal that supports this feature. The PowerShell ISE does not.
+
+The commands focus primarily on Active Directory users, groups, and computers.
+
+## COMMANDS
+
+Run `Get-ADReportingTools` to get a summary list of available reporting tools.
+
++ Get-ADBranch
+= Get-ADCanonicalUser
++ Get-ADDomainControllerHealth
++ Get-ADFSMO
++ Get-ADGroupUser
++ Get-ADReportingTools
++ Get-ADSiteDetail
++ Get-ADSiteSummary
++ Get-ADSummary
++ Get-ADUserAudit
++ New-ADDomainReport
++ Show-DomainTree
 
 # EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
 
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
+{{ TBD: Note Placeholder - Additional information that a user needs to know.}}
 
 # TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
 
-{{ Explains behavior that is likely to change with fixes }}
+Please post any bugs or problems in this module's Issues section at https://github.com/jdhitsolutions/ADReportingTools/issues
 
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+https://docs.microsoft.com/powershell/module/activedirectory/
 
 # KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
+- ActiveDirectory
+- ADUser
+- ADGroup
+- ADComputer

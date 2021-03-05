@@ -7,9 +7,21 @@ h2 {
     color: #434247;
     font-size:16pt;
 }
+h2:before {
+    content: "+|-";
+    font-size: 10pt;
+    padding-right: 5px;
+    display:inline-block;
+}
 h3 {
     font-size: 14pt;
     width: 95%;
+}
+h3:before {
+    content: "+|-";
+    font-size: 10pt;
+    padding-right: 5px;
+    display:inline-block;
 }
 h4 {
     width:95%;

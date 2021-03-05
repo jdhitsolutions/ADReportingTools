@@ -1,5 +1,6 @@
 Function Get-ADBranch {
     [cmdletbinding()]
+    [OutputType("ADBranchMember")]
     Param (
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the distinguished name of the top level container or organizational unit.")]
         [string]$SearchBase,
@@ -43,22 +44,6 @@ Function Get-ADBranch {
                 }
             }
         } # _getbranchmember
-
-        function _formatdn {
-            #format a distinguished name to look nicer
-            [CmdletBinding()]
-            Param([string]$DN)
-
-            $parts = $dn -split "\,"
-            $updates = [System.Collections.Generic.list[string]]::new()
-            foreach ($part in $parts) {
-                $split = $part -split "\="
-                $name = [System.Globalization.CultureInfo]::CurrentCulture.TextInfo.ToTitleCase($split[1].trim().toLower())
-                $transform = "{0}={1}" -f $split[0].trim().toUpper(), $name
-                $updates.Add($transform)
-            }
-            $updates -join ","
-        }
 
     } #begin
 
@@ -123,6 +108,4 @@ Function Get-ADBranch {
 
     } #end
 }
-
-Update-TypeData -TypeName ADBranchMember -MemberType AliasProperty -MemberName DN -Value DistinguishedName -Force
 

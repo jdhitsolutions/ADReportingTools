@@ -8,6 +8,45 @@ https://github.com/jdhitsolutions/PSScriptTools
 -->
 <Configuration>
   <ViewDefinitions>
+      <View>
+      <!--Created 03/04/2021 15:40:05 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADFSMORole</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>"$($_.domain)`n   Forest: $($_.Forest)"</ScriptBlock>
+        <Label>Domain</Label>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>PDCEmulator</Label>
+                <PropertyName>PDCEmulator</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>RIDMaster</Label>
+                <PropertyName>RIDMaster</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>InfrastructureMaster</Label>
+                <PropertyName>InfrastructureMaster</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>SchemaMaster</Label>
+                <PropertyName>SchemaMaster</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>DomainNamingMaster</Label>
+                <PropertyName>DomainNamingMaster</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
     <View>
       <!--Created 02/23/2021 11:50:30 by PROSPERO\Jeff-->
       <Name>default</Name>
@@ -15,14 +54,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADFSMORole</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <ScriptBlock>"$($_.domain)  Forest: $($_.Forest)"</ScriptBlock>
         <Label>Domain</Label>
       </GroupBy>
@@ -59,10 +90,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>PDCEmulator</PropertyName>
               </TableColumnItem>
@@ -83,5 +110,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         </TableRowEntries>
       </TableControl>
     </View>
+
   </ViewDefinitions>
 </Configuration>

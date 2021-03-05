@@ -1,5 +1,6 @@
 Function Get-ADFSMO {
     [cmdletbinding()]
+    [alias('fsmo')]
     [outputtype("ADFSMORole")]
     Param(
         [Parameter(Position = 0, HelpMessage = "Specify the domain name. The default is the user domain.")]

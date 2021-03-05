@@ -40,5 +40,20 @@ Function _getPopData {
         $props = 'DnsHostName', 'OperatingSystem','IPv4Address','Location', 'Enabled', 'WhenCreated', 'WhenChanged'
         Get-ADComputer -Identity $identity -Property $props | Select-Object -Property $props
     }
+}
 
+function _formatdn {
+    #format a distinguished name to look nicer
+    [CmdletBinding()]
+    Param([string]$DN)
+
+    $parts = $dn -split "\,"
+    $updates = [System.Collections.Generic.list[string]]::new()
+    foreach ($part in $parts) {
+        $split = $part -split "\="
+        $name = [System.Globalization.CultureInfo]::CurrentCulture.TextInfo.ToTitleCase($split[1].trim().toLower())
+        $transform = "{0}={1}" -f $split[0].trim().toUpper(), $name
+        $updates.Add($transform)
+    }
+    $updates -join ","
 }

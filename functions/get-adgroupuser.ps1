@@ -34,7 +34,7 @@ Function Get-ADGroupUser {
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($members.count) members in total."
             #get details about each group member
             $getParams = @{
-                properties = 'PasswordLastSet', 'Description', ' Title', 'Displayname', 'Department'
+                properties = 'PasswordLastSet', 'Description', 'Title', 'Displayname', 'Department'
                 Identity   = ""
             }
             foreach ($member in $members) {
@@ -50,7 +50,7 @@ Function Get-ADGroupUser {
                 elseif ($member.objectclass -eq "computer") {
                     $grpMember = Get-ADComputer @getparams
                 }
-   
+
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($grpMember.distinguishedname)"
                 [pscustomobject]@{
                     PSTypeName        = "ADGroupUser"
