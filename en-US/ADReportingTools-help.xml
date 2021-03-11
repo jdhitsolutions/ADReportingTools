@@ -172,7 +172,7 @@ CN=Web Servers,OU=IT,DC=Company,DC=Pri      Web Servers
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-adbranch "Ou=accounting,Dc=company,dc=pri" | where class -eq group
+        <dev:code>PS C:\&gt; Get-ADBranch "Ou=accounting,Dc=company,dc=pri" | where class -eq group
 
 DistinguishedName                           Name            Description
 -----------------                           ----            -----------
@@ -394,7 +394,7 @@ UserPrincipalName : gladysk@Company.Pri</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $a=get-aduseraudit -Since "2/1/2021" -Events Disabled
+        <dev:code>PS C:\&gt; $a = Get-ADUserAudit -Since "2/1/2021" -Events Disabled
 PS C:\&gt; $a.targets | Get-Unique | Get-ADCanonicalUser |
 Select-Object DistinguishedName
 
@@ -411,7 +411,7 @@ CN=N.Wobser,OU=Employees,DC=Company,DC=Pri
 CN=Y.Graffney,OU=Employees,DC=Company,DC=Pri
 CN=D.Waldow,OU=Employees,DC=Company,DC=Pri</dev:code>
         <dev:remarks>
-          <maml:para>The first command is using the Get-ADUserAudit command to find all user accounts disabled since February 1. The resulting targets in in the canoncial name format. These values are piped to Get-ADCanonicalUser to retrieve the corresponding distinguished name values.</maml:para>
+          <maml:para>The first command is using the Get-ADUserAudit command to find all user accounts disabled since February 1. The resulting targets in the canonical name format. These values are piped to Get-ADCanonicalUser to retrieve the corresponding distinguished name values.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1583,6 +1583,314 @@ Administrators : {COMPANY\GladysK, COMPANY\ArtD}</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Get-WinEvent</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-ADUserCategory</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ADUserCategory</command:noun>
+      <maml:description>
+        <maml:para>Get AD User information based on category</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get-ADUserCategory is based on the concept of getting user information based on a pre-defined category. For example, you might want to get the properties DisplayName,Name,Title,Department, and Manager for a Department category. The ADReportingTools module will define a set of pre-defined categories that you can reference through $ADUserReportingConfiguration.</maml:para>
+      <maml:para>These are the current defaults.</maml:para>
+      <maml:para>Department   DisplayName,Name,Title,Department,Manager Basic   DisplayName,Name,SamAccountname,UserPrincipalName,Enabled,WhenCreated,WhenChanged Address   DisplayName,Name,TelephoneNumber,Office,StreetAddress,POBox,City,State,PostalCode Organization   DisplayName,Name,Title,Department,Manager,Company,Office Pwinfo   DisplayName,Name,PasswordExpired,PasswordLastSet,PasswordNeverExpires</maml:para>
+      <maml:para>The user's distinguishedname will always be included.</maml:para>
+      <maml:para>You don't have to remember what property names to include or reference.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ADUserCategory</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Filter</maml:name>
+          <maml:description>
+            <maml:para>Specify an AD filter like "department -eq 'sales'". The default is all Enabled user accounts.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Category</maml:name>
+          <maml:description>
+            <maml:para>Select a defined category.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="RunAs">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Specify an alternate credential. This will be used to query the domain and all domain controllers.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SearchBase</maml:name>
+          <maml:description>
+            <maml:para>Enter the distinguished name of the top-level container or organizational unit.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dc, domaincontroller">
+          <maml:name>Server</maml:name>
+          <maml:description>
+            <maml:para>Specify a domain controller to query for a list of domain controllers.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ADUserCategory</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Identity</maml:name>
+          <maml:description>
+            <maml:para>Enter an AD user identity</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Category</maml:name>
+          <maml:description>
+            <maml:para>Select a defined category.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="RunAs">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Specify an alternate credential. This will be used to query the domain and all domain controllers.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dc, domaincontroller">
+          <maml:name>Server</maml:name>
+          <maml:description>
+            <maml:para>Specify a domain controller to query for a list of domain controllers.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Category</maml:name>
+        <maml:description>
+          <maml:para>Select a defined category.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="RunAs">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Specify an alternate credential. This will be used to query the domain and all domain controllers.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Filter</maml:name>
+        <maml:description>
+          <maml:para>Specify an AD filter like "department -eq 'sales'". The default is all Enabled user accounts.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Identity</maml:name>
+        <maml:description>
+          <maml:para>Enter an AD user identity</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SearchBase</maml:name>
+        <maml:description>
+          <maml:para>Enter the distinguished name of the top-level container or organizational unit.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dc, domaincontroller">
+        <maml:name>Server</maml:name>
+        <maml:description>
+          <maml:para>Specify a domain controller to query for a list of domain controllers.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADUserCategory artd -Category basic
+
+
+DistinguishedName : CN=ArtD,OU=IT,DC=Company,DC=Pri
+DisplayName       : Art Deco
+Name              : ArtD
+SamAccountname    : ArtD
+UserPrincipalName : artd@company.com
+Enabled           : True
+WhenCreated       : 1/25/2021 1:32:35 PM
+WhenChanged       : 3/11/2021 6:32:58 PM</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADUserCategory -filter "department -eq 'sales'" -Category Department
+
+
+DistinguishedName : CN=SamS,OU=Sales,DC=Company,DC=Pri
+DisplayName       : Sam Smith
+Name              : SamS
+Title             :
+Department        : Sales
+Manager           : CN=SonyaS,OU=Sales,DC=Company,DC=Pri
+
+DistinguishedName : CN=SonyaS,OU=Sales,DC=Company,DC=Pri
+DisplayName       : Sonya Smith
+Name              : SonyaS
+Title             : Account Executive
+Department        : Sales
+Manager           :
+
+DistinguishedName : CN=SamanthaS,OU=Sales,DC=Company,DC=Pri
+DisplayName       : Samantha Smith
+Name              : SamanthaS
+Title             : Sales Assistant
+Department        : Sales
+Manager           : CN=SonyaS,OU=Sales,DC=Company,DC=Pri</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $ADUserReportingConfiguration += [pscustomobject]@{Name="Custom";Properties="DisplayName","Description"}
+PS C:\&gt; Get-ADUserCategory -filter "givenname -like 'a*'" -Category custom
+
+DistinguishedName                              DisplayName       Description
+-----------------                              -----------       -----------
+CN=AaronS,OU=Accounting,DC=Company,DC=Pri      Aaron Smith       Accountant
+CN=Al Fresco,OU=Dev,DC=Company,DC=Pri          Al Fresco
+CN=A.Henaire,OU=Employees,DC=Company,DC=Pri    Alexander Henaire
+CN=Alfonso Dente,OU=Sales,DC=Company,DC=Pri    Alfonso Dente
+CN=AndreaS,OU=Accounting,DC=Company,DC=Pri     Andrea Smith      Accountant
+CN=AndyS,OU=Accounting,DC=Company,DC=Pri       Andy Smith        Accountant
+CN=Anthony Stark,OU=Research,DC=Company,DC=Pri Tony Stark
+CN=AprilS,OU=IT,DC=Company,DC=Pri              April Showers     PowerShell Guru
+CN=A.Fieldhouse,OU=Employees,DC=Company,DC=Pri Aron Fieldhouse   sample user ...
+CN=ArtD,OU=IT,DC=Company,DC=Pri                Art Deco          PowerShell E...
+CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:code>
+        <dev:remarks>
+          <maml:para>The first command is adding a new category. The second command uses the category.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADUser</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

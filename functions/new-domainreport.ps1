@@ -21,7 +21,7 @@ Function New-ADDomainReport {
         [string]$ReportTitle = "Domain Report",
         [Parameter(HelpMessage = "Specify the path the CSS file. If you don't specify one, the default module file will be used.")]
         [ValidateScript( { Test-Path $_ })]
-        [string]$CSSPath = "$PSScriptRoot\..\formats\domainreport.css",
+        [string]$CSSPath = "$PSScriptRoot\..\reports\domainreport.css",
         [Parameter(HelpMessage = "Embed the CSS file into the HTML document head. You can only embed from a file, not a URL.")]
         [switch]$EmbedCSS,
         [Parameter(HelpMessage = "Specify a domain controller to query.")]

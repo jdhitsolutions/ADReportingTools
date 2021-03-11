@@ -51,7 +51,7 @@ Get the Active Directory user account for Company\Gladysk and some select proper
 ### Example 2
 
 ```powershell
-PS C:\> $a=get-aduseraudit -Since "2/1/2021" -Events Disabled
+PS C:\> $a = Get-ADUserAudit -Since "2/1/2021" -Events Disabled
 PS C:\> $a.targets | Get-Unique | Get-ADCanonicalUser |
 Select-Object DistinguishedName
 
@@ -69,7 +69,7 @@ CN=Y.Graffney,OU=Employees,DC=Company,DC=Pri
 CN=D.Waldow,OU=Employees,DC=Company,DC=Pri
 ```
 
-The first command is using the Get-ADUserAudit command to find all user accounts disabled since February 1. The resulting targets in in the canoncial name format. These values are piped to Get-ADCanonicalUser to retrieve the corresponding distinguished name values.
+The first command is using the Get-ADUserAudit command to find all user accounts disabled since February 1. The resulting targets in the canonical name format. These values are piped to Get-ADCanonicalUser to retrieve the corresponding distinguished name values.
 
 ## PARAMETERS
 

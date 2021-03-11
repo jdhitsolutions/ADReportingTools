@@ -58,7 +58,7 @@ Get members of the IT organizational unit. There is a formatting bug where the f
 ### Example 2
 
 ```powershell
-PS C:\> get-adbranch "Ou=accounting,Dc=company,dc=pri" | where class -eq group
+PS C:\> Get-ADBranch "Ou=accounting,Dc=company,dc=pri" | where class -eq group
 
 DistinguishedName                           Name            Description
 -----------------                           ----            -----------

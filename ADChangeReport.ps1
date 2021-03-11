@@ -20,7 +20,7 @@ Param(
     [ValidateNotNullOrEmpty()]
     [string]$Path = ".\ADChangeReport.html",
     [Parameter(HelpMessage = "Specifies the Active Directory Domain Services domain controller to query. The default is your Logon server.")]
-    [string]$Server = $env:LOGONSERVER.SubString(2),
+    [string]$Server = $env:LOGONSERVER.Substring(2),
     [Parameter(HelpMessage = "Specify an alternate credential for authentication.")]
     [pscredential]$Credential,
     [ValidateSet("Negotiate","Basic")]

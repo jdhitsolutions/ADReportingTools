@@ -1,0 +1,60 @@
+[
+  {
+    "Name": "Department",
+    "Properties": [
+      "DisplayName",
+      "Name",
+      "Title",
+      "Department",
+      "Manager"
+    ]
+  },
+  {
+    "Name": "Basic",
+    "Properties": [
+      "DisplayName",
+      "Name",
+      "SamAccountname",
+      "UserPrincipalName",
+      "Enabled",
+      "WhenCreated",
+      "WhenChanged"
+    ]
+  },
+  {
+    "Name": "Address",
+    "Properties": [
+      "DisplayName",
+      "Name",
+      "TelephoneNumber",
+      "Office",
+      "StreetAddress",
+      "POBox",
+      "City",
+      "State",
+      "PostalCode"
+    ]
+  },
+  {
+    "Name": "Organization",
+    "Properties": [
+      "DisplayName",
+      "Name",
+      "Title",
+      "Department",
+      "Manager",
+      "Company",
+      "Office"
+    ]
+  },
+  {
+    "Name": "Pwinfo",
+    "Properties": [
+      "DisplayName",
+      "Name",
+      "PasswordExpired",
+      "PasswordLastSet",
+      "PasswordNeverExpires"
+    ]
+  }
+]

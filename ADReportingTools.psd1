@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.4.0'
+ModuleVersion = '0.5.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -56,7 +56,9 @@ PowerShellVersion = '5.1'
 # ScriptsToProcess = @()
 
 # Type files (.ps1xml) to be loaded when importing this module
-# TypesToProcess = @()
+TypesToProcess = @(
+    'types\aduser.types.ps1xml'
+)
 
 # Format files (.ps1xml) to be loaded when importing this module
 FormatsToProcess = @(
@@ -67,7 +69,8 @@ FormatsToProcess = @(
 'formats\adbranchmember.format.ps1xml',
 'formats\adsummary.format.ps1xml',
 'formats\addchealth.format.ps1xml',
-'formats\adreportingtool.format.ps1xml'
+'formats\adreportingtool.format.ps1xml',
+'formats\aduser.format.ps1xml'
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
@@ -75,7 +78,8 @@ FormatsToProcess = @(
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO','Get-ADSiteSummary','Get-ADSiteDetail',
-'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser'
+'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
+'Get-ADUserCategory'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 #CmdletsToExport = ''

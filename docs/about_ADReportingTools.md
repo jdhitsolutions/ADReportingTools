@@ -8,7 +8,7 @@ The commands in the ADReportingTools module are designed to be easy to use, and 
 
 # LONG DESCRIPTION
 
-The Active Directory module from Microsoft is a useful tool. However, it requires a bit of effort to get the information you might want to see in the proper form. The commands in this module are designed, as the module name implies, as reporting tools. Many of the commands have custom default formatting to present the information in an easy to read format. Although, you can also export or convert the output.
+The Active Directory module from Microsoft is a useful tool. However, it requires a bit of effort to get the information you might want to see in the proper form. The commands in this module are designed, as the module name implies, as reporting tools. Many of the commands have custom default formatting to present the information in an easy-to-read format. Although, you can also export or convert the output.
 
 Some of the commands present information to the screen using ANSI escape sequences. You must run the command in a console or terminal that supports this feature. The PowerShell ISE does not.
 

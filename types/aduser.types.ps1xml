@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file was created with New-PSPropertySet from the
+PSTypeExtensionTools module which you can install from
+the PowerShell Gallery.
+
+Created 03/06/2021 09:02:58
+-->
+<Types>
+  <Type>
+    <Name>Microsoft.ActiveDirectory.Management.ADUser</Name>
+    <Members>
+      <PropertySet>
+        <Name>Names</Name>
+        <ReferencedProperties>
+          <Name>DN</Name>
+          <Name>Name</Name>
+          <Name>FirstName</Name>
+          <Name>LastName</Name>
+          <Name>SamAccountName</Name>
+          <Name>UPN</Name>
+        </ReferencedProperties>
+      </PropertySet>
+      <AliasProperty>
+        <Name>FirstName</Name>
+        <ReferencedMemberName>GivenName</ReferencedMemberName>
+      </AliasProperty>
+       <AliasProperty>
+        <Name>UPN</Name>
+        <ReferencedMemberName>UserPrincipalName</ReferencedMemberName>
+      </AliasProperty>
+      <AliasProperty>
+        <Name>LastName</Name>
+        <ReferencedMemberName>Surname</ReferencedMemberName>
+      </AliasProperty>
+      <AliasProperty>
+        <Name>DN</Name>
+        <ReferencedMemberName>DistinguishedName</ReferencedMemberName>
+      </AliasProperty>
+    </Members>
+  </Type>
+</Types>
