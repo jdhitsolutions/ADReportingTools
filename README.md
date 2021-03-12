@@ -1,5 +1,7 @@
 # ADReportingTools
 
+![PSGallery Version](https://img.shields.io/powershellgallery/v/ADReportingTools.png?style=plastic&logo=powershell&label=PowerShell%20Gallery)![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/ADReportingTools.png?style=plastic&&logo=powershell&label=Downloads)
+
 ![ActiveDirectory](images/2PopulatedDomain01.png)
 
 This module contains a collection of PowerShell tools that you can use to generate reports and gather information about your Active Directory domain. Many of these commands will require the ActiveDirectory module, which you can get by installing the Remote Server Administration Tools (RSAT) for Active Directory on Windows 10.
