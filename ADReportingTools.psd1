@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.6.0'
+ModuleVersion = '0.6.1'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -129,7 +129,7 @@ PrivateData = @{
         '
 
         # Prerelease string of this module
-        Prerelease = 'True'
+        Prerelease = 'preview'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         RequireLicenseAcceptance = $false

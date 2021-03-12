@@ -1,5 +1,9 @@
 # Changelog for ADReportingTools
 
+## 0.6.1
+
++ Fixed prerelease tag in the module.
+
 ## 0.6.0
 
 + Added online help links.
