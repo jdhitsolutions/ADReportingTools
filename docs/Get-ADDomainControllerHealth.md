@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/38u96PJ
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get a summary view of domain controller healthg
+Get a summary view of domain controller health.
 
 ## SYNTAX
 
@@ -21,10 +21,10 @@ Get-ADDomainControllerHealth [[-Server] <String>] [[-Credential] <PSCredential>]
 
 This command is intended to give you a quick summary of the overall health of your Active Directory domain controllers. The concept of "health" is based on the following:
 
-How much free space remains on drive C:\?
-How much free physical memory?
-What percentage of the Security event log is in use?
-Are any critical services not running?
+- How much free space remains on drive C:?
+- How much free physical memory?
+- What percentage of the Security event log is in use?
+- Are any critical services not running?
 
 The services checked are ntds,kdc,adws,dfs,dfsr,netlogon,samss, and w32time. Not every organization runs DNS and/or DHCP on their domain controllers so those services have been omitted.
 
@@ -34,7 +34,8 @@ Output will be color-coded using ANSI escape sequences.
 
 ### Example 1
 
-```powershell
+```dos
+
 PS C:\> Get-ADDomainControllerHealth
 
 
@@ -54,11 +55,11 @@ Uptime            PctFreeC   PctFreeMem    PctSecLog  ServiceAlert
 
 Get a health snapshot of your domain controllers. A ServiceAlert of True means that one of the defined critical services is not running.
 
-Output might be color coded. A ServiceAlert value of True will be displayed in Red.  Free space on C and percent free physical memory will be shown in red if the value is 10% or less. A percent free less than 30$ will be displayed in an orange/yellow color. The percent Security log usage threshholds are 15% and 50%.
+Output might be color-coded. A ServiceAlert value of True will be displayed in Red.  Free space on C and percent free physical memory will be shown in red if the value is 10% or less. A percent free less than 30$ will be displayed in an orange/yellow color. The percent Security log usage threshholds are 15% and 50%.
 
 ### Example 2
 
-```powershell
+```dos
 PS C:\> Get-ADDomainControllerHealth | Format-Table -view info
 
 
@@ -80,7 +81,7 @@ Get domain controller health using a custom table view.
 
 ### Example 3
 
-```powershell
+```dos
 PS C:\> Get-ADDomainControllerHealth | Select-Object -Expand Services
 
 

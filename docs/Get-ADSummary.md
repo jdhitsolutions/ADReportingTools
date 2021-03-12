@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/38BNf98
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get a sumamry report of your AD domain and forest.
+Get a summary report of your AD domain and forest.
 
 ## SYNTAX
 
@@ -25,7 +25,7 @@ This simple command will give you a snapshot-sized summary of your Active Direct
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> Get-ADSummary
 
 

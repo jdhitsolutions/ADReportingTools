@@ -63,16 +63,16 @@ Function Get-ADDomainControllerHealth {
 
                 $cimParam["Classname"] = "win32_service"
                 $cimParam["filter"] = "name='ntds' or name='kdc' or name='adws' or name='dfsr' or name='dfs' or name='netlogon' or name = 'samss' or name='w32time'"
-                $cimParam["Property"] = "Displayname","Name", "State", "ProcessID", "StartMode", "Started"
+                $cimParam["Property"] = "Displayname", "Name", "State", "ProcessID", "StartMode", "Started"
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting critical service satus"
-                $services = Get-CimInstance @cimParam | Foreach-Object {
+                $services = Get-CimInstance @cimParam | ForEach-Object {
                     #create a custom typed object for each service
-                    $h =[ordered]@{
-                        PSTypename = "ADDomainControllerService"
+                    $h = [ordered]@{
+                        PSTypename   = "ADDomainControllerService"
                         Computername = $dc.hostname
                     }
                     foreach ($p in $cimParam.property) {
-                        $h.Add($p,$_.$p)
+                        $h.Add($p, $_.$p)
                     }
                     New-Object -TypeName psobject -Property $h
                 }
@@ -89,18 +89,18 @@ Function Get-ADDomainControllerHealth {
             }
             #create a custom object
             [pscustomobject]@{
-                PSTypename      = "ADDomainControllerHealth"
-                Hostname        = $dc.hostname
-                IPAddress       = $dc.IPv4Address
-                OperatingSystem = $dc.OperatingSystem
-                Uptime          = (New-TimeSpan -Start $os.LastBootUpTime -End (Get-Date))
-                PctFreespace    = [math]::Round(($c.Freespace / $c.Size) * 100, 2)
-                PctFreeMemory   = [math]::Round(($os.FreePhysicalMemory / $os.TotalVisibleMemorySize) * 100, 2)
-                PctSecurityLog  = [math]::Round( ($seclog.filesize/$seclog.MaxFileSize)*100,2 )
-                Services        = $Services
-                Roles           = $dc.OperationMasterRoles
-                IsGlobalCatalog = $dc.IsGlobalCatalog
-                IsReadOnly      = $dc.IsReadOnly
+                PSTypename        = "ADDomainControllerHealth"
+                Hostname          = $dc.hostname
+                IPAddress         = $dc.IPv4Address
+                OperatingSystem   = $dc.OperatingSystem
+                Uptime            = (New-TimeSpan -Start $os.LastBootUpTime -End (Get-Date))
+                PctFreespace      = [math]::Round(($c.Freespace / $c.Size) * 100, 2)
+                PctFreeMemory     = [math]::Round(($os.FreePhysicalMemory / $os.TotalVisibleMemorySize) * 100, 2)
+                PctSecurityLog    = [math]::Round( ($seclog.filesize / $seclog.MaxFileSize) * 100, 2 )
+                Services          = $Services
+                Roles             = $dc.OperationMasterRoles
+                IsGlobalCatalog   = $dc.IsGlobalCatalog
+                IsReadOnly        = $dc.IsReadOnly
                 DistinguishedName = $dc.ComputerObjectDN
             }
         } #foreach DC

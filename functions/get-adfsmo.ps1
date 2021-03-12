@@ -41,13 +41,13 @@ Function Get-ADFSMO {
         }
 
         [pscustomobject]@{
-            PSTypeName                   = "ADFSMORole"
-            Domain                           = $domain.DNSRoot
-            Forest                              = $forest.Name
-            PDCEmulator                  = $domain.PDCEmulator
-            RIDMaster                       = $domain.RIDMaster
-            InfrastructureMaster       = $domain.InfrastructureMaster
-            SchemaMaster                = $forest.SchemaMaster
+            PSTypeName           = "ADFSMORole"
+            Domain               = $domain.DNSRoot
+            Forest               = $forest.Name
+            PDCEmulator          = $domain.PDCEmulator
+            RIDMaster            = $domain.RIDMaster
+            InfrastructureMaster = $domain.InfrastructureMaster
+            SchemaMaster         = $forest.SchemaMaster
             DomainNamingMaster   = $forest.DomainNamingMaster
         }
 

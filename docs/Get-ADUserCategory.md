@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3eE8o6t
 schema: 2.0.0
 ---
 
@@ -27,7 +27,7 @@ Get-ADUserCategory [-Identity] <String> -Category <String> [-Server <String>] [-
 
 ## DESCRIPTION
 
-Get-ADUserCategory is based on the concept of getting user information based on a pre-defined category. For example, you might want to get the properties DisplayName,Name,Title,Department, and Manager for a Department category. The ADReportingTools module will define a set of pre-defined categories that you can reference through $ADUserReportingConfiguration.
+Get-ADUserCategory is based on the concept of getting user information from a pre-defined category. For example, you might want to get the properties DisplayName, Name, Title, Department, and Manager for a Department category. The ADReportingTools module will define a set of pre-defined categories that you can reference through $ADUserReportingConfiguration.
 
 These are the current defaults.
 
@@ -50,7 +50,7 @@ You don't have to remember what property names to include or reference.
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> Get-ADUserCategory artd -Category basic
 
 
@@ -66,7 +66,7 @@ WhenChanged       : 3/11/2021 6:32:58 PM
 
 ### Example 2
 
-```powershell
+```dos
 PS C:\> Get-ADUserCategory -filter "department -eq 'sales'" -Category Department
 
 
@@ -94,7 +94,7 @@ Manager           : CN=SonyaS,OU=Sales,DC=Company,DC=Pri
 
 ### Example 3
 
-```powershell
+```dos
 PS C:\> $ADUserReportingConfiguration += [pscustomobject]@{Name="Custom";Properties="DisplayName","Description"}
 PS C:\> Get-ADUserCategory -filter "givenname -like 'a*'" -Category custom
 
@@ -110,7 +110,7 @@ CN=Anthony Stark,OU=Research,DC=Company,DC=Pri Tony Stark
 CN=AprilS,OU=IT,DC=Company,DC=Pri              April Showers     PowerShell Guru
 CN=A.Fieldhouse,OU=Employees,DC=Company,DC=Pri Aron Fieldhouse   sample user ...
 CN=ArtD,OU=IT,DC=Company,DC=Pri                Art Deco          PowerShell E...
-CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User 
+CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User
 ```
 
 The first command is adding a new category. The second command uses the category.
@@ -135,8 +135,7 @@ Accept wildcard characters: False
 
 ### -Credential
 
-Specify an alternate credential.
-This will be used to query the domain and all domain controllers.
+Specify an alternate credential. This will be used to query the domain and all domain controllers.
 
 ```yaml
 Type: PSCredential

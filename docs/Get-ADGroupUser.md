@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/38wecuU
 schema: 2.0.0
 ---
 
@@ -24,8 +24,9 @@ This command will display all users of a given Active Directory group. The searc
 ## EXAMPLES
 
 ### Example 1
-```powershell
-PS C:\> get-adgroupuser sales
+
+```dos
+PS C:\> Get-ADGroupUser sales
 
 
    DistinguishedName: CN=SamS,OU=Sales,DC=Company,DC=Pri [Sam Smith]
@@ -53,8 +54,8 @@ Disabled accounts will have their distinguished name displayed in red.
 
 ### Example 2
 
-```powershell
-PS C:\> get-adgroupuser sales | format-list
+```dos
+PS C:\> Get-ADGroupUser sales | format-list
 
 
    Group: CN=Sales,OU=Sales,DC=Company,DC=Pri

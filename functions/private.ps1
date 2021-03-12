@@ -33,11 +33,11 @@ Function _getPopData {
         #don't do anything
     }
     if ($class -eq 'user') {
-        $props = 'SamAccountName','Displayname', 'Title', 'Department', 'PasswordLastSet', 'LastLogonDate','Enabled', 'WhenCreated', 'WhenChanged'
+        $props = 'SamAccountName', 'Displayname', 'Title', 'Department', 'PasswordLastSet', 'LastLogonDate', 'Enabled', 'WhenCreated', 'WhenChanged'
         Get-ADUser -Identity $identity -Property $props | Select-Object -Property $props
     }
     elseif ($class -eq 'computer') {
-        $props = 'DnsHostName', 'OperatingSystem','IPv4Address','Location', 'Enabled', 'WhenCreated', 'WhenChanged'
+        $props = 'DnsHostName', 'OperatingSystem', 'IPv4Address', 'Location', 'Enabled', 'WhenCreated', 'WhenChanged'
         Get-ADComputer -Identity $identity -Property $props | Select-Object -Property $props
     }
 }

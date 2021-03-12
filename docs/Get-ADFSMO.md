@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3ctNioz
 schema: 2.0.0
 ---
 
@@ -25,7 +25,7 @@ This command will display all FSMO role holders for the forest and domain at a g
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> PS C:\> Get-ADFSMO
 
 

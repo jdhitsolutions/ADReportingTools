@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3cponT4
 schema: 2.0.0
 ---
 
@@ -20,19 +20,17 @@ Get-ADUserAudit [[-DomainController] <String[]>] [-Since <DateTime>]
 
 ## DESCRIPTION
 
-This command will search the Security event logs on your domain controllers for specific user-related events. These activities are not replicated, so you have to search each domain controller.
-
-Be aware that you may see related events for some actions. For example, if you create and enable a new user, you'll see multiple entries for the same event.
+This command will search the Security event logs on your domain controllers for specific user-related events. These activities are not replicated, so you have to search each domain controller. Be aware that you may see related events for some actions. For example, if you create and enable a new user, you'll see multiple entries for the same event.
 
 The output will show you the user accounts that match the search criteria, and the domain account that was responsible. Although, this command can't tell you which administrator is responsible for which activity. The best you can learn is that for a given time frame, these user accounts were managed. Or these administrators did something. You would need to search the event log on the domain controller for more information.
 
-You may need to enable logging, and/or increase the size of the Security event log.
+You may need to enable logging and/or increase the size of the Security event log.
 
 ## EXAMPLES
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> get-aduseraudit -Events Created -Since 2/1/2021
 
 

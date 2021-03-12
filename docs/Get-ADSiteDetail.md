@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/38QzYK3
 schema: 2.0.0
 ---
 
@@ -14,7 +14,7 @@ Get a more detailed AD site report.
 ## SYNTAX
 
 ```yaml
-Get-ADSiteDetail [[-Server] <String>] [[-Credential] <PSCredential>] [<CommonParameters>]
+Get-ADSiteDetail [-Name <String>] [[-Server] <String>] [[-Credential] <PSCredential>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -25,7 +25,8 @@ This command will present a summary report of your Active Directory sites showin
 
 ### Example 1
 
-```powershell
+```dos
+
 PS C:\> Get-ADSiteDetail
 
 
@@ -77,8 +78,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### CommonParameters
+### -Name
 
+Specify the name of an Active Directory site. The default is all sites.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

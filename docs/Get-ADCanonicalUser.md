@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/38yrc2R
 schema: 2.0.0
 ---
 
@@ -27,7 +27,7 @@ There is an assumption that you will know the domain controller responsible for 
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> Get-ADCanonicalUser company\gladysk -Properties title,description,department
 
 
@@ -50,7 +50,7 @@ Get the Active Directory user account for Company\Gladysk and some select proper
 
 ### Example 2
 
-```powershell
+```dos
 PS C:\> $a = Get-ADUserAudit -Since "2/1/2021" -Events Disabled
 PS C:\> $a.targets | Get-Unique | Get-ADCanonicalUser |
 Select-Object DistinguishedName

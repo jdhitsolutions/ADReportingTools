@@ -4,7 +4,12 @@ Function Get-ADBranch {
     Param (
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the distinguished name of the top level container or organizational unit.")]
         [string]$SearchBase,
+        [Parameter(HelpMessage = "Only show objects of the matching classes")]
+        [ValidateSet("User", "Computer", "Group")]
+        [string[]]$ObjectClass,
         [switch]$IncludeDeletedObjects,
+        [Parameter(HelpMessage = "Exclude containers like USERS. This will only have no effect unless your search base is the domain root.")]
+        [switch]$ExcludeContainers,
         [Parameter(HelpMessage = "Specify a domain controller to query.")]
         [alias("dc", "domaincontroller")]
         [string]$Server,
@@ -24,6 +29,16 @@ Function Get-ADBranch {
                 $script:PSDefaultParameterValues["Get-AD*:$param"] = $PSBoundParameters.Item($param)
             }
         } #foreach
+
+        #define a hashtable of parameters for recursive calls to this command
+        $recurse = @{}
+
+        $params = "SearchBase", "ObjectClass", "ExcludeContainers", "IncludeDeletedObjects"
+        foreach ($param in $params) {
+            if ($PSBoundParameters.ContainsKey($param)) {
+                $recurse.Add($param, $PSBoundParameters.Item($param))
+            }
+        }
 
         #define a private helper function
         function _getbranchmember {
@@ -45,12 +60,30 @@ Function Get-ADBranch {
             }
         } # _getbranchmember
 
+        #begin defining the search filter
+        [string]$filter = "objectclass -eq 'organizationalunit'"
+        if ($ExcludeContainers) {
+            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Excluding containers"
+        }
+        else {
+            $filter += " -or objectclass -eq 'container' -or objectclass -eq 'builtindomain'"
+        }
+
+        if ($ObjectClass) {
+            foreach ($item in $ObjectClass) {
+                $filter += " -or objectclass -eq '$item'"
+            }
+        }
+        else {
+            $filter += " -or objectclass -eq 'computer' -or objectclass -eq 'user' -or objectclass -eq 'group'"
+        }
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Using filter $filter"
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Enumerating $searchBase"
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Enumerating $searchBase "
         $getParams = @{
-            filter                = "objectclass -eq 'computer' -or objectclass -eq 'user' -or objectclass -eq 'group' -or objectclass -eq 'container' -or objectclass -eq 'organizationalunit' -or objectclass -eq 'builtindomain'"
+            filter                = $filter
             SearchScope           = "OneLevel"
             SearchBase            = $SearchBase
             ErrorAction           = "Stop"
@@ -84,18 +117,31 @@ Function Get-ADBranch {
             #display organizational units
             if ($data.name -contains "organizationalUnit") {
                 $data.where( { $_.name -eq 'organizationalUnit' }).group |
-                ForEach-Object { Get-ADBranch -SearchBase $_.distinguishedname }
+                ForEach-Object {
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Recursive calling Get-ADBranch"
+                    $recurse.searchBase = $_.DistinguishedName
+                    Get-ADBranch @recurse
+
+                }
             }
 
             #display containers
             if ($data.name -contains "container") {
                 $data.where( { $_.name -eq 'container' }).group |
-                ForEach-Object { Get-ADBranch -SearchBase $_.distinguishedname -IncludeDeletedObjects:$IncludeDeletedObjects }
+                ForEach-Object {
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Recursive calling Get-ADBranch"
+                    $recurse.searchBase = $_.DistinguishedName
+                    Get-ADBranch @recurse
+                }
             }
             #display builtin
             if ($data.name -contains "builtinDomain") {
                 $data.where( { $_.name -eq 'BuiltInDomain' }).group |
-                ForEach-Object { Get-ADBranch -SearchBase $_.distinguishedname -IncludeDeletedObjects:$IncludeDeletedObjects }
+                ForEach-Object {
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Recursive calling Get-ADBranch"
+                    $recurse.searchBase = $_.DistinguishedName
+                    Get-ADBranch @recurse
+                }
             }
         }
         Catch {
@@ -105,7 +151,6 @@ Function Get-ADBranch {
 
     End {
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
-
     } #end
 }
 

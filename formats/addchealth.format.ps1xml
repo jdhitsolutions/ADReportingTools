@@ -51,10 +51,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <ScriptBlock>
                   $u = $_.Uptime.tostring()
@@ -123,14 +119,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADDomainControllerHealth</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <PropertyName>DistinguishedName</PropertyName>
         <Label>Domain Controller</Label>
       </GroupBy>
@@ -187,14 +175,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADDomainControllerService</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <PropertyName>Computername</PropertyName>
         <Label>Computername</Label>
       </GroupBy>
@@ -236,10 +216,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>ProcessID</PropertyName>
               </TableColumnItem>

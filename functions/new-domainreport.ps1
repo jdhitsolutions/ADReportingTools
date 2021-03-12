@@ -11,10 +11,10 @@ Function New-ADDomainReport {
         [alias("domain")]
         [string]$Name = $env:USERDOMAIN,
         [Parameter(Mandatory, HelpMessage = "Specify the output HTML file.")]
-        [ValidateScript({
-            #validate the parent folder
-            Test-Path (Split-Path $_)
-        })]
+        [ValidateScript( {
+                #validate the parent folder
+                Test-Path (Split-Path $_)
+            })]
         [string]$FilePath,
         [Parameter(HelpMessage = "Enter the name of the report to be displayed in the web browser")]
         [ValidateNotNullOrEmpty()]
@@ -36,9 +36,9 @@ Function New-ADDomainReport {
 
     #region setup
     $progParams = @{
-        Activity = $myinvocation.MyCommand
-        Status = "Preparing"
-        CurrentOperation ="Initializing variables"
+        Activity         = $myinvocation.MyCommand
+        Status           = "Preparing"
+        CurrentOperation = "Initializing variables"
     }
 
     Write-Progress @progParams
@@ -54,7 +54,7 @@ Function New-ADDomainReport {
 
     #some report metadata
     $cmd = Get-Command $myinvocation.InvocationName
-    $thisScript ="{0}\{1}" -f $cmd.source,$cmd.name
+    $thisScript = "{0}\{1}" -f $cmd.source, $cmd.name
     $reportVersion = ( $cmd).version.tostring()
     #who is running the report?
     if ($Credential.Username) {
@@ -161,10 +161,10 @@ $cssContent
     Write-Verbose "[$((Get-Date).TimeofDay)] Getting base information for $Name"
 
     $progParams.status = "Getting domain information"
-    $progParams.CurrentOperation =" Get-ADDomain -Identity $Name"
+    $progParams.CurrentOperation = " Get-ADDomain -Identity $Name"
     Write-Progress @progParams
     Try {
-        $root = Get-ADDomain -Identity $Name -erroraction stop
+        $root = Get-ADDomain -Identity $Name -ErrorAction stop
     }
     Catch {
         Write-Warning "Failed to get domain information for $Name. $($_.Exception.message)"
@@ -211,10 +211,10 @@ $cssContent
                         if ($g.members) {
                             $groupData += "<H5>Members</H5>"
                             $grpUserData = Get-ADGroupUser $groupitem.distinguishedname |
-                            Select-Object -Property distinguishedname, name, description,Enabled
+                            Select-Object -Property distinguishedname, name, description, Enabled
                             if (-Not $grpuserdata) {
                                 #must be a special group
-                                $grpUserData = Get-ADGroupMember -Identity $groupItem.DistinguishedName  |
+                                $grpUserData = Get-ADGroupMember -Identity $groupItem.DistinguishedName |
                                 Sort-Object DistinguishedName |
                                 Select-Object DistinguishedName, Name, SamAccountName, SID, ObjectClass
                             }
@@ -238,7 +238,7 @@ $cssContent
                 } #foreach groupitem
             } #if group
             else {
-                [xml]$html = $item.group | Select-Object -Property DistinguishedName, Name, Description,Enabled | ConvertTo-Html -Fragment
+                [xml]$html = $item.group | Select-Object -Property DistinguishedName, Name, Description, Enabled | ConvertTo-Html -Fragment
                 #insert class to set first column width
                 $th = $html.CreateAttribute("class")
                 $th.Value = "dn"
@@ -264,11 +264,11 @@ $cssContent
     $cHtml.Body = $Fragments
 
     #convert filepath to a valid filesystem name
-    $parent =  (Split-Path -Path $filePath)
-    $file = Join-Path -path $parent -ChildPath (Split-Path -Path $filePath -leaf)
+    $parent = (Split-Path -Path $filePath)
+    $file = Join-Path -Path $parent -ChildPath (Split-Path -Path $filePath -Leaf)
 
     Write-Verbose "[$((Get-Date).TimeofDay)] Saving file to $file"
-    ConvertTo-Html @cHtml  | Out-File -FilePath $file
+    ConvertTo-Html @cHtml | Out-File -FilePath $file
 
     #endregion
 

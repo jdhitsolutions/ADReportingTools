@@ -13,17 +13,17 @@ Function Get-ADUserCategory {
         [Parameter(HelpMessage = "Enter the distinguished name of the top level container or organizational unit.", ParameterSetName = "filter")]
         [string]$SearchBase,
         [Parameter(Mandatory, HelpMessage = "Select a defined category.")]
-        [ArgumentCompleter({$ADUserReportingConfiguration.Name})]
-        [ValidateScript({
-            If ($ADUserReportingConfiguration.Name  -contains $_) {
-                $True
-            }
-            else {
-                Throw "You must select a valid name from `$ADUserReportingConfiguration."
-                $False
-            }
+        [ArgumentCompleter( { $ADUserReportingConfiguration.Name })]
+        [ValidateScript( {
+                If ($ADUserReportingConfiguration.Name -contains $_) {
+                    $True
+                }
+                else {
+                    Throw "You must select a valid name from `$ADUserReportingConfiguration."
+                    $False
+                }
 
-        })]
+            })]
         [string]$Category,
         [Parameter(HelpMessage = "Specify a domain controller to query for a list of domain controllers.")]
         [alias("dc", "domaincontroller")]
@@ -48,50 +48,50 @@ Function Get-ADUserCategory {
         else {
             Write-Warning "Failed to find any properties for a category called $category. Using defaults."
         }
-} #begin
+    } #begin
 
-Process {
+    Process {
 
-    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting user information for category $Category "
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting user information for category $Category "
 
-    if ($pscmdlet.ParameterSetName -eq 'id') {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting user $identity"
-    }
-    else {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using filter $filter"
-        if ($SearchBase) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Searching under $Searchbase"
+        if ($pscmdlet.ParameterSetName -eq 'id') {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting user $identity"
         }
-    }
-    $PSBoundParameters | Out-String | Write-Verbose
-    $users = Get-ADUser @PSBoundParameters
-
-    if ($users) {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $(($users | Measure-Object).count) user(s)"
-        foreach ($user in $users) {
-            #create a temp hashtable
-            $h = [ordered]@{
-                PSTypeName = "ADUserCategory.$category"
-                DistinguishedName = $user.DistinguishedName
+        else {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using filter $filter"
+            if ($SearchBase) {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Searching under $Searchbase"
             }
-
-            #add category properties
-            foreach ($prop in $catProp) {
-                $h.Add($prop,$user.$prop)
-            }
-            #write as a custom object
-            New-Object -TypeName PSObject -Property $h
         }
-    }
-    else {
-        Write-Warning "Failed to find any matching user accounts."
-    }
+        $PSBoundParameters | Out-String | Write-Verbose
+        $users = Get-ADUser @PSBoundParameters
 
-} #process
+        if ($users) {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $(($users | Measure-Object).count) user(s)"
+            foreach ($user in $users) {
+                #create a temp hashtable
+                $h = [ordered]@{
+                    PSTypeName        = "ADUserCategory.$category"
+                    DistinguishedName = $user.DistinguishedName
+                }
 
-End {
-    Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+                #add category properties
+                foreach ($prop in $catProp) {
+                    $h.Add($prop, $user.$prop)
+                }
+                #write as a custom object
+                New-Object -TypeName PSObject -Property $h
+            }
+        }
+        else {
+            Write-Warning "Failed to find any matching user accounts."
+        }
 
-} #end
+    } #process
+
+    End {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+
+    } #end
 
 } #close Get-ADUserCategory

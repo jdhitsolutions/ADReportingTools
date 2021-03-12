@@ -1,5 +1,15 @@
 # Changelog for ADReportingTools
 
+## 0.6.0
+
++ Added online help links.
++ Help updates.
++ Modified `Get-ADSiteSummary` and `Get-ADSiteDetail` to allow getting site by name. ([Issue #14](https://github.com/jdhitsolutions/ADReportingTools/issues/14))
++ Modified `Get-ADBranch` to allow filter of users, groups, or computers, and to exclude containers. ([Issue #13](https://github.com/jdhitsolutions/ADReportingTools/issues/13)
++ Published pre-release module to the PowerShell Gallery.
++ Added category `Basic` to `adusers-categories.json` with properties `DisplayName`,`Name`,`SamAccountname`,`UserPrincipalName`,`Enabled`,`WhenCreated`, and `WhenChanged`.
++ Updated `README.md`.
+
 ## 0.5.0
 
 + Minor file organization.

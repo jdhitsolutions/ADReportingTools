@@ -1,8 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
-schema: 2.0.0
+online version: https://bit.ly/3vtugaC
 ---
 
 # Get-ADReportingTools
@@ -25,7 +24,7 @@ This command will present a summary of commands in the ADReportingTools module g
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> Get-ADReportingTools
 ```
 

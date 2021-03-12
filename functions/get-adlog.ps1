@@ -102,10 +102,10 @@ Function Get-ADUserAudit {
                     PSTypeName       = "ADAuditTrail"
                     DomainController = $dc
                     ID               = $evt.Value
-                    EventType   = $evt.Name
-                    LogCount    = $logs.count
+                    EventType        = $evt.Name
+                    LogCount         = $logs.count
                     Since            = $Since
-                    Targets         = $targets
+                    Targets          = $targets
                     Administrators   = $admins
                 }
                 Remove-Variable -Name logs

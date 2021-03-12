@@ -15,14 +15,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADGroupUser</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <ScriptBlock>
         if ($host.name -match 'console' -AND (-not $_.Enabled)) {
           <!-- show disabled accounts in red-->
@@ -66,10 +58,6 @@ https://github.com/jdhitsolutions/PSScriptTools
           <TableRowEntry>
             <Wrap />
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
@@ -94,14 +82,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADGroupUser</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <PropertyName>Group</PropertyName>
         <Label>Group</Label>
       </GroupBy>

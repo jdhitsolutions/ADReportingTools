@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3exlja5
 schema: 2.0.0
 ---
 
@@ -20,9 +20,7 @@ New-ADDomainReport [[-Name] <String>] -FilePath <String>
 
 ## DESCRIPTION
 
-This command will create an HTML report of your domain. The layout of the report is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be table of recursive group members.
-
-You should get detail about users and computers if you hover the mouse over the distinguished name.
+This command will create an HTML report of your domain. The report layout is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be a table of recursive group members. You should get detail about users and computers if you hover the mouse over the distinguished name.
 
 The module includes a CSS file which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.
 
@@ -30,7 +28,7 @@ The module includes a CSS file which will be used by default. But you can specif
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> New-ADDomainReport -filepath c:\work\company.html -embedcss
 ```
 
@@ -40,7 +38,7 @@ Create the HTML report and embed the default CSS file.
 
 ### -CSSPath
 
-Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the formats folder of this module.
+Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.
 
 ```yaml
 Type: String

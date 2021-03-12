@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.5.0'
+ModuleVersion = '0.6.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -23,10 +23,10 @@ Author = 'Jeff Hicks'
 CompanyName = 'JDH Information Technology Solutions, Inc.'
 
 # Copyright statement for this module
-Copyright = '2021 JDH Information Technology Solutions, Inc.'
+Copyright = '(c)2021 JDH Information Technology Solutions, Inc.'
 
 # Description of the functionality provided by this module
-Description = 'A set of PowerShell commands to gather information and create reports from Active Directory'
+Description = 'A set of PowerShell commands to gather information and create reports from Active Directory.'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
@@ -85,7 +85,7 @@ FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADF
 #CmdletsToExport = ''
 
 # Variables to export from this module
-#VariablesToExport = ''
+VariablesToExport = 'ADUserReportingConfiguration'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 AliasesToExport = 'dt','fsmo','Get-ADCnUser'
@@ -117,13 +117,22 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '
+        ## 0.6.0
+        Added online help links.
+        Help updates.
+        Modified `Get-ADSiteSummary` and `Get-ADSiteDetail` to allow getting site by name. ([Issue #14](https://github.com/jdhitsolutions/ADReportingTools/issues/14))
+        Modified `Get-ADBranch` to allow filter of users, groups, or computers, and to exclude containers. ([Issue #13](https://github.com/jdhitsolutions/ADReportingTools/issues/13)
+        Published pre-release module to the PowerShell Gallery.
+        Added category `Basic` to `adusers-categories.json` with properties `DisplayName`,`Name`,`SamAccountname`,`UserPrincipalName`,`Enabled`,`WhenCreated`, and `WhenChanged`.
+        Updated `README.md`.
+        '
 
         # Prerelease string of this module
-        # Prerelease = ''
+        Prerelease = 'True'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
-        # RequireLicenseAcceptance = $false
+        RequireLicenseAcceptance = $false
 
         # External dependent modules of this module
         ExternalModuleDependencies = @("ActiveDirectory")

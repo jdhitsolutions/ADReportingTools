@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: http://bit.ly/3tbCeDc
 schema: 2.0.0
 ---
 
@@ -13,9 +13,9 @@ Get a listing of members in an AD branch.
 
 ## SYNTAX
 
-```YAML
-Get-ADBranch [-SearchBase] <String> [-IncludeDeletedObjects] [-Server <String>]
- [-Credential <PSCredential>] [<CommonParameters>]
+```yaml
+Get-ADBranch [-SearchBase] <String> [-ObjectClass <String[]>] [-IncludeDeletedObjects] [-ExcludeContainers] [-Server <String>]
+[-Credential <PSCredential>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ This command will get all users, groups, and computers from a given Active Direc
 
 ### Example 1
 
-```powershell
+```dos
 PS C:\> Get-ADBranch "OU=IT,DC=company,DC=pri"
 
 DistinguishedName                           Name            Description
@@ -57,8 +57,8 @@ Get members of the IT organizational unit. There is a formatting bug where the f
 
 ### Example 2
 
-```powershell
-PS C:\> Get-ADBranch "Ou=accounting,Dc=company,dc=pri" | where class -eq group
+```dos
+PS C:\> Get-ADBranch "Ou=accounting,Dc=company,dc=pri" -objectclass group
 
 DistinguishedName                           Name            Description
 -----------------                           ----            -----------
@@ -141,6 +141,38 @@ Specify a domain controller to query.
 Type: String
 Parameter Sets: (All)
 Aliases: dc, domaincontroller
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExcludeContainers
+
+Exclude containers like USERS. This will only have no effect unless your search base is the domain root.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ObjectClass
+
+Only show objects of the matching classes. Valid choices are user, group, and computer.
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

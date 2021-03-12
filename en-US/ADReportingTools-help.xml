@@ -62,6 +62,29 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExcludeContainers</maml:name>
+          <maml:description>
+            <maml:para>Exclude containers like USERS. This will only have no effect unless your search base is the domain root.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ObjectClass</maml:name>
+          <maml:description>
+            <maml:para>Only show objects of the matching classes. Valid choices are user, group, and computer.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -109,6 +132,30 @@
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExcludeContainers</maml:name>
+        <maml:description>
+          <maml:para>Exclude containers like USERS. This will only have no effect unless your search base is the domain root.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ObjectClass</maml:name>
+        <maml:description>
+          <maml:para>Only show objects of the matching classes. Valid choices are user, group, and computer.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -172,7 +219,7 @@ CN=Web Servers,OU=IT,DC=Company,DC=Pri      Web Servers
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ADBranch "Ou=accounting,Dc=company,dc=pri" | where class -eq group
+        <dev:code>PS C:\&gt; Get-ADBranch "Ou=accounting,Dc=company,dc=pri" -objectclass group
 
 DistinguishedName                           Name            Description
 -----------------                           ----            -----------
@@ -199,6 +246,10 @@ OU=Accounting,DC=Company,DC=Pri</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/3tbCeDc</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Show-Domain</maml:linkText>
         <maml:uri></maml:uri>
@@ -417,6 +468,10 @@ CN=D.Waldow,OU=Employees,DC=Company,DC=Pri</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/38yrc2R</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ADUser</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -432,12 +487,16 @@ CN=D.Waldow,OU=Employees,DC=Company,DC=Pri</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>ADDomainControllerHealth</command:noun>
       <maml:description>
-        <maml:para>Get a summary view of domain controller healthg</maml:para>
+        <maml:para>Get a summary view of domain controller health.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>This command is intended to give you a quick summary of the overall health of your Active Directory domain controllers. The concept of "health" is based on the following:</maml:para>
-      <maml:para>How much free space remains on drive C:\? How much free physical memory? What percentage of the Security event log is in use? Are any critical services not running?</maml:para>
+      <maml:para>- How much free space remains on drive C:?</maml:para>
+      <maml:para>- How much free physical memory?</maml:para>
+      <maml:para>- What percentage of the Security event log is in use?</maml:para>
+      <maml:para>- Are any critical services not running?</maml:para>
+      <maml:para></maml:para>
       <maml:para>The services checked are ntds,kdc,adws,dfs,dfsr,netlogon,samss, and w32time. Not every organization runs DNS and/or DHCP on their domain controllers so those services have been omitted.</maml:para>
       <maml:para>Output will be color-coded using ANSI escape sequences.</maml:para>
     </maml:description>
@@ -541,7 +600,7 @@ Uptime            PctFreeC   PctFreeMem    PctSecLog  ServiceAlert
 5.16:38:00           90.63        48.36        14.56      True</dev:code>
         <dev:remarks>
           <maml:para>Get a health snapshot of your domain controllers. A ServiceAlert of True means that one of the defined critical services is not running.</maml:para>
-          <maml:para>Output might be color coded. A ServiceAlert value of True will be displayed in Red.  Free space on C and percent free physical memory will be shown in red if the value is 10% or less. A percent free less than 30$ will be displayed in an orange/yellow color. The percent Security log usage threshholds are 15% and 50%.</maml:para>
+          <maml:para>Output might be color-coded. A ServiceAlert value of True will be displayed in Red.  Free space on C and percent free physical memory will be shown in red if the value is 10% or less. A percent free less than 30$ will be displayed in an orange/yellow color. The percent Security log usage threshholds are 15% and 50%.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -589,6 +648,10 @@ ProcessID Displayname                      Name     State   StartMode Started
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/38u96PJ</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ADDomainController</maml:linkText>
         <maml:uri></maml:uri>
@@ -733,6 +796,10 @@ DomainNamingMaster   : DOM1.Company.Pri</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3ctNioz</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ADSummary</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -865,7 +932,7 @@ DomainNamingMaster   : DOM1.Company.Pri</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-adgroupuser sales
+        <dev:code>PS C:\&gt; Get-ADGroupUser sales
 
 
    DistinguishedName: CN=SamS,OU=Sales,DC=Company,DC=Pri [Sam Smith]
@@ -893,7 +960,7 @@ SamanthaS       Sales Assistant    Sales Staff             1/25/2021 1:32:37 PM<
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-adgroupuser sales | format-list
+        <dev:code>PS C:\&gt; Get-ADGroupUser sales | format-list
 
 
    Group: CN=Sales,OU=Sales,DC=Company,DC=Pri
@@ -923,6 +990,10 @@ PasswordLastSet   : 1/25/2021 1:32:37 PM
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/38wecuU</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ADGroupMember</maml:linkText>
         <maml:uri></maml:uri>
@@ -983,6 +1054,10 @@ PasswordLastSet   : 1/25/2021 1:32:37 PM
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3vtugaC</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-Module</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1031,6 +1106,18 @@ PasswordLastSet   : 1/25/2021 1:32:37 PM
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specify the name of an Active Directory site. The default is all sites.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1050,6 +1137,18 @@ PasswordLastSet   : 1/25/2021 1:32:37 PM
         <maml:name>Server</maml:name>
         <maml:description>
           <maml:para>Specify a domain controller to query.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specify the name of an Active Directory site. The default is all sites.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1109,6 +1208,10 @@ Bay Area Office    172.17.0.0/16           2/23/2021 3:38:33 PM   2/23/2021...</
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/38QzYK3</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ADSiteSummary</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1157,6 +1260,18 @@ Bay Area Office    172.17.0.0/16           2/23/2021 3:38:33 PM   2/23/2021...</
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specify the name of an Active Directory site. The default is all sites.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1176,6 +1291,18 @@ Bay Area Office    172.17.0.0/16           2/23/2021 3:38:33 PM   2/23/2021...</
         <maml:name>Server</maml:name>
         <maml:description>
           <maml:para>Specify a domain controller to query.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specify the name of an Active Directory site. The default is all sites.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1238,6 +1365,10 @@ Subnet             Description                    Location
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3esumcq</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ADSiteDetail</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1253,7 +1384,7 @@ Subnet             Description                    Location
       <command:verb>Get</command:verb>
       <command:noun>ADSummary</command:noun>
       <maml:description>
-        <maml:para>Get a sumamry report of your AD domain and forest.</maml:para>
+        <maml:para>Get a summary report of your AD domain and forest.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1386,6 +1517,10 @@ SiteCount         : 2</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/38BNf98</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ADFSMO</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1409,10 +1544,9 @@ SiteCount         : 2</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will search the Security event logs on your domain controllers for specific user-related events. These activities are not replicated, so you have to search each domain controller.</maml:para>
-      <maml:para>Be aware that you may see related events for some actions. For example, if you create and enable a new user, you'll see multiple entries for the same event.</maml:para>
+      <maml:para>This command will search the Security event logs on your domain controllers for specific user-related events. These activities are not replicated, so you have to search each domain controller. Be aware that you may see related events for some actions. For example, if you create and enable a new user, you'll see multiple entries for the same event.</maml:para>
       <maml:para>The output will show you the user accounts that match the search criteria, and the domain account that was responsible. Although, this command can't tell you which administrator is responsible for which activity. The best you can learn is that for a given time frame, these user accounts were managed. Or these administrators did something. You would need to search the event log on the domain controller for more information.</maml:para>
-      <maml:para>You may need to enable logging, and/or increase the size of the Security event log.</maml:para>
+      <maml:para>You may need to enable logging and/or increase the size of the Security event log.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1582,6 +1716,10 @@ Administrators : {COMPANY\GladysK, COMPANY\ArtD}</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3cponT4</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-WinEvent</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1597,7 +1735,7 @@ Administrators : {COMPANY\GladysK, COMPANY\ArtD}</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Get-ADUserCategory is based on the concept of getting user information based on a pre-defined category. For example, you might want to get the properties DisplayName,Name,Title,Department, and Manager for a Department category. The ADReportingTools module will define a set of pre-defined categories that you can reference through $ADUserReportingConfiguration.</maml:para>
+      <maml:para>Get-ADUserCategory is based on the concept of getting user information from a pre-defined category. For example, you might want to get the properties DisplayName, Name, Title, Department, and Manager for a Department category. The ADReportingTools module will define a set of pre-defined categories that you can reference through $ADUserReportingConfiguration.</maml:para>
       <maml:para>These are the current defaults.</maml:para>
       <maml:para>Department   DisplayName,Name,Title,Department,Manager Basic   DisplayName,Name,SamAccountname,UserPrincipalName,Enabled,WhenCreated,WhenChanged Address   DisplayName,Name,TelephoneNumber,Office,StreetAddress,POBox,City,State,PostalCode Organization   DisplayName,Name,Title,Department,Manager,Company,Office Pwinfo   DisplayName,Name,PasswordExpired,PasswordLastSet,PasswordNeverExpires</maml:para>
       <maml:para>The user's distinguishedname will always be included.</maml:para>
@@ -1890,6 +2028,10 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3eE8o6t</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ADUser</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1905,8 +2047,7 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will create an HTML report of your domain. The layout of the report is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be table of recursive group members.</maml:para>
-      <maml:para>You should get detail about users and computers if you hover the mouse over the distinguished name.</maml:para>
+      <maml:para>This command will create an HTML report of your domain. The report layout is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be a table of recursive group members. You should get detail about users and computers if you hover the mouse over the distinguished name.</maml:para>
       <maml:para>The module includes a CSS file which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1927,7 +2068,7 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>CSSPath</maml:name>
           <maml:description>
-            <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the formats folder of this module.</maml:para>
+            <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2001,7 +2142,7 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>CSSPath</maml:name>
         <maml:description>
-          <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the formats folder of this module.</maml:para>
+          <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2119,6 +2260,10 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3exlja5</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Show-DomainTree</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -2134,7 +2279,7 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will display your domain in a tree view at the console. By default the command will use color-coded ANSI formatting. The default display uses the organizational names. If you use -Containers, containers like Users will be included.</maml:para>
+      <maml:para>This command will display your domain in a tree view at the console. By default, Show-DomainTree will use color-coded ANSI formatting. The default display uses the organizational unit names. Although, you can use the distinguishedname of each branch. If you use -Containers, containers like Users will be included.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2327,8 +2472,40 @@ DC=Company,DC=Pri
           <maml:para>Output will color-coded using ANSI escape sequences.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; PS C:\&gt; Show-DomainTree -usedn
+
+DC=Company,DC=Pri
+│
+├── OU=Accounting,DC=Company,DC=Pri
+│   ├── OU=Banking,OU=Accounting,DC=Company,DC=Pri
+│   ├── OU=Finance,OU=Accounting,DC=Company,DC=Pri
+│       ├── OU=Corp Investment,OU=Finance,OU=Accounting,DC=Company,DC=Pri
+│   ├── OU=Payroll,OU=Accounting,DC=Company,DC=Pri
+├── OU=Dev,DC=Company,DC=Pri
+│   ├── OU=Ops,OU=Dev,DC=Company,DC=Pri
+├── OU=Domain Controllers,DC=Company,DC=Pri
+├── OU=Employees,DC=Company,DC=Pri
+│   ├── OU=Exec,OU=Employees,DC=Company,DC=Pri
+│       ├── OU=VIP,OU=Exec,OU=Employees,DC=Company,DC=Pri
+│   ├── OU=Temporary Hires,OU=Employees,DC=Company,DC=Pri
+├── OU=IT,DC=Company,DC=Pri
+│   ├── OU=Help Desk,OU=IT,DC=Company,DC=Pri
+│       ├── OU=TechStaff,OU=Help Desk,OU=IT,DC=Company,DC=Pri
+│           ├── OU=Test,OU=TechStaff,OU=Help Desk,OU=IT,DC=Company,DC=Pri
+│   ├── OU=SecOps,OU=IT,DC=Company,DC=Pri
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Display the domain tree using distinguishednames.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2PXbvfo</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-ADDomainReport</maml:linkText>
         <maml:uri></maml:uri>
