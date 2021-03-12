@@ -1,8 +1,13 @@
 # Changelog for ADReportingTools
 
+## 0.7.0
+
++ Fixed typo in `adbranchmember.format.ps1xml`.
++ Added custom table view called `group` for ADGroup objects in `adgroup.format.ps1xml`.
+
 ## 0.6.1
 
-+ Fixed prerelease tag in the module.
++ Fixed pre-release tag in the module.
 
 ## 0.6.0
 

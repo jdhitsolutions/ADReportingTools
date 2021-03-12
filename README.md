@@ -233,7 +233,7 @@ These are some ideas for additional module commands.
   - group scope
   - group members
 
-I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) .section.
+I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
 ## Possible
 

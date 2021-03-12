@@ -89,10 +89,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <ListEntries>
           <ListEntry>
             <ListItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <ListItem>
                 <Label>DistinguishedName</Label>
                 <PropertyName>DistinguishedName</PropertyName>

@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.6.1'
+ModuleVersion = '0.7.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -70,7 +70,8 @@ FormatsToProcess = @(
 'formats\adsummary.format.ps1xml',
 'formats\addchealth.format.ps1xml',
 'formats\adreportingtool.format.ps1xml',
-'formats\aduser.format.ps1xml'
+'formats\aduser.format.ps1xml',
+'formats\adgroup.format.ps1xml'
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
@@ -117,16 +118,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '
-        ## 0.6.0
-        Added online help links.
-        Help updates.
-        Modified `Get-ADSiteSummary` and `Get-ADSiteDetail` to allow getting site by name. ([Issue #14](https://github.com/jdhitsolutions/ADReportingTools/issues/14))
-        Modified `Get-ADBranch` to allow filter of users, groups, or computers, and to exclude containers. ([Issue #13](https://github.com/jdhitsolutions/ADReportingTools/issues/13)
-        Published pre-release module to the PowerShell Gallery.
-        Added category `Basic` to `adusers-categories.json` with properties `DisplayName`,`Name`,`SamAccountname`,`UserPrincipalName`,`Enabled`,`WhenCreated`, and `WhenChanged`.
-        Updated `README.md`.
-        '
+        ReleaseNotes = 'See the changelog at https://github.com/jdhitsolutions/ADReportingTools/blob/main/Changelog.md'
 
         # Prerelease string of this module
         Prerelease = 'preview'

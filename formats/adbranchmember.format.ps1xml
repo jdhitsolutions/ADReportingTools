@@ -15,7 +15,7 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADBranchMember</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <ScriptBlock>"{0} [{1}]" -f $_.parent,$_.class}}</ScriptBlock>
+        <ScriptBlock>"{0} [{1}]" -f $_.parent,$_.class</ScriptBlock>
         <Label>Branch</Label>
       </GroupBy>
       <TableControl>
