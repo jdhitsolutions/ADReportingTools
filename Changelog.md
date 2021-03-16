@@ -1,15 +1,19 @@
 # Changelog for ADReportingTools
 
-## 0.7.0
+## 0.7.0-preview
 
 + Fixed typo in `adbranchmember.format.ps1xml`.
 + Added custom table view called `group` for ADGroup objects in `adgroup.format.ps1xml`.
++ Added command `Split-DistinguisedName`.
++ Added command `Get-ADGroupReport` with a custom format file `adgroupreport.format.ps1ml` and a custom type file `adgroupreport.types.ps1xml`. ([Issue #3](https://github.com/jdhitsolutions/ADReportingTools/issues/3))
++ Removed `About_ADReportingTools`.
++ Updated `README.md`.
 
-## 0.6.1
+## 0.6.1-preview
 
 + Fixed pre-release tag in the module.
 
-## 0.6.0
+## 0.6.0-preview
 
 + Added online help links.
 + Help updates.

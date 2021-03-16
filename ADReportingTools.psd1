@@ -57,7 +57,8 @@ PowerShellVersion = '5.1'
 
 # Type files (.ps1xml) to be loaded when importing this module
 TypesToProcess = @(
-    'types\aduser.types.ps1xml'
+    'types\aduser.types.ps1xml',
+    'types\adgroupreport.types.ps1xml'
 )
 
 # Format files (.ps1xml) to be loaded when importing this module
@@ -71,7 +72,8 @@ FormatsToProcess = @(
 'formats\addchealth.format.ps1xml',
 'formats\adreportingtool.format.ps1xml',
 'formats\aduser.format.ps1xml',
-'formats\adgroup.format.ps1xml'
+'formats\adgroup.format.ps1xml',
+'formats\adgroupreport.format.ps1xml'
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
@@ -80,7 +82,7 @@ FormatsToProcess = @(
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO','Get-ADSiteSummary','Get-ADSiteDetail',
 'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
-'Get-ADUserCategory'
+'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 #CmdletsToExport = ''
@@ -89,7 +91,7 @@ FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADF
 VariablesToExport = 'ADUserReportingConfiguration'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = 'dt','fsmo','Get-ADCnUser'
+AliasesToExport = 'dt','fsmo','Get-ADCnUser','Parse-DN'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

@@ -152,4 +152,6 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
+[Get-ADGroupReport](Get-ADGroupReport.md)
+
 [Get-ADGroupMember]()

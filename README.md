@@ -34,6 +34,9 @@ The ADReportingTools module is based on this framework. The goal is to create a 
 
 The ADReportingTools focuses primarily on working with Active Directory users, groups, and computers. The module includes commands intended to be true reporting commands. As the module name suggests, module commands are intended to _get_ information from Active Directory. This module is not designed to manage Active Directory.
 
+:warning:
+**These commands have not been tested in a large domain environment, or one with cross-domain trusts and/or nested groups that cross domains. If you have used the ActiveDirectory modules in the past and had poor performance due to these types of circumstances, the modules in this command most likely won't perform any better.**
+
 ## Module Commands
 
 ### [Get-ADReportingTools](docs/Get-ADReportingTools.md)
@@ -114,6 +117,20 @@ Or you can use the default list view.
 
 ![Get-ADGroupUser list](images/get-adgroupuser-list.png)
 
+#### [GetADGroupReport](docs/Get-ADGroupReport.md)
+
+Get-ADGroupReport will create a custom report for a group showing members. Get-ADGroupUser is intended to display group membership details Get-ADGroupReport focuses on the group, although members are also displayed. Members are always gathered recursively. You can filter for specific types of groups. You can also opt to exclude groups under CN=Users and CN=BuiltIn. The groups "Domain Users", "Domain Computers", and "Domain Guests" are always excluded from this command.
+
+![get-adgroupreport](images/get-adgroupreport.png)
+
+If your PowerShell hosts supports it, ANSI color schemes will be used to highlight things such as Distribution groups and disabled user accounts.
+
+You can also use a custom table view.
+
+![get-adgroupreport age](images/get-adgroupreport-age.png)
+
+Distribution groups will be shown in green and member counts of 0 in red. The Age reflects how long since the group has been modified.
+
 ### Computers
 
 #### [Get-ADDomainControllerHealth](docs/Get-ADDomainControllerHealth.md)
@@ -189,16 +206,32 @@ The ADReportingTools module includes a CSS file which will be used by default. B
 
 The module's CSS file can be found in the [reports](reports/domainreport.css) folder. You can view a complete sample report [here](reports/sampledomain.html).
 
+#### [Split-DistinguishedName](docs?Split-DistinguishedName.md)
+
+This command will take an Active Directory distinguishedname and break it down into its component elements. The command does not test or verify any of the elements. It is merely parsing a text string.
+
+```dos
+PS C:\> Split-DistinguishedName "CN=Foo,OU=Bar,OU=Oz,DC=Research,DC=Globomantics,DC=com"
+
+
+Name      : Foo
+Branch    : Bar
+BranchDN  : OU=Bar,OU=Oz,DC=Research,DC=Globomantics,DC=com
+Domain    : Research
+DomainDN  : DC=Research,DC=Globomantics,DC=com
+DomainDNS : Research.Globomantics.com
+```
+
 ## Format and Type Extensions
 
-The module includes format and type extensions to simplify using the commands in the Active Directory module. The extensions are automatically imported into you PowerShell session when you import the ADReportingTools module.
+The module includes format and type extensions to simplify using the commands in the Active Directory module. The extensions are automatically imported into your PowerShell session when you import the ADReportingTools module.
 
 Currently, only AD User objects have been extended.
 
 |Name | Type |  Value |
 |----  | ---- | ----- |
 |LastName |  AliasProperty | Surname|
-|DN     |  AliasProperty | DistinguishedName\
+|DN     |  AliasProperty | DistinguishedName|
 |FirstName | AliasProperty | GivenName |
 |UPN       | AliasProperty | UserPrincipalName|
 
@@ -224,27 +257,35 @@ Format-Table -view names
 
 ![Get-ADUser names](images/get-aduser-names.png)
 
+The module adds a default table view  for AD group objects.
+
+![ADGroup Format](images/adgroup-format.png)
+
+If your PowerShell console supports it, Distribution groups will be highlighted in Green.
+
 ## Planned
 
 These are some ideas for additional module commands.
 
-- Get-ADGroupReport
-  - group type
-  - group scope
-  - group members
+- Allow the user to control ANSI coloring
+- New-ADChangeReport
+- Create a set of commands for managing `$ADUserReportingConfiguration`
 
 I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
 ## Possible
 
+These are items I'm considering adding.
+
 - Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy)
-- Create a set of commands for managing `$ADUserReportingConfiguration`
 
 ## Magical Thinking
+
+These are items that I'm dreaming about.
 
 - a toolset to build HTML reports on the fly
 - a WPF based OU browser or a simplified version of ADUC
 
 *__This project is in development and not ready for the PowerShell Gallery__*
 
-last updated 2021-03-12 19:36:52Z
+last updated 2021-03-16 15:46:37Z

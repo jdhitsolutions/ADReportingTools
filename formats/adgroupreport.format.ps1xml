@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>ADGroupReport</Name>
+      <ViewSelectedBy>
+        <TypeName>ADGroupReport</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <Text>Name        : </Text>
+              <ExpressionBinding>
+                <PropertyName>DistinguishedName</PropertyName>
+              </ExpressionBinding>
+              <Text> [</Text>
+              <ExpressionBinding>
+                <PropertyName>Scope</PropertyName>
+              </ExpressionBinding>
+              <Text>|</Text>
+              <ExpressionBinding>
+                <ScriptBlock>
+                            if ($host.name -match 'console' -AND $_.Category -eq 'Distribution') {
+                                "$([char]0x1b)[92m$($_.Category)$([char]0x1b)[0m"
+                                }
+                                else {
+                                $_.Category
+                                }
+                            </ScriptBlock>
+                <!--  <PropertyName>Category</PropertyName> -->
+              </ExpressionBinding>
+              <Text>]</Text>
+              <NewLine />
+              <Text>ManagedBy   : </Text>
+              <ExpressionBinding>
+                <PropertyName>ManagedBy</PropertyName>
+              </ExpressionBinding>
+              <NewLine />
+              <Text>Description : </Text>
+              <ExpressionBinding>
+                <PropertyName>Description</PropertyName>
+              </ExpressionBinding>
+              <NewLine />
+              <ExpressionBinding>
+                <!-- Insert a horizontal line-->
+                <ScriptBlock>
+                                    $line = "_"*($host.ui.RawUI.WindowSize.Width-10)
+                                    $line
+                                </ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Frame>
+                <LeftIndent>4</LeftIndent>
+                <CustomItem>
+                  <Text>
+                  </Text>
+                  <ExpressionBinding>
+                    <ScriptBlock>
+                      <!-- show disabled accounts with a red name-->
+                                       $_.members | Select-Object DisplayName,Name,Description,
+                                        @{Name="DistinguishedName"; Expression={
+                                            if ($host.name -match "console" -AND (-Not ($_.Enabled))) {
+                                            "$([char]0x1b)[91m$($_.DistinguishedName)$([char]0x1b)[0m"
+                                            }
+                                            else {
+                                                $_.DistinguishedName
+                                            }
+                                        }}| Out-String
+                                        </ScriptBlock>
+                  </ExpressionBinding>
+                </CustomItem>
+              </Frame>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <!--Created 03/16/2021 10:17:57 by COMPANY\artd-->
+      <Name>age</Name>
+      <ViewSelectedBy>
+        <TypeName>ADGroupReport</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>20</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Members</Label>
+            <Width>7</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Created</Label>
+            <Width>23</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Modified</Label>
+            <Width>23</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Age</Label>
+            <Width>15</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.name -match "Console" -AND $_.Category -eq "Distribution") {
+                    "$([char]0x1b)[92m$($_.Name)$([char]0x1b)[0m"
+                }
+                else {
+                $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                               <ScriptBlock>
+                if ($host.name -match "Console" -AND $_.membercount -eq 0) {
+                    "$([char]0x1b)[91m$($_.MemberCount)$([char]0x1b)[0m"
+                }
+                else {
+                $_.MemberCount
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Created</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Modified</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Age.ToString() -replace "\.\d+$",""</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

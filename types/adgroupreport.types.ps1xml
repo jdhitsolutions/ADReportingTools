@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file was created with Export-PSTypeExtenstion from the
+PSTypeExtensionTools module which you can install from
+the PowerShell Gallery.
+
+Use Update-TypeData to import this file in your PowerShell session.
+
+Created 03/16/2021 10:55:18
+-->
+<Types>
+  <Type>
+    <Name>ADGroupReport</Name>
+    <Members>
+      <AliasProperty>
+        <Name>DN</Name>
+        <ReferencedMemberName>DistinguishedName</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptProperty>
+        <Name>Age</Name>
+        <GetScriptBlock>New-Timespan -Start $this.Modified -end (Get-Date)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>MemberCount</Name>
+        <GetScriptBlock>($this.members | Measure-Object).Count</GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>
