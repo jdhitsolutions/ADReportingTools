@@ -224,7 +224,7 @@ The module's CSS file can be found in the [reports](reports/domainreport.css) fo
 
 #### [New-ADChangeReport](docs/New-ADChangeReport.md)
 
-`New-ADChangeReport` will create an HTML report showing changes to Active Directory users, computers, and groups since a given date and time. The command uses `Get-ADObject`` to query the `WhenChanged` property. The objects are organized by class and/or container and written to an HTML file. The command uses a CSS file from the ADReportingTools module, although you can specify your own. To make the HTML file portable, you can opt to embed the CSS content from a file source.
+`New-ADChangeReport` will create an HTML report showing changes to Active Directory users, computers, and groups since a given date and time. The command uses `Get-ADObject` to query the `WhenChanged` property. The objects are organized by class and/or container and written to an HTML file. The command uses a CSS file from the ADReportingTools module, although you can specify your own. To make the HTML file portable, you can opt to embed the CSS content from a file source.
 
 ![sample change report](images/samplechangereport.png)
 
@@ -289,27 +289,20 @@ This change is only for the duration of your PowerShell session. Add the command
 
 :octocat: If you would like to see what ANSI sequences look like, install the [PSScriptTools](https://github.com/jdhitsolutions/PSScriptTools/blob/master/README.md) module from the PowerShell Gallery and use [Show-ANSISequence](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Show-ANSISequence.md).
 
-## Planned
-
-These are planned additions to the module:
-
-- Create a set of commands for managing `$ADUserReportingConfiguration`
-
-## Possible
+## Future Work
 
 These are items I'm considering adding to the module:
 
 - Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy)
+- Store `ADReportingToolsOptions` in a JSON file.
 
-I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
-
-## Magical Thinking
+### Magical Thinking
 
 These are items that I'm dreaming about:
 
 - a toolset to build HTML reports on the fly
 - a WPF based OU browser or a simplified version of ADUC
 
-*__This project is in development__*
+I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
 last updated 2021-03-17 19:24:57Z
