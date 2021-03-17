@@ -49,7 +49,7 @@ https://github.com/jdhitsolutions/PSScriptTools
               <TableColumnItem>
                 <ScriptBlock>
                 if ($host.name -match 'console' -AND $_.GroupCategory -eq 'Distribution') {
-                  "$([char]0x1b)[92m$($_.GroupCategory)$([char]0x1b)[0m"
+                  "$($ADReportingToolsOptions.distributionlist)$($_.GroupCategory)$([char]0x1b)[0m"
                 }
                 else {
                 $_.GroupCategory
@@ -57,7 +57,17 @@ https://github.com/jdhitsolutions/PSScriptTools
                 </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>GroupScope</PropertyName>
+                  <ScriptBlock>
+                  if ($host.name -match 'console' -AND $_.GroupScope -eq 'Universal') {
+                      "$($ADReportingToolsOptions.Universal)$($_.GroupScope)$([char]0x1b)[0m"
+                      }
+                  elseif ($host.name -match 'console' -AND $_.GroupScope -eq 'DomainLocal') {
+                      "$($ADReportingToolsOptions.DomainLocal)$($_.GroupScope)$([char]0x1b)[0m"
+                      }
+                      else {
+                      $_.GroupScope
+                      }
+                  </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>DistinguishedName</PropertyName>

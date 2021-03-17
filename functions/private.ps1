@@ -58,3 +58,31 @@ function _formatdn {
     $updates -join ","
 }
 
+#a private helper function to convert the objects to html fragments
+Function _convertObjects {
+    Param([object[]]$Objects)
+    #convert each table to an XML fragment so I can insert a class attribute
+    [xml]$frag = $objects | Sort-Object -property WhenChanged |
+    Select-Object -Property DistinguishedName,Name,WhenCreated,WhenChanged,IsDeleted |
+    ConvertTo-Html -Fragment
+
+    for ($i = 1; $i -lt $frag.table.tr.count;$i++) {
+        if (($frag.table.tr[$i].td[2] -as [datetime]) -ge $since) {
+            #highlight new objects in green
+            $class = $frag.CreateAttribute("class")
+            $class.value="new"
+            [void]$frag.table.tr[$i].Attributes.append($class)
+        } #if new
+
+        #insert the alert attribute if the object has been deleted.
+        if ($frag.table.tr[$i].td[-1] -eq 'True') {
+            #highlight deleted objects in red
+            $class = $frag.CreateAttribute("class")
+            $class.value="alert"
+            [void]$frag.table.tr[$i].Attributes.append($class)
+        } #if deleted
+    } #for
+
+    #write the innerXML (ie HTML code) as the function output
+    $frag.InnerXml
+}

@@ -61,10 +61,10 @@ https://github.com/jdhitsolutions/PSScriptTools
               <TableColumnItem>
                 <ScriptBlock>
                   if ($host.name -match 'console' -AND $_.PctFreeSpace -le 10) {
-                      "$([char]0x1b)[91m$($_.PctFreeSpace)$([char]0x1b)[0m"
+                      "$($ADReportingToolsOptions.alert)$($_.PctFreeSpace)$([char]0x1b)[0m"
                   }
                   elseif ($host.name -match 'console' -AND $_.PctFreeSpace -le 30) {
-                      "$([char]0x1b)[38;5;220m$($_.PctFreeSpace)$([char]0x1b)[0m"
+                      "$($ADReportingToolsOptions.warning)$($_.PctFreeSpace)$([char]0x1b)[0m"
                   }
                   else {
                     $_.PctFreeSpace
@@ -74,10 +74,10 @@ https://github.com/jdhitsolutions/PSScriptTools
               <TableColumnItem>
                 <ScriptBlock>
                   if ($host.name -match 'console' -AND $_.PctFreeMemory -le 10) {
-                      "$([char]0x1b)[91m$($_.PctFreeMemory)$([char]0x1b)[0m"
+                      "$($ADReportingToolsOptions.alert)m$($_.PctFreeMemory)$([char]0x1b)[0m"
                   }
                   elseif ($host.name -match 'console' -AND $_.PctFreeMemory -le 30 ) {
-                      "$([char]0x1b)[38;5;220m$($_.PctFreeMemory)$([char]0x1b)[0m"
+                      "$($ADReportingToolsOptions.warning)$($_.PctFreeMemory)$([char]0x1b)[0m"
                   }
                   else {
                     $_.PctFreeMemory
@@ -87,10 +87,10 @@ https://github.com/jdhitsolutions/PSScriptTools
               <TableColumnItem>
                 <ScriptBlock>
                   if ($host.name -match 'console' -AND $_.PctSecurityLog -le 15) {
-                      "$([char]0x1b)[91m$($_.PctSecurityLog)$([char]0x1b)[0m"
+                      "$($ADReportingToolsOptions.alert)$($_.PctSecurityLog)$([char]0x1b)[0m"
                   }
                   elseif ($host.name -match 'console' -AND $_.PctSecurityLog -le 50 ) {
-                      "$([char]0x1b)[38;5;220m$($_.PctSecurityLog)$([char]0x1b)[0m"
+                      "$($ADReportingToolsOptions.warning)$($_.PctSecurityLog)$([char]0x1b)[0m"
                   }
                   else {
                     $_.PctSecurityLog
@@ -100,7 +100,7 @@ https://github.com/jdhitsolutions/PSScriptTools
               <TableColumnItem>
                 <ScriptBlock>
                 if ($host.name -match 'console' -AND $_.ServiceAlert) {
-                  "$([char]0x1b)[91m$($_.ServiceAlert)$([char]0x1b)[0m"
+                  "$($ADReportingToolsOptions.alert)$($_.ServiceAlert)$([char]0x1b)[0m"
                 }
                 else {
                 $_.ServiceAlert

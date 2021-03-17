@@ -1,5 +1,17 @@
 # Changelog for ADReportingTools
 
+## 0.8.0-preview
+
++ Updated `README.md`.
++ Added `New-ADChangeReport`. ([Issue #15](https://github.com/jdhitsolutions/ADReportingTools/issues/15))
++ Added sample CSS file `changereport.css`.
++ Added sample HTML report `samplechange.html`.
++ Added private function `_convertObjects`.
++ Added variable `ADReportingToolsOptions` and functions `Get-ADReportingToolsOptions` and `Set-ADReportingToolsOptions`. ([Issue #16](https://github.com/jdhitsolutions/ADReportingTools/issues/16))
++ Modified format files to use values from `$ADReportingToolsOptions`.
++ Added `Universal` to $ADReportingToolsOptions` to highlight Universal groups.
++ Added `DomainLocal` to $ADReportingToolsOptions` to highlight DomainLocal groups.
+
 ## 0.7.0-preview
 
 + Fixed typo in `adbranchmember.format.ps1xml`.

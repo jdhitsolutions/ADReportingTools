@@ -16,19 +16,28 @@
               </ExpressionBinding>
               <Text> [</Text>
               <ExpressionBinding>
-                <PropertyName>Scope</PropertyName>
+                   <ScriptBlock>
+                  if ($host.name -match 'console' -AND $_.Scope -eq 'Universal') {
+                      "$($ADReportingToolsOptions.Universal)$($_.Scope)$([char]0x1b)[0m"
+                      }
+                elseif ($host.name -match 'console' -AND $_.Scope -eq 'DomainLocal') {
+                      "$($ADReportingToolsOptions.DomainLocal)$($_.Scope)$([char]0x1b)[0m"
+                      }
+                      else {
+                      $_.Scope
+                      }
+                  </ScriptBlock>
               </ExpressionBinding>
               <Text>|</Text>
               <ExpressionBinding>
                 <ScriptBlock>
-                            if ($host.name -match 'console' -AND $_.Category -eq 'Distribution') {
-                                "$([char]0x1b)[92m$($_.Category)$([char]0x1b)[0m"
-                                }
-                                else {
-                                $_.Category
-                                }
-                            </ScriptBlock>
-                <!--  <PropertyName>Category</PropertyName> -->
+                  if ($host.name -match 'console' -AND $_.Category -eq 'Distribution') {
+                      "$($ADReportingToolsOptions.DistributionList)$($_.Category)$([char]0x1b)[0m"
+                      }
+                      else {
+                      $_.Category
+                      }
+                  </ScriptBlock>
               </ExpressionBinding>
               <Text>]</Text>
               <NewLine />
@@ -45,9 +54,9 @@
               <ExpressionBinding>
                 <!-- Insert a horizontal line-->
                 <ScriptBlock>
-                                    $line = "_"*($host.ui.RawUI.WindowSize.Width-10)
-                                    $line
-                                </ScriptBlock>
+                    $line = "_"*($host.ui.RawUI.WindowSize.Width-10)
+                    $line
+                </ScriptBlock>
               </ExpressionBinding>
               <NewLine />
               <Frame>
@@ -58,16 +67,16 @@
                   <ExpressionBinding>
                     <ScriptBlock>
                       <!-- show disabled accounts with a red name-->
-                                       $_.members | Select-Object DisplayName,Name,Description,
-                                        @{Name="DistinguishedName"; Expression={
-                                            if ($host.name -match "console" -AND (-Not ($_.Enabled))) {
-                                            "$([char]0x1b)[91m$($_.DistinguishedName)$([char]0x1b)[0m"
-                                            }
-                                            else {
-                                                $_.DistinguishedName
-                                            }
-                                        }}| Out-String
-                                        </ScriptBlock>
+                      $_.members | Select-Object DisplayName,Name,Description,
+                      @{Name="DistinguishedName"; Expression={
+                          if ($host.name -match "console" -AND (-Not ($_.Enabled))) {
+                          "$($ADReportingToolsOptions.alert)$($_.DistinguishedName)$([char]0x1b)[0m"
+                          }
+                          else {
+                              $_.DistinguishedName
+                          }
+                      }}| Out-String
+                      </ScriptBlock>
                   </ExpressionBinding>
                 </CustomItem>
               </Frame>
@@ -118,7 +127,7 @@
               <TableColumnItem>
                 <ScriptBlock>
                 if ($host.name -match "Console" -AND $_.Category -eq "Distribution") {
-                    "$([char]0x1b)[92m$($_.Name)$([char]0x1b)[0m"
+                    "$($ADReportingToolsOptions.DistributionList)$($_.Name)$([char]0x1b)[0m"
                 }
                 else {
                 $_.Name
@@ -126,9 +135,9 @@
                 </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                               <ScriptBlock>
+                <ScriptBlock>
                 if ($host.name -match "Console" -AND $_.membercount -eq 0) {
-                    "$([char]0x1b)[91m$($_.MemberCount)$([char]0x1b)[0m"
+                    "$($ADReportingToolsOptions.alert)$($_.MemberCount)$([char]0x1b)[0m"
                 }
                 else {
                 $_.MemberCount

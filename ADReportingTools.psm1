@@ -19,4 +19,5 @@ Update-TypeData -TypeName "ADDomainControllerHealth" -MemberType ScriptProperty 
 
 $ADUserReportingConfiguration = Get-Content $PSScriptRoot\configurations\aduser-categories.json | ConvertFrom-Json
 
-Export-ModuleMember -Variable ADUserReportingConfiguration
+
+Export-ModuleMember -Variable ADUserReportingConfiguration,ADReportingToolsOptions

@@ -105,6 +105,22 @@ SID               : S-1-5-21-493037332-564925384-1585924867-1105
 
 The user's distinguished name is always included in the output.
 
+#### [Split-DistinguishedName](docs?Split-DistinguishedName.md)
+
+This command will take an Active Directory distinguishedname and break it down into its component elements. The command does not test or verify any of the elements. It is merely parsing a text string.
+
+```dos
+PS C:\> Split-DistinguishedName "CN=Foo,OU=Bar,OU=Oz,DC=Research,DC=Globomantics,DC=com"
+
+
+Name      : Foo
+Branch    : Bar
+BranchDN  : OU=Bar,OU=Oz,DC=Research,DC=Globomantics,DC=com
+Domain    : Research
+DomainDN  : DC=Research,DC=Globomantics,DC=com
+DomainDNS : Research.Globomantics.com
+```
+
 ### Groups
 
 #### [Get-ADGroupUser](docs/Get-ADGroupUser.md)
@@ -206,21 +222,13 @@ The ADReportingTools module includes a CSS file which will be used by default. B
 
 The module's CSS file can be found in the [reports](reports/domainreport.css) folder. You can view a complete sample report [here](reports/sampledomain.html).
 
-#### [Split-DistinguishedName](docs?Split-DistinguishedName.md)
+#### [New-ADChangeReport](docs/New-ADChangeReport.md)
 
-This command will take an Active Directory distinguishedname and break it down into its component elements. The command does not test or verify any of the elements. It is merely parsing a text string.
+`New-ADChangeReport` will create an HTML report showing changes to Active Directory users, computers, and groups since a given date and time. The command uses `Get-ADObject`` to query the `WhenChanged` property. The objects are organized by class and/or container and written to an HTML file. The command uses a CSS file from the ADReportingTools module, although you can specify your own. To make the HTML file portable, you can opt to embed the CSS content from a file source.
 
-```dos
-PS C:\> Split-DistinguishedName "CN=Foo,OU=Bar,OU=Oz,DC=Research,DC=Globomantics,DC=com"
+![sample change report](images/samplechangereport.png)
 
-
-Name      : Foo
-Branch    : Bar
-BranchDN  : OU=Bar,OU=Oz,DC=Research,DC=Globomantics,DC=com
-Domain    : Research
-DomainDN  : DC=Research,DC=Globomantics,DC=com
-DomainDNS : Research.Globomantics.com
-```
+You can view the default CSS file [here](reports/changereport.css). A complete sample report can be found [here](reports/samplechange.html).
 
 ## Format and Type Extensions
 
@@ -257,35 +265,51 @@ Format-Table -view names
 
 ![Get-ADUser names](images/get-aduser-names.png)
 
-The module adds a default table view  for AD group objects.
+The module adds a default table view for AD group objects.
 
-![ADGroup Format](images/adgroup-format.png)
+![ADGroup Format](images/get-adgroup.png)
 
-If your PowerShell console supports it, Distribution groups will be highlighted in Green.
+If your PowerShell console supports it, Distribution, Universal, and DomainLocal groups will be higbhlighted in color.
+
+### ADReportingToolsOptions
+
+The ANSI sequences used in the format files are user-configurable. Values are stored in an exported variable called `ADReportingToolsOptions`, although you shouldn't try to access the variable directly. Use `Get-ADReportingToolsOptions` to see the current values.
+
+![ADReportingToolsOptions](images/get-adreportingtoolsoptions.png)
+
+The module uses the `[char]0x1b` escape sequence because it works in both Windows PowerShell and PowerShell 7.x.
+
+If you prefer to customize the sequence, use `Set-ADReportingToolsOptions`.
+
+```powershell
+Set-ADReportingToolsOptions DistributionList -ANSI "$([char]0x1b)[38;5;50m"
+```
+
+This change is only for the duration of your PowerShell session. Add the command to a PowerShell profile script to make it more permanent.
+
+:octocat: If you would like to see what ANSI sequences look like, install the [PSScriptTools](https://github.com/jdhitsolutions/PSScriptTools/blob/master/README.md) module from the PowerShell Gallery and use [Show-ANSISequence](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Show-ANSISequence.md).
 
 ## Planned
 
-These are some ideas for additional module commands.
+These are planned additions to the module:
 
-- Allow the user to control ANSI coloring
-- New-ADChangeReport
 - Create a set of commands for managing `$ADUserReportingConfiguration`
-
-I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
 ## Possible
 
-These are items I'm considering adding.
+These are items I'm considering adding to the module:
 
 - Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy)
 
+I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
+
 ## Magical Thinking
 
-These are items that I'm dreaming about.
+These are items that I'm dreaming about:
 
 - a toolset to build HTML reports on the fly
 - a WPF based OU browser or a simplified version of ADUC
 
-*__This project is in development and not ready for the PowerShell Gallery__*
+*__This project is in development__*
 
-last updated 2021-03-16 15:46:37Z
+last updated 2021-03-17 19:24:57Z

@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.7.0'
+ModuleVersion = '0.8.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -82,13 +82,14 @@ FormatsToProcess = @(
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO','Get-ADSiteSummary','Get-ADSiteDetail',
 'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
-'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName'
+'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName','New-ADChangeReport',
+'Get-ADReportingToolsOptions','Set-ADReportingToolsOptions'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 #CmdletsToExport = ''
 
 # Variables to export from this module
-VariablesToExport = 'ADUserReportingConfiguration'
+VariablesToExport = 'ADUserReportingConfiguration','ADReportingToolsOptions'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 AliasesToExport = 'dt','fsmo','Get-ADCnUser','Parse-DN'
@@ -129,7 +130,7 @@ PrivateData = @{
         RequireLicenseAcceptance = $false
 
         # External dependent modules of this module
-        ExternalModuleDependencies = @("ActiveDirectory")
+        ExternalModuleDependencies = @("ActiveDirectory","DNSClient")
 
     } # End of PSData hashtable
 

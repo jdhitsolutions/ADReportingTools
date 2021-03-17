@@ -18,8 +18,8 @@ https://github.com/jdhitsolutions/PSScriptTools
         <ScriptBlock>
         if ($host.name -match 'console' -AND (-not $_.Enabled)) {
           <!-- show disabled accounts in red-->
-          $dn = "$([char]0x1b)[91m$($_.DistinguishedName)$([char]0x1b)[0m"
-          $name = "$([char]0x1b)[91m$($_.DisplayName)$([char]0x1b)[0m"
+          $dn = "$($ADReportingToolsOptions.alert)$($_.DistinguishedName)$([char]0x1b)[0m"
+          $name = "$($ADReportingToolsOptions.alert)$($_.DisplayName)$([char]0x1b)[0m"
         }
         else {
           $dn = $_.DistinguishedName
