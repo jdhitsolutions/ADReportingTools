@@ -32,7 +32,7 @@ However, you need to be very explicit about what information you want to see. Yo
 
 The ADReportingTools module is based on this framework. The goal is to create a set of commands and tools to make it very easy to get information out of Active Directory in meaningful and useful ways. Many of the commands in this module are wrappers for underlying ActiveDirectory module commands, written to be easy to use.
 
-The ADReportingTools focuses primarily on working with Active Directory users, groups, and computers. The module includes commands intended to be true reporting commands. As the module name suggests, module commands are intended to _get_ information from Active Directory. This module is not designed to manage Active Directory.
+The ADReportingTools focuses primarily on working with Active Directory users, groups, and computers. The module includes commands designed to be true reporting commands. As the module name suggests, module commands are intended to **_get_** information from Active Directory. This module is not designed to manage it. There are no commands to set, create, or remove anything from Active Directory.
 
 :warning:
 **These commands have not been tested in a large domain environment, or one with cross-domain trusts and/or nested groups that cross domains. If you have used the ActiveDirectory modules in the past and had poor performance due to these types of circumstances, the modules in this command most likely won't perform any better.**
