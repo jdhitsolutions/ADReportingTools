@@ -9,13 +9,27 @@ https://github.com/jdhitsolutions/PSScriptTools
 <Configuration>
   <ViewDefinitions>
     <View>
-      <!--Created 02/24/2021 15:39:43 by COMPANY\artd-->
       <Name>default</Name>
       <ViewSelectedBy>
         <TypeName>ADBranchMember</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <ScriptBlock>"{0} [{1}]" -f $_.parent,$_.class</ScriptBlock>
+        <ScriptBlock>
+        <!-- A Switch statement doesn't work in this kind of file-->
+        If ($_.Class -eq 'User') {
+            $c= "$($ADReportingToolsOptions.UserClass)$($_.Class)$([char]0x1b)[0m"
+          }
+        elseif ($_.class -eq 'Computer') {
+            $c= "$($ADReportingToolsOptions.ComputerClass)$($_.Class)$([char]0x1b)[0m"
+          }
+        elseif ($_.class -eq 'Group') {
+            $c= "$($ADReportingToolsOptions.GroupClass)$($_.Class)$([char]0x1b)[0m"
+          }
+        else {
+          $c = $_.class
+          }
+        "{0} [{1}]" -f $_.parent,$c
+        </ScriptBlock>
         <Label>Branch</Label>
       </GroupBy>
       <TableControl>
@@ -43,7 +57,14 @@ https://github.com/jdhitsolutions/PSScriptTools
             <Wrap />
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>DistinguishedName</PropertyName>
+                <ScriptBlock>
+                if ($host.name -match 'Console' -AND (-Not $_.Enabled)) {
+                  "$($ADReportingToolsOptions.alert)$($_.DistinguishedName)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.DistinguishedName
+                }
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>

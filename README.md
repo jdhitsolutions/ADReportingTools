@@ -105,7 +105,17 @@ SID               : S-1-5-21-493037332-564925384-1585924867-1105
 
 The user's distinguished name is always included in the output.
 
-#### [Split-DistinguishedName](docs?Split-DistinguishedName.md)
+### [Get-ADDepartment](docs/Get-ADDepartment.md)
+
+A related command is `Get-ADDepartment`. This command will get members of a given department. When you import the ADReportingTools module, it will define a global variable called `ADReportingHash` which is a hashtable. The variable has a key called `Departments`. This variable is used in an argument completer for the `Department` parameter so that you can tab-complete the parameter value.
+
+![Get-ADDepartment](images/get-addept.png)
+
+Disabled accounts will be displayed in red. Or you can use one of the custom views.
+
+![Get-ADDepartment Manager](images/get-addept-manager.png)
+
+#### [Split-DistinguishedName](docs/Split-DistinguishedName.md)
 
 This command will take an Active Directory distinguishedname and break it down into its component elements. The command does not test or verify any of the elements. It is merely parsing a text string.
 

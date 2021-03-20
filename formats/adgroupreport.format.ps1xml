@@ -16,7 +16,7 @@
               </ExpressionBinding>
               <Text> [</Text>
               <ExpressionBinding>
-                   <ScriptBlock>
+                <ScriptBlock>
                   if ($host.name -match 'console' -AND $_.Scope -eq 'Universal') {
                       "$($ADReportingToolsOptions.Universal)$($_.Scope)$([char]0x1b)[0m"
                       }
@@ -36,6 +36,17 @@
                       }
                       else {
                       $_.Category
+                      }
+                  </ScriptBlock>
+              </ExpressionBinding>
+              <Text>|</Text>
+              <ExpressionBinding>
+                <ScriptBlock>
+                  if ($host.name -match 'console' -AND $_.membercount -eq 0) {
+                      "$($ADReportingToolsOptions.Alert)$($_.MemberCount)$([char]0x1b)[0m"
+                      }
+                      else {
+                      $_.MemberCount
                       }
                   </ScriptBlock>
               </ExpressionBinding>
@@ -97,7 +108,7 @@
         <TableHeaders>
           <TableColumnHeader>
             <Label>Name</Label>
-            <Width>20</Width>
+            <Width>33</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -107,12 +118,12 @@
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Created</Label>
-            <Width>23</Width>
+            <Width>22</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Modified</Label>
-            <Width>23</Width>
+            <Width>22</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -152,6 +163,105 @@
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>$_.Age.ToString() -replace "\.\d+$",""</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 03/20/2021 13:01:18 by COMPANY\artd-->
+      <Name>summary</Name>
+      <ViewSelectedBy>
+        <TypeName>ADGroupReport</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <PropertyName>DistinguishedName</PropertyName>
+        <Label>DistinguishedName</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>33</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Members</Label>
+            <Width>7</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Category</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Scope</Label>
+            <Width>11</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Branch</Label>
+            <Width>33</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.name -match "Console" -AND $_.membercount -eq 0) {
+                    "$($ADReportingToolsOptions.alert)$($_.MemberCount)$([char]0x1b)[0m"
+                }
+                else {
+                $_.MemberCount
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.name -match "Console" -AND $_.Category -eq "Distribution") {
+                    "$($ADReportingToolsOptions.DistributionList)$($_.Category)$([char]0x1b)[0m"
+                }
+                else {
+                $_.Category
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                        <ScriptBlock>
+                  if ($host.name -match 'console' -AND $_.Scope -eq 'Universal') {
+                      "$($ADReportingToolsOptions.Universal)$($_.Scope)$([char]0x1b)[0m"
+                      }
+                  elseif ($host.name -match 'console' -AND $_.Scope -eq 'DomainLocal') {
+                      "$($ADReportingToolsOptions.DomainLocal)$($_.Scope)$([char]0x1b)[0m"
+                      }
+                      else {
+                      $_.Scope
+                      }
+                  </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Branch</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

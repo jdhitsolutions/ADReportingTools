@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Format type data generated 03/20/2021 14:39:43 by COMPANY\artd
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 03/20/2021 14:39:43 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADComputerInfo</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Location</Label>
+            <Width>11</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IPAddress</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LastLogonDate</Label>
+            <Width>23</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                  "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND $_.IsServer ) {
+                  "$($ADReportingToolsOptions.IsServer)$($_.Name)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IPAddress</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LastLogonDate</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 03/20/2021 14:43:49 by COMPANY\artd-->
+      <Name>os</Name>
+      <ViewSelectedBy>
+        <TypeName>ADComputerInfo</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>operatingsystem</PropertyName>
+        <Label>OperatingSystem</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Created</Label>
+            <Width>23</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Modified</Label>
+            <Width>23</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>DistinguishedName</Label>
+            <Width>41</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+              <ScriptBlock>
+                if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                  "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND $_.IsServer ) {
+                  "$($ADReportingToolsOptions.IsServer)$($_.Name)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Created</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Modified</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DistinguishedName</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 03/20/2021 14:46:45 by COMPANY\artd-->
+      <Name>location</Name>
+      <ViewSelectedBy>
+        <TypeName>ADComputerInfo</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>location</PropertyName>
+        <Label>Location</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IPAddress</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LastLogonDate</Label>
+            <Width>23</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>DistinguishedName</Label>
+            <Width>45</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+              <ScriptBlock>
+                if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                  "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND $_.IsServer ) {
+                  "$($ADReportingToolsOptions.IsServer)$($_.Name)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IPAddress</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LastLogonDate</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DistinguishedName</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

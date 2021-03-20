@@ -234,3 +234,5 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 ## RELATED LINKS
 
 [Get-ADUser]()
+
+[Get-ADDepartmentMember](Get-ADDepartmentMember.md)

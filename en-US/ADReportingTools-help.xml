@@ -483,6 +483,182 @@ CN=D.Waldow,OU=Employees,DC=Company,DC=Pri</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-ADDepartment</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ADDepartment</command:noun>
+      <maml:description>
+        <maml:para>Get members of a department from Active Directory.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to retrieve user account information from Active Directory for members of a specific department. You can specify multiple departments. User information is displayed in a grouped table by default.</maml:para>
+      <maml:para>When you import the ADReportingTools module, it will define a global variable called ADReportingHash which is a hashtable. The variable has a key called Departments. This variable is used in an argument completer for the -Department parameter. This allows you to tab-complete the parameter value. If you add a department after loading the module, you will need to update the variable. You can manually add a department:</maml:para>
+      <maml:para>$ADReportingHash.Departments+='Bottle Washing'</maml:para>
+      <maml:para>Or reload the module:</maml:para>
+      <maml:para>Import-Module ADReportingTools -force</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ADDepartment</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Department</maml:name>
+          <maml:description>
+            <maml:para>Specify one or more department names.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="runas">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Specify alternate credentials for authentication.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="DC">
+          <maml:name>Server</maml:name>
+          <maml:description>
+            <maml:para>Specify a domain controller to query.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="runas">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Specify alternate credentials for authentication.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Department</maml:name>
+        <maml:description>
+          <maml:para>Specify one or more department names.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="DC">
+        <maml:name>Server</maml:name>
+        <maml:description>
+          <maml:para>Specify a domain controller to query.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>ADDeptMember</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert />
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADDepartment -Department sales -Server dom1 -Credential company\artd
+
+   Department: Sales
+
+Name                      Title                          City                 Phone
+----                      -----                          ----                 -----
+Sonya Smith               Account Executive              Omaha                x2345
+Garret Guillary           Intern                         Omaha                x8877
+Sam Smith                 Sales Support                  Omaha                x5678
+Samantha Smith            Sales Assistant                Omaha                x9875</dev:code>
+        <dev:remarks>
+          <maml:para>Get all members of the Sales department. This example queries a specific domain controller and uses alternate credentials. If your PowerShell session supports it, disabled accounts will be displayed in red.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADDepartment Sales | Format-Table -view manager
+
+
+   Manager: CN=Alfonso Dente,OU=Sales,DC=Company,DC=Pri [Sales]
+
+Name                 Description               Title                City
+----                 -----------               -----                ----
+Sonya Smith          Sales                     Account Executive    Omaha
+
+
+   Manager: CN=SamanthaS,OU=Sales,DC=Company,DC=Pri [Sales]
+
+Name                 Description               Title                City
+----                 -----------               -----                ----
+Garret Guillary      sales intern              Intern               Omaha
+
+
+   Manager: CN=SonyaS,OU=Sales,DC=Company,DC=Pri [Sales]
+
+Name                 Description               Title                City
+----                 -----------               -----                ----
+Sam Smith            Sales                     Sales Support        Omaha
+Samantha Smith       Sales                     Sales Assistant      Omaha</dev:code>
+        <dev:remarks>
+          <maml:para>The command has a corresponding formatting file with a custom view.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADUserCategory</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADUser</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-ADDomainControllerHealth</command:name>
       <command:verb>Get</command:verb>
       <command:noun>ADDomainControllerHealth</command:noun>
@@ -2389,6 +2565,10 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ADUser</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADDepartmentMember</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

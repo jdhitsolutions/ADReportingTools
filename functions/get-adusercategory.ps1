@@ -91,7 +91,6 @@ Function Get-ADUserCategory {
 
     End {
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
-
     } #end
 
 } #close Get-ADUserCategory

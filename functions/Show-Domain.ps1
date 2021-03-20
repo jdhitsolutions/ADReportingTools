@@ -143,17 +143,17 @@ Function Show-DomainTree {
 
         if ($_.ProtectedFromAccidentalDeletion) {
           #display protected OUs in color
-          $nameValue = "$([char]0x1b)[38;5;199m$name$([char]0x1b)[0m"
+          $nameValue = "$($ADReportingToolsOptions.Protected)$name$([char]0x1b)[0m"
         }
         elseif ($_.objectclass -eq 'container') {
-          $nameValue = "$([char]0x1b)[38;5;3m$name$([char]0x1b)[0m"
+          $nameValue = "$($ADReportingToolsOptions.Container)$name$([char]0x1b)[0m"
         }
-        elseif ($_.objectclass -ne 'organizationalUnit') {
+        elseif ($_.objectclass -eq 'organizationalUnit') {
           #display non-OU and non-Container in a different color
-          $nameValue = "$([char]0x1b)[38;5;211m$name$([char]0x1b)[0m"
+          $nameValue = "$($ADReportingToolsOptions.OrganizationalUnit)$name$([char]0x1b)[0m"
         }
         else {
-          $nameValue = "$([char]0x1b)[38;5;191m$name$([char]0x1b)[0m"
+          $nameValue = "$($ADReportingToolsOptions.Other)$name$([char]0x1b)[0m"
         }
 
         "{0}{1}" -f (GetIndentString -indent $indent), $nameValue
@@ -193,7 +193,7 @@ Function Show-DomainTree {
     #display to top level container and then get children
     $top = @"
 
-$([char]0x1b)[1;4;92m$Path$([char]0x1b)[0m
+$($ADReportingToolsOptions.DomainDNS)$Path$([char]0x1b)[0m
 $([char]0x2502)
 "@
 
@@ -212,12 +212,12 @@ $([char]0x2502)
     $date = Get-Date -Format g
     $footer = @"
 
-$([char]0x1b)[38;5;191mOrganizationl Units$([char]0x1b)[0m
-$([char]0x1b)[38;5;199mProtected from Deletion$([char]0x1b)[0m
-$([char]0x1b)[38;5;3mContainers$([char]0x1b)[0m
-$([char]0x1b)[38;5;211mOther$([char]0x1b)[0m
+$($ADReportingToolsOptions.OrganizationalUnit)Organizational Units$([char]0x1b)[0m
+$($ADReportingToolsOptions.Protected)Protected from Deletion$([char]0x1b)[0m
+$($ADReportingToolsOptions.Container)Containers$([char]0x1b)[0m
+$($ADReportingToolsOptions.Other)Other$([char]0x1b)[0m
 
-$([char]0x1b)[38;5;11m$date $tzname$([char]0x1b)[0m
+$date $tzname
 "@
 
     $footer

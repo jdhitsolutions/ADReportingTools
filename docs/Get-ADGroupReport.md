@@ -73,6 +73,36 @@ DL-Test2                   1 3/3/2021 1:55:13 PM     3/3/2021 2:01:50 PM        
 
 If your console supports it, Distribution Lists will be displayed in green, and a member count of 0 will be displayed in red.
 
+### Example 3
+
+```powershell
+PS C:\> Get-ADGroupReport -ExcludeBuiltIn | Format-Table -view summary
+
+
+   DistinguishedName: CN=IT,OU=IT,DC=Company,DC=Pri
+
+Name                              Members Category        Scope       Branch
+----                              ------- --------        -----       ------
+IT                                      5 Security        Global      OU=IT,DC=Company,DC=Pri
+
+
+   DistinguishedName: CN=Sales,OU=Sales,DC=Company,DC=Pri
+
+Name                              Members Category        Scope       Branch
+----                              ------- --------        -----       ------
+Sales                                   3 Security        Global      OU=Sales,DC=Company,DC=Pri
+
+
+   DistinguishedName: CN=Marketing,OU=Marketing,DC=Company,DC=Pri
+
+Name                              Members Category        Scope       Branch
+----                              ------- --------        -----       ------
+Marketing                               3 Security        Global      OU=Marketing,DC=Company,DC=Pri
+...`
+```
+
+Get groups and format with a custom view. If your console session supports it, some of the output will be color-coded with ANSI sequences.
+
 ## PARAMETERS
 
 ### -Category
