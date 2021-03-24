@@ -23,12 +23,7 @@ Function Get-ADSummary {
 
     Process {
         Write-Verbose "[PROCESS] Getting domain information for $Identity"
-        Write-Verbose "[PROCESS] Using these PSBoundParameters:"
-        if ($VerbosePreference -eq 'continue') {
-            #I want to make this output looks like a continuation of the previous line
-            New-Object psobject -Property $PSBoundParameters | Out-String |
-            Write-Host -ForegroundColor $host.PrivateData.VerboseForegroundColor
-        }
+        Write-Verbose "[PROCESS] Using these PSBoundParameters: `n$(New-Object psobject -Property $PSBoundParameters | Out-String)"
 
         Try {
             $domain = Get-ADDomain @PSBoundParameters
@@ -41,11 +36,7 @@ Function Get-ADSummary {
             Write-Verbose "[PROCESS] Getting forest information for $($domain.forest)"
             #update PSBoundParameters
             $PSBoundParameters["Identity"] = $domain.forest
-            Write-Verbose "[PROCESS] Using these PSBoundParameters:"
-            if ($VerbosePreference -eq 'continue') {
-                New-Object psobject -Property $PSBoundParameters | Out-String |
-                Write-Host -ForegroundColor $host.PrivateData.VerboseForegroundColor
-            }
+            Write-Verbose "[PROCESS] Using these PSBoundParameters: `n$(New-Object psobject -Property $PSBoundParameters | Out-String)"
 
             Try {
                 $forest = Get-ADForest @PSBoundParameters

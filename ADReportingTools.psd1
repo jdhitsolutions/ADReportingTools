@@ -75,7 +75,9 @@ FormatsToProcess = @(
 'formats\adgroup.format.ps1xml',
 'formats\adgroupreport.format.ps1xml',
 'formats\addepartmentmember.format.ps1xml',
-'formats\adcomputerreport.format.ps1xml'
+'formats\adcomputerreport.format.ps1xml',
+'formats\adntds.format.ps1xml',
+'formats\adbackup.format.ps1xml'
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
@@ -85,7 +87,8 @@ FormatsToProcess = @(
 FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO','Get-ADSiteSummary','Get-ADSiteDetail',
 'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
 'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName','New-ADChangeReport',
-'Get-ADReportingToolsOptions','Set-ADReportingToolsOptions','Get-ADDepartment','Get-ADComputerReport'
+'Get-ADReportingToolsOptions','Set-ADReportingToolsOptions','Get-ADDepartment','Get-ADComputerReport', 'Get-NTDSInfo',
+'Get-ADBackupStatus'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 #CmdletsToExport = ''

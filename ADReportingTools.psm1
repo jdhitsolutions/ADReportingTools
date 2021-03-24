@@ -32,6 +32,7 @@ $Global:ADReportingHash = [hashtable]::Synchronized(@{
         Note        = "This used by the ADReportingTools module. Do not delete."
         Departments = @()
         DomainControllers = @()
+        BackupLimit = 3
     }
 )
 $newRunspace.SessionStateProxy.SetVariable("ADReportingHash", $ADReportingHash)
@@ -42,10 +43,10 @@ $psCmd = [PowerShell]::Create()
 
         $global:ADReportingHash.Departments = Get-ADUser -Filter "Department -like '*'" -Properties Department | Select-Object -ExpandProperty Department -Unique | Sort-Object
         $global:ADReportingHash.DomainControllers = (Get-ADDomain).ReplicaDirectoryServers
-        
+
         #simulate a large environment for testing purposes
         #Start-Sleep -Seconds 30
-        $global:ADReportingHash.Add("Updated", (Get-Date))
+        $global:ADReportingHash.Add("LastUpdated", (Get-Date))
     })
 
 $psCmd.Runspace = $newRunspace

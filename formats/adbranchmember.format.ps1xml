@@ -16,13 +16,13 @@ https://github.com/jdhitsolutions/PSScriptTools
       <GroupBy>
         <ScriptBlock>
         <!-- A Switch statement doesn't work in this kind of file-->
-        If ($_.Class -eq 'User') {
+        If ($host.name -match "console" -AND $_.Class -eq 'User') {
             $c= "$($ADReportingToolsOptions.UserClass)$($_.Class)$([char]0x1b)[0m"
           }
-        elseif ($_.class -eq 'Computer') {
+        elseif ($host.name -match "console" -AND $_.class -eq 'Computer') {
             $c= "$($ADReportingToolsOptions.ComputerClass)$($_.Class)$([char]0x1b)[0m"
           }
-        elseif ($_.class -eq 'Group') {
+        elseif ($host.name -match "console" -AND $_.class -eq 'Group') {
             $c= "$($ADReportingToolsOptions.GroupClass)$($_.Class)$([char]0x1b)[0m"
           }
         else {

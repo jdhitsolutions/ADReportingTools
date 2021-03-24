@@ -86,3 +86,32 @@ Function _convertObjects {
     #write the innerXML (ie HTML code) as the function output
     $frag.InnerXml
 }
+
+function _getDNSName {
+    [cmdletbinding()]
+    Param([string]$Name)
+
+    Try {
+        $r = Resolve-DnsName -Name $Name -type A -ErrorAction Stop | Select-Object -first 1
+        if ($r.name) {
+            $r.name
+        }
+        else {
+            #this should only happen if Resolve-DNSName compeletes without error but no result.
+            $name
+        }
+    }
+    Catch {
+        write-warning $_.exception.message
+        $name
+    }
+}
+function _ToTitleCase {
+    [cmdletbinding()]
+    Param(
+        [string]$Text
+    )
+
+    [System.Globalization.CultureInfo]::CurrentCulture.TextInfo.ToTitleCase($text)
+
+}

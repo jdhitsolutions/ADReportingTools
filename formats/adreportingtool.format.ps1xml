@@ -15,7 +15,14 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>ADReportingTool</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <PropertyName>Verb</PropertyName>
+        <ScriptBlock>
+        if ($host.name -match 'console') {
+          "$($ADreportingToolsOptions.IsServer)$($_.Verb)$([char]0x1b)[0m"
+        }
+        else {
+          $_.verb
+        }
+        </ScriptBlock>
         <Label>Verb</Label>
       </GroupBy>
       <TableControl>
