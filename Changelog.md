@@ -1,5 +1,23 @@
 # Changelog for ADReportingTools
 
+## 1.0.0
+
++ First stable release.
++ Updated `README.md`.
++ Added command `Get-ADDepartment` and format file `addepartmentmember.format.ps1xml`.
++ Exporting a global variable called `$ADReportingHash` which is used as an argument completer for `Get-ADDepartment`.
++ Moved ANSI colors from `Show-DomainTree` to `$ADReportingToolsOptions`. ([Issue #17](https://github.com/jdhitsolutions/ADReportingTools/issues/17))
++ Added class coloring to ADBranch output.
++ Modified ADBranch output to show disabled user accounts in red.
++ Added command `Get-ADComputerReport` and format file `adcomputerreport.format.ps1xml`.
++ Modified `adgroupreport.format.ps1xml` to add member count to the default output. ([Issue #21](https://github.com/jdhitsolutions/ADReportingTools/issues/21))
++ Added a view called `summary` to  `adgroupreport.format.ps1xml`.
++ Added command `Get-NTDSInfo` and format file `adntds.format.ps1xml`. ([Discussion #18](https://github.com/jdhitsolutions/ADReportingTools/discussions/18))
++ Modified `Get-ADSummary` to better display PSBoundParameters with Verbose output in the PowerShell ISE.
++ Updated format files to ensure ANSI formatting only happens in a Console host.
++ Added command `Get-ADBackupStatus` and format file `adbackupstatus.format.ps1xml`.
++ Help updates.
+
 ## 0.8.0-preview
 
 + Updated `README.md`.

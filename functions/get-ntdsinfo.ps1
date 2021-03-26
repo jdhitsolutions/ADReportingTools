@@ -2,7 +2,7 @@
 
 Function Get-NTDSInfo {
     [cmdletbinding()]
-    [outputType("NTDSI")]
+    [outputType("NTDSInfo")]
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline, HelpMessage = "Specify a domain controller name.")]
         [Alias("name")]
@@ -23,7 +23,6 @@ Function Get-NTDSInfo {
                 computername = $env:computername
             }
         }
-
     } #begin
 
     Process {
@@ -49,7 +48,6 @@ Function Get-NTDSInfo {
                 Write-Warning "Error getting data from $($computer.toUpper()). $($_.Exception.Message)."
             }
         } #foreach computer
-
     } #process
 
     End {

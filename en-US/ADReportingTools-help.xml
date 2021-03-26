@@ -2,6 +2,131 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-ADBackupStatus</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ADBackupStatus</command:noun>
+      <maml:description>
+        <maml:para>Get an Active Directory backup status</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>There aren't any explicit PowerShell commands to tell if Active Directory has been backed up. One indirect approach is to use the command-line tool repadmin.exe. This command has a /showbackup parameter which will indicate when the different Active Directory partitions have been backed up. This command is a PowerShell wrapper for repadmin.exe that runs on the specified domain controller in a PowerShell remoting session.</maml:para>
+      <maml:para>If running in a console host, the date value may be shown in red, if the date is beyond the backup limit of 3 days. This is a user-customizable value in $ADReportingHash.</maml:para>
+      <maml:para>$ADReportinghash.BackupLimit = 5</maml:para>
+      <maml:para>If you want a limit like this all the time, in your PowerShell profile script import the module and add this line.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ADBackupStatus</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Specify the name of a domain controller</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Specify an alternate credential</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Specify an alternate credential</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>DomainController</maml:name>
+        <maml:description>
+          <maml:para>Specify the name of a domain controller</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADBackupStatus dom1
+
+   DomainController: Dom1.Company.Pri
+
+Partition                              LocalUSN OriginUSN                 Date
+---------                              -------- ---------                 ----
+DC=ForestDnsZones,DC=Company,DC=Pri       13777     13777   01/25/2021 14:27:01
+DC=DomainDnsZones,DC=Company,DC=Pri       13776     13776   01/25/2021 14:27:01
+CN=Schema,CN=Configuration,DC=Comp....    13775     13775   01/25/2021 14:27:01
+CN=Configuration,DC=Company,DC=Pri        13774     13774   01/25/2021 14:27:01
+DC=Company,DC=Pri                         13773     13773   01/25/2021 14:27:01</dev:code>
+        <dev:remarks>
+          <maml:para>Any date that is beyond the number of days that is beyond $ADReportingHash.BackupLimit, will be displaySed in red, if running in a console host.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-NTDSInfo</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>repadmin.exe</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-ADBranch</command:name>
       <command:verb>Get</command:verb>
       <command:noun>ADBranch</command:noun>
@@ -492,7 +617,7 @@ CN=D.Waldow,OU=Employees,DC=Company,DC=Pri</dev:code>
     </command:details>
     <maml:description>
       <maml:para>Use this command to retrieve user account information from Active Directory for members of a specific department. You can specify multiple departments. User information is displayed in a grouped table by default.</maml:para>
-      <maml:para>When you import the ADReportingTools module, it will define a global variable called ADReportingHash which is a hashtable. The variable has a key called Departments. This variable is used in an argument completer for the -Department parameter. This allows you to tab-complete the parameter value. If you add a department after loading the module, you will need to update the variable. You can manually add a department:</maml:para>
+      <maml:para>When you import the ADReportingTools module, it will define a global variable called ADReportingHash, which is a hashtable. The variable has a key called Departments. This variable is used in an argument completer for the -Department parameter. This allows you to tab-complete the parameter value. If you add a department after loading the module, you will need to update the variable. You can manually add a department:</maml:para>
       <maml:para>$ADReportingHash.Departments+='Bottle Washing'</maml:para>
       <maml:para>Or reload the module:</maml:para>
       <maml:para>Import-Module ADReportingTools -force</maml:para>
@@ -1256,6 +1381,35 @@ DL-Test                    4 3/3/2021 1:54:01 PM     3/16/2021 9:43:32 AM       
 DL-Test2                   1 3/3/2021 1:55:13 PM     3/3/2021 2:01:50 PM         12.20:45:04</dev:code>
         <dev:remarks>
           <maml:para>If your console supports it, Distribution Lists will be displayed in green, and a member count of 0 will be displayed in red.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADGroupReport -ExcludeBuiltIn | Format-Table -view summary
+
+
+   DistinguishedName: CN=IT,OU=IT,DC=Company,DC=Pri
+
+Name                              Members Category        Scope       Branch
+----                              ------- --------        -----       ------
+IT                                      5 Security        Global      OU=IT,DC=Company,DC=Pri
+
+
+   DistinguishedName: CN=Sales,OU=Sales,DC=Company,DC=Pri
+
+Name                              Members Category        Scope       Branch
+----                              ------- --------        -----       ------
+Sales                                   3 Security        Global      OU=Sales,DC=Company,DC=Pri
+
+
+   DistinguishedName: CN=Marketing,OU=Marketing,DC=Company,DC=Pri
+
+Name                              Members Category        Scope       Branch
+----                              ------- --------        -----       ------
+Marketing                               3 Security        Global      OU=Marketing,DC=Company,DC=Pri
+...`</dev:code>
+        <dev:remarks>
+          <maml:para>Get groups and format with a custom view. If your console session supports it, some of the output will be color-coded with ANSI sequences.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2569,6 +2723,121 @@ CN=Art Frame,OU=Accounting,DC=Company,DC=Pri   Art Frame         Test User</dev:
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ADDepartmentMember</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-NTDSInfo</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>NTDSInfo</command:noun>
+      <maml:description>
+        <maml:para>Get information about the NTDS.dit and related files.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get-NTDSInfo will query a domain controller using PowerShell remoting to get information about the NTDS.dit and related files. You might use this to track the size of the file or to check on backups. A high log count might indicate a backup is needed.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-NTDSInfo</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="name">
+          <maml:name>Computername</maml:name>
+          <maml:description>
+            <maml:para>Specify a domain controller name.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Specify an alternate credential.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="name">
+        <maml:name>Computername</maml:name>
+        <maml:description>
+          <maml:para>Specify a domain controller name.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Specify an alternate credential.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>NTDSInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-NTDSInfo -computername dom1 | format-list
+
+DomainController : DOM1.Company.Pri
+Path             : C:\NTDS\ntds.dit
+Size             : 16777216
+FileDate         : 3/26/2021 1:13:26 PM
+LogCount         : 34
+Date             : 3/26/2021 4:15:00 PM</dev:code>
+        <dev:remarks>
+          <maml:para>The default display is a table. The LogCount is the number of temp edb files in the NTDS folder. The FileDate is the timestamp of ntds.dit, and the Date property reflects when you ran the command.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADBackupStatus</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

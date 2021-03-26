@@ -14,10 +14,10 @@ The assumption is that you will run these commands with administrator credential
 
 ## Installation
 
-A _**pre-release**_ version of this module is available in the PowerShell Gallery. Install it using `Install-Module` after you have installed the Active Directory RSAT capability.
+This module is available in the PowerShell Gallery. Install it with `Install-Module` after you have installed the Active Directory RSAT capability.
 
 ```powershell
-Install-Module -name ADReportingTools -AllowPrerelease
+Install-Module -name ADReportingTools
 ```
 
 ## Design Philosophy
@@ -28,11 +28,11 @@ The Active Directory module from Microsoft is not especially difficult to use. I
 Get-ADuser -filter "department -eq 'sales'" -properties Title,Department
 ```
 
-However, you need to be very explicit about what information you want to see. You might need to create complicated filters. You need to know the Active Directory property names. Finally, you need to format the results into something meaningful. It might be better to think of the ActiveDirectory module as a _framework_.
+However, you have to be very explicit about what information you want to see. You might need to create complicated filters. You need to know the Active Directory property names. Finally, you need to format the results into something meaningful. It might be better to think of the ActiveDirectory module as a _framework_.
 
-The ADReportingTools module is based on this framework. The goal is to create a set of commands and tools to make it very easy to get information out of Active Directory in meaningful and useful ways. Many of the commands in this module are wrappers for underlying ActiveDirectory module commands, written to be easy to use.
+The ADReportingTools module is built on this framework. The goal is to create a set of commands and tools to make it very easy to get information out of Active Directory in meaningful and useful ways. Many of the functions in this module are wrappers for underlying ActiveDirectory module commands, written to be easy to use.
 
-The ADReportingTools focuses primarily on working with Active Directory users, groups, and computers. The module includes commands designed to be true reporting commands. As the module name suggests, module commands are intended to **_get_** information from Active Directory. This module is not designed to manage it. There are no commands to set, create, or remove anything from Active Directory.
+The ADReportingTools focuses primarily on working with Active Directory users, groups, and computers. The module includes commands designed to be true reporting commands. As the module name suggests, module commands are intended to **_get_** information from Active Directory. This module is not designed to manage it. There are **no** commands to set, create, or remove anything from Active Directory.
 
 :warning:
 **These commands have not been tested in a large domain environment, or one with cross-domain trusts and/or nested groups that cross domains. If you have used the ActiveDirectory modules in the past and had poor performance due to these types of circumstances, the modules in this command most likely won't perform any better.**
@@ -107,7 +107,7 @@ The user's distinguished name is always included in the output.
 
 ### [Get-ADDepartment](docs/Get-ADDepartment.md)
 
-A related command is `Get-ADDepartment`. This command will get members of a given department. When you import the ADReportingTools module, it will define a global variable called `ADReportingHash` which is a hashtable. The variable has a key called `Departments`. This variable is used in an argument completer for the `Department` parameter so that you can tab-complete the parameter value.
+A related command is `Get-ADDepartment`. This command will get members of a given department. When you import the ADReportingTools module, it will define a global variable called `ADReportingHash,` which is a hashtable. The variable has a key called `Departments`. This variable is used in an argument completer for the `Department` parameter so that you can tab-complete the parameter value.
 
 ![Get-ADDepartment](images/get-addept.png)
 
@@ -135,7 +135,7 @@ DomainDNS : Research.Globomantics.com
 
 #### [Get-ADGroupUser](docs/Get-ADGroupUser.md)
 
-`Get-ADGroupUser` command will display all users of a given Active Directory group. The search is automatically recursive. The default output is a formatted table that will highlight disabled accounts in red. The ANSI color coding will only work in a console session.
+The `Get-ADGroupUser` command will display all users of a given Active Directory group. The search is automatically recursive. The default output is a formatted table that will highlight disabled accounts in red. The ANSI color coding will only work in a console session.
 
 ![Get-ADGroupUser](images/get-adgroupuser.png)
 
@@ -145,7 +145,7 @@ Or you can use the default list view.
 
 #### [GetADGroupReport](docs/Get-ADGroupReport.md)
 
-Get-ADGroupReport will create a custom report for a group showing members. Get-ADGroupUser is intended to display group membership details Get-ADGroupReport focuses on the group, although members are also displayed. Members are always gathered recursively. You can filter for specific types of groups. You can also opt to exclude groups under CN=Users and CN=BuiltIn. The groups "Domain Users", "Domain Computers", and "Domain Guests" are always excluded from this command.
+`Get-ADGroupReport` will create a custom report for a group showing members. `Get-ADGroupUser` is intended to display group membership details `Get-ADGroupReport` focuses on the group, although members are also displayed. Members are always gathered recursively. You can filter for specific types of groups. You can also opt to exclude groups under CN=Users and CN=BuiltIn. The groups "Domain Users", "Domain Computers", and "Domain Guests" are always excluded from this command.
 
 ![get-adgroupreport](images/get-adgroupreport.png)
 
@@ -166,7 +166,7 @@ Distribution groups will be shown in green and member counts of 0 in red. The Ag
 - How much free space remains on drive C:\?
 - How much free physical memory?
 - What percentage of the Security event log is in use?
-- Are any critical services not running? The services checked are ntds,kdc,adws,dfs,dfsr,netlogon,samss, and w32time. Not every organization runs DNS and/or DHCP on their domain controllers so those services have been omitted.
+- Are any critical services not running? The services checked are ntds,kdc,adws,dfs,dfsr,netlogon,samss, and w32time. Not every organization runs DNS and/or DHCP on their domain controllers, so those services have been omitted.
 
 Output will be color-coded using ANSI escape sequences, if the PowerShell session supports it.
 
@@ -182,13 +182,39 @@ You can use additional custom views to format the results.
 
 ### Reports
 
-The primary goal for this module is reporting. The intention is to provide easy to use commands that will provide at least a snapshot view of information you might want to know.
+The primary goal for this module is reporting. The intention is to provide easy-to-use commands that will provide at least a snapshot view of information you might want to know.
 
 #### [Get-ADSummary](docs/Get-ADSummary.md)
 
 This simple command will give you a snapshot-sized summary of your Active Directory domain and forest.
 
 ![Get-ADSummary](images/get-adsummary.png)
+
+### [Get-NTDSInfo](docs/Get-NTDSInfo.md)
+
+`Get-NTDSInfo` will query a domain controller using PowerShell remoting to get information about the NTDS.dit and related files. You might use this to track the size of the file or to check on backups. A high log count might indicate a backup is needed.
+
+![Get-NTDSInfo](images/get-ntdsinfo.png)
+
+### [Get-ADBackupStatus](docs/Get-ADBackupStatus.md)
+
+There aren't any explicit PowerShell commands to tell if Active Directory has been backed up. One indirect approach is to use the command-line tool `repadmin.exe`. This command has a `/showbackup` parameter which will indicate when the different Active Directory partitions have been backed up. This command is a PowerShell wrapper for `repadmin.exe` that runs on the specified domain controller in a PowerShell remoting session.
+
+If running in a console host, the date value may be shown in red, if the date is beyond the backup limit of 3 days.
+
+![Get-ADBackupStatus](images/adbackup-status.png)
+
+The date limit is a user-customizable value in $ADReportingHash.
+
+```powershell
+$ADReportinghash.BackupLimit = 5
+```
+
+If you want a limit like this all the time, in your PowerShell profile script, import the module and add this line.
+
+The command output also has a second formatted view.
+
+![Get-ADBackupStatus Age](images/adbackup-age.png)
 
 #### [Get-ADBranch](docs/Get-ADBranch.md)
 
@@ -218,7 +244,7 @@ This simple command will give you a snapshot-sized summary of your Active Direct
 
 #### [Show-DomainTree](docs/Show-DomainTree.md)
 
-  Show-DomainTree will display your domain in a tree view at the console. By default, the function will use color-coded ANSI formatting, assuming your PowerShell console supports it. The default display uses the organizational unit names. Although, you can use the distinguishedname of each branch. If you use -Containers, containers like Users will be included.
+Show-DomainTree will display your domain in a tree view at the console. By default, the function will use color-coded ANSI formatting, assuming your PowerShell console supports it. The default display uses the organizational unit names. Although, you can use the distinguishedname of each branch. If you use -Containers, containers like Users will be included.
 
 ![Show-DomainTree](images/show-domaintree.png)
 
@@ -228,7 +254,7 @@ This simple command will give you a snapshot-sized summary of your Active Direct
 
 ![sample report](images/samplereport.png)
 
-The ADReportingTools module includes a CSS file which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.
+The ADReportingTools module includes a CSS file, which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.
 
 The module's CSS file can be found in the [reports](reports/domainreport.css) folder. You can view a complete sample report [here](reports/sampledomain.html).
 
@@ -279,7 +305,7 @@ The module adds a default table view for AD group objects.
 
 ![ADGroup Format](images/get-adgroup.png)
 
-If your PowerShell console supports it, Distribution, Universal, and DomainLocal groups will be higbhlighted in color.
+If your PowerShell console supports it, Distribution, Universal, and DomainLocal groups will be highlighted in color.
 
 ### ADReportingToolsOptions
 
@@ -315,4 +341,4 @@ These are items that I'm dreaming about:
 
 I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
-last updated 2021-03-17 19:24:57Z
+last updated *2021-03-26 21:01:41Z*

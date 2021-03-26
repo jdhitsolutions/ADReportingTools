@@ -29,12 +29,12 @@ https://github.com/jdhitsolutions/PSScriptTools
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>LocalUSN</Label>
-            <Width>11</Width>
+            <Width>9</Width>
             <Alignment>right</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>OriginatingUSN</Label>
-            <Width>17</Width>
+            <Label>OriginUSN</Label>
+            <Width>9</Width>
             <Alignment>right</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
