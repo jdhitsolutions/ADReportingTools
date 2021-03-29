@@ -1,7 +1,4 @@
 
-
-#todo show disabled accounts in orange or red
-
 Function New-ADDomainReport {
     [cmdletbinding()]
     [outputtype("System.IO.File")]
@@ -21,7 +18,7 @@ Function New-ADDomainReport {
         [string]$ReportTitle = "Domain Report",
         [Parameter(HelpMessage = "Specify the path the CSS file. If you don't specify one, the default module file will be used.")]
         [ValidateScript( { Test-Path $_ })]
-        [string]$CSSPath = "$PSScriptRoot\..\reports\domainreport.css",
+        [string]$CSSUri = "$PSScriptRoot\..\reports\domainreport.css",
         [Parameter(HelpMessage = "Embed the CSS file into the HTML document head. You can only embed from a file, not a URL.")]
         [switch]$EmbedCSS,
         [Parameter(HelpMessage = "Specify a domain controller to query.")]
@@ -133,9 +130,9 @@ var div = divs[i];
     }
 
     If ($EmbedCSS) {
-        if (Test-Path -Path $CSSPath) {
-            Write-Verbose "[$((Get-Date).TimeofDay)] Embedding CSS content from $CSSPath"
-            $cssContent = Get-Content -Path $CssPath | Where-Object { $_ -notmatch "^@" }
+        if (Test-Path -Path $CSSUri) {
+            Write-Verbose "[$((Get-Date).TimeofDay)] Embedding CSS content from $CSSUri"
+            $cssContent = Get-Content -Path $CSSUri | Where-Object { $_ -notmatch "^@" }
             $head += @"
 <style>
 $cssContent
@@ -145,14 +142,14 @@ $cssContent
             $cHtml.Head = $head
         }
         else {
-            Write-Error "Failed to find a CSS file  at $CSSPath. You can only embed from a file."
+            Write-Error "Failed to find a CSS file  at $CSSUri. You can only embed from a file."
             #bail out
             Write-Verbose "[$((Get-Date).TimeofDay)] Ending $($myinvocation.mycommand)"
             return
         }
     } #if embedCSS
     else {
-        $cHtml.add("CSSUri", $cssPath)
+        $cHtml.add("CSSUri", $CSSUri)
     }
 
     #endregion

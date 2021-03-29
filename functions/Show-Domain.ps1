@@ -168,7 +168,7 @@ Function Show-DomainTree {
 
   }
 
-  if ($host.name -eq 'ConsoleHost') {
+  if ($host.name -match 'ConsoleHost') {
     $getAD = @{
       ErrorAction = "stop"
       Identity    = $Name

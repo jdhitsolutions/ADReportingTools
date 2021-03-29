@@ -1,32 +1,35 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version: https://bit.ly/3vtugaC
+online version:
+schema: 2.0.0
 ---
 
-# Get-ADReportingTools
+# Open-ADReportingToolsHelp
 
 ## SYNOPSIS
 
-Get a summary list of AD Reporting commands
+Open a PDF help file.
 
 ## SYNTAX
 
 ```yaml
-Get-ADReportingTools [<CommonParameters>]
+Open-ADReportingToolsHelp [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will present a summary of commands in the ADReportingTools module grouped by verb. The default output will show the command name, any defined aliases, and the help synopsis.
+Open-ADReportingToolsHelp will launch a PDF file with all module documentation for the ADReportingTools module. The command should launch the file with whatever application is associated with the .PDF extension.
 
 ## EXAMPLES
 
 ### Example 1
 
-```dos
-PS C:\> Get-ADReportingTools
+```powershell
+PS C:\> Open=ADReportingToolsHelp
 ```
+
+Launch the help PDF file.
 
 ## PARAMETERS
 
@@ -40,17 +43,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### ADReportingTool
+### None
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[Open-ADReportingToolsHelp](Open-ADReportingToolsHelp.md)
-
-[Get-Module]()
-
-[Get-Command]()
+[Get-ADReportingTools](Get-ADReportingTools.md)

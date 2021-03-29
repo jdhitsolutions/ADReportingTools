@@ -1677,6 +1677,10 @@ PasswordLastSet   : 1/25/2021 1:32:37 PM
         <maml:uri>https://bit.ly/3vtugaC</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
+        <maml:linkText>Open-ADReportingToolsHelp</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-Module</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -2901,7 +2905,7 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>CSSPath</maml:name>
+          <maml:name>-CSSUri</maml:name>
           <maml:description>
             <maml:para>Specify the path to the CSS file. If you don't specify one, the default module file will be used.</maml:para>
           </maml:description>
@@ -3015,7 +3019,7 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>CSSPath</maml:name>
+        <maml:name>-CSSUri</maml:name>
         <maml:description>
           <maml:para>Specify the path to the CSS file. If you don't specify one, the default module file will be used.</maml:para>
         </maml:description>
@@ -3140,9 +3144,9 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-ADChangeReport -Since "3/1/2021" -Path C:\work\March-2021-Change.html -ReportTitle "March AD Change Report"  -EmbedCSS</dev:code>
+        <dev:code>PS C:\&gt; New-ADChangeReport -Since "3/1/2021" -Path C:\work\March-2021-Change.html -ReportTitle "March AD Change Report" -EmbedCSS</dev:code>
         <dev:remarks>
-          <maml:para>This will create a report called March-2021-Change.html with Active Directory changes since March 1, 2021l. The HTML report will use the default CSS file from the ADReportingTools module and embed it into the file.</maml:para>
+          <maml:para>This example will create a report called March-2021-Change.html with Active Directory changes since March 1, 2021l. The HTML report will use the default CSS file from the ADReportingTools module and embed it into the file.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -3164,7 +3168,7 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command will create an HTML report of your domain. The report layout is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be a table of recursive group members. You should get detail about users and computers if you hover the mouse over the distinguished name.</maml:para>
-      <maml:para>The module includes a CSS file which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.</maml:para>
+      <maml:para>The ADReportingTools module includes a CSS file which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3182,9 +3186,9 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>CSSPath</maml:name>
+          <maml:name>CSSUri</maml:name>
           <maml:description>
-            <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.</maml:para>
+            <maml:para>Specify the path to the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3256,9 +3260,9 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>CSSPath</maml:name>
+        <maml:name>CSSUri</maml:name>
         <maml:description>
-          <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.</maml:para>
+          <maml:para>Specify the path to the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3381,6 +3385,65 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Show-DomainTree</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Open-ADReportingToolsHelp</command:name>
+      <command:verb>Open</command:verb>
+      <command:noun>ADReportingToolsHelp</command:noun>
+      <maml:description>
+        <maml:para>Open a PDF help file.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Open-ADReportingToolsHelp will launch a PDF file with all module documentation for the ADReportingTools module. The command should launch the file with whatever application is associated with the .PDF extension.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Open-ADReportingToolsHelp</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Open=ADReportingToolsHelp</dev:code>
+        <dev:remarks>
+          <maml:para>Launch the help PDF file.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADReportingTools</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

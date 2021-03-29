@@ -17,8 +17,10 @@ The assumption is that you will run these commands with administrator credential
 This module is available in the PowerShell Gallery. Install it with `Install-Module` after you have installed the Active Directory RSAT capability.
 
 ```powershell
-Install-Module -name ADReportingTools
+Install-Module -name ADReportingTools -force
 ```
+
+Once installed, you can run a command like `Get-ADReportingTools` to see list of commands. Or run `Open-ADReportingToolsHelp` to launch a PDF version of this file, as well as command documentation.
 
 ## Design Philosophy
 
@@ -46,6 +48,8 @@ The ADReportingTools focuses primarily on working with Active Directory users, g
 ![ADReportingTools](images/get-adreportingtools.png)
 
 ### Users
+
+![adusers](images/Users01.png)
 
 #### [Get-ADCanonicalUser](docs/Get-ADCanonicalUser.md)
 
@@ -133,6 +137,8 @@ DomainDNS : Research.Globomantics.com
 
 ### Groups
 
+![adgroups](images/Collection_DomainGroup01.png)
+
 #### [Get-ADGroupUser](docs/Get-ADGroupUser.md)
 
 The `Get-ADGroupUser` command will display all users of a given Active Directory group. The search is automatically recursive. The default output is a formatted table that will highlight disabled accounts in red. The ANSI color coding will only work in a console session.
@@ -159,6 +165,8 @@ Distribution groups will be shown in green and member counts of 0 in red. The Ag
 
 ### Computers
 
+![adcomputers](images/ComputerAccount01.png)
+
 #### [Get-ADDomainControllerHealth](docs/Get-ADDomainControllerHealth.md)
 
 `Get-ADDomainControllerHealth` is intended to give you a quick summary of the overall health of your Active Directory domain controllers. The concept of "health" is based on the following:
@@ -182,6 +190,8 @@ You can use additional custom views to format the results.
 
 ### Reports
 
+![reports](images/Folder_FolderOpenWithDocumentWriting01.png)
+
 The primary goal for this module is reporting. The intention is to provide easy-to-use commands that will provide at least a snapshot view of information you might want to know.
 
 #### [Get-ADSummary](docs/Get-ADSummary.md)
@@ -204,7 +214,7 @@ If running in a console host, the date value may be shown in red, if the date is
 
 ![Get-ADBackupStatus](images/adbackup-status.png)
 
-The date limit is a user-customizable value in $ADReportingHash.
+The date limit is a user-customizable value in `$ADReportingHash`.
 
 ```powershell
 $ADReportinghash.BackupLimit = 5
@@ -341,4 +351,4 @@ These are items that I'm dreaming about:
 
 I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
-last updated *2021-03-26 21:01:41Z*
+last updated *2021-03-29 15:29:03Z*

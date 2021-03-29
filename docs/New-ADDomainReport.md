@@ -15,20 +15,20 @@ Create an HTML report of your domain.
 
 ```yaml
 New-ADDomainReport [[-Name] <String>] -FilePath <String>
-[-ReportTitle <String>] [-CSSPath <String>] [-EmbedCSS] [-Server <String>] [-Credential <PSCredential>] [<CommonParameters>]
+[-ReportTitle <String>] [-CSSUri <String>] [-EmbedCSS] [-Server <String>] [-Credential <PSCredential>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 This command will create an HTML report of your domain. The report layout is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be a table of recursive group members. You should get detail about users and computers if you hover the mouse over the distinguished name.
 
-The module includes a CSS file which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.
+The ADReportingTools module includes a CSS file which will be used by default. But you can specify an alternate CSS file. If you want to make the file portable, you can opt to embed the CSS into the HTML file. You can only embed from a file, not a URL reference.
 
 ## EXAMPLES
 
 ### Example 1
 
-```dos
+```powershell
 PS C:\> New-ADDomainReport -filepath c:\work\company.html -embedcss
 ```
 
@@ -36,9 +36,9 @@ Create the HTML report and embed the default CSS file.
 
 ## PARAMETERS
 
-### -CSSPath
+### -CSSUri
 
-Specify the path the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.
+Specify the path to the CSS file. If you don't specify one, the default module file will be used. The default file is in the Reports folder of this module.
 
 ```yaml
 Type: String

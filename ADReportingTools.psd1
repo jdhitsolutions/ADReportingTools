@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0'
+ModuleVersion = '1.1.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -88,7 +88,7 @@ FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADF
 'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
 'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName','New-ADChangeReport',
 'Get-ADReportingToolsOptions','Set-ADReportingToolsOptions','Get-ADDepartment','Get-ADComputerReport', 'Get-NTDSInfo',
-'Get-ADBackupStatus'
+'Get-ADBackupStatus','Open-ADReportingToolsHelp'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 #CmdletsToExport = ''
@@ -114,7 +114,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @("ActiveDirectory")
+        Tags = @("ActiveDirectory","html","reporting")
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/jdhitsolutions/ADReportingTools/blob/main/LICENSE.txt'

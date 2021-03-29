@@ -1,5 +1,15 @@
 # Changelog for ADReportingTools
 
+## 1.1.0
+
++ Fix typo in `$ADReportingHash` Note. ([Issue #22](https://github.com/jdhitsolutions/ADReportingTools/issues/22))
++ Added `Open-ADReportingToolsHelp` to launch a PDF with module documentation. ([Issue #2](https://github.com/jdhitsolutions/ADReportingTools/issues/2))
++ Fixed bad parameter in `New-ADChangeReport`. ([Issue #24](https://github.com/jdhitsolutions/ADReportingTools/issues/24))
++ Modified CSS parameter in `New-DomainReport`.
++ Modified `Show-DomainTree` to test for ConsoleHost as a match and not equal to. ([Issue #23](https://github.com/jdhitsolutions/ADReportingTools/issues/23))
++ Updated `README.md`.
++ Help updates.
+
 ## 1.0.0
 
 + First stable release.

@@ -15,7 +15,7 @@ Create an HTML change report.
 
 ```yaml
 New-ADChangeReport [[-Since] <DateTime>] [-ReportTitle <String>]
-[-Logo <String>] [-CSSPath <String>] [-EmbedCSS] [-ByContainer]
+[-Logo <String>] [--CSSUri <String>] [-EmbedCSS] [-ByContainer]
 [-Path <String>] [-Server <String>] [-Credential <PSCredential>]
 [-AuthType <String>] [<CommonParameters>]
 ```
@@ -29,10 +29,10 @@ New-ADChangeReport will create an HTML report showing changes to Active Director
 ### Example 1
 
 ```powershell
-PS C:\> New-ADChangeReport -Since "3/1/2021" -Path C:\work\March-2021-Change.html -ReportTitle "March AD Change Report"  -EmbedCSS
+PS C:\> New-ADChangeReport -Since "3/1/2021" -Path C:\work\March-2021-Change.html -ReportTitle "March AD Change Report" -EmbedCSS
 ```
 
-This will create a report called March-2021-Change.html with Active Directory changes since March 1, 2021l. The HTML report will use the default CSS file from the ADReportingTools module and embed it into the file.
+This example will create a report called March-2021-Change.html with Active Directory changes since March 1, 2021l. The HTML report will use the default CSS file from the ADReportingTools module and embed it into the file.
 
 ## PARAMETERS
 
@@ -77,7 +77,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -CSSPath
+### --CSSUri
 
 Specify the path to the CSS file. If you don't specify one, the default module file will be used.
 

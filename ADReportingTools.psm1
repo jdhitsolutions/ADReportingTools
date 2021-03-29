@@ -29,7 +29,7 @@ $newRunspace.ApartmentState = "STA"
 $newRunspace.ThreadOptions = "ReuseThread"
 [void]$newRunspace.Open()
 $Global:ADReportingHash = [hashtable]::Synchronized(@{
-        Note        = "This used by the ADReportingTools module. Do not delete."
+        Note        = "This hashtable is used by the ADReportingTools module. Do not delete."
         Departments = @()
         DomainControllers = @()
         BackupLimit = 3
@@ -53,7 +53,7 @@ $psCmd.Runspace = $newRunspace
 
 $handle = $psCmd.BeginInvoke()
 
-$ADReportingHash.Add("handle", $handle)
+$ADReportingHash.Add("Handle", $handle)
 
 #start a job to clean up the runspace
 [void](Start-ThreadJob -ScriptBlock {

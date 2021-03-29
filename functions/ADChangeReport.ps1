@@ -16,7 +16,7 @@ Function New-ADChangeReport {
         [string]$Logo,
         [Parameter(HelpMessage = "Specify the path to the CSS file. If you don't specify one, the default module file will be used.")]
         [ValidateScript( { Test-Path $_ })]
-        [string]$CSSPath = "$PSScriptRoot\..\reports\changereport.css",
+        [string]$CSSUri = "$PSScriptRoot\..\reports\changereport.css",
         [Parameter(HelpMessage = "Embed the CSS file into the HTML document head. You can only embed from a file, not a URL.")]
         [switch]$EmbedCSS,
         [Parameter(HelpMessage = "Add a second grouping based on the object's container or OU.")]
@@ -109,10 +109,17 @@ var div = divs[i];
 </script>
 "@
 
+$htmlParams = @{
+    Head        = $head
+    Precontent  = $content
+    Body        = ""
+    PostContent = $post
+}
+
         If ($EmbedCSS) {
-            if (Test-Path -Path $CSSPath) {
-                Write-Verbose "[$(Get-Date)] Embedding CSS content from $CSSPath"
-                $cssContent = Get-Content -Path $CssPath | Where-Object { $_ -notmatch "^@" }
+            if (Test-Path -Path $CSSUri) {
+                Write-Verbose "[$(Get-Date)] Embedding CSS content from $CSSUri"
+                $cssContent = Get-Content -Path $CSSUri | Where-Object { $_ -notmatch "^@" }
                 $head += @"
 <style>
 $cssContent
@@ -120,21 +127,15 @@ $cssContent
 "@
             }
             else {
-                Write-Error "Failed to find a CSS file at $CSSPath. You can only embed from a file."
+                Write-Error "Failed to find a CSS file at $CSSUri. You can only embed from a file."
                 #bail out
                 Write-Verbose "[$(Get-Date)] Ending $($myinvocation.mycommand)"
                 return
             }
         }
         else {
-            $htmlParams.Add("CSSPath", $CSSPath)
-        }
-
-        $htmlParams = @{
-            Head        = $head
-            Precontent  = $content
-            Body        = ""
-            PostContent = $post
+            Write-Verbose "[$(Get-Date)] Adding CSSPath $CSSUri"
+            $htmlParams.Add("CSSUri", $CSSUri)
         }
 
         #create a list object to hold all of the HTML fragments
