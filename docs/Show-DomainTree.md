@@ -22,6 +22,8 @@ Show-DomainTree [[-Name] <String>] [-UseDN] [-Server <String>]
 
 This command will display your domain in a tree view at the console. By default, Show-DomainTree will use color-coded ANSI formatting. The default display uses the organizational unit names. Although, you can use the distinguishedname of each branch. If you use -Containers, containers like Users will be included.
 
+NOTE: This command will only run in a console host session. It will **not** run in the PowerShell ISE or VSCode.
+
 ## EXAMPLES
 
 ### Example 1

@@ -608,6 +608,244 @@ CN=D.Waldow,OU=Employees,DC=Company,DC=Pri</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-ADComputerReport</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ADComputerReport</command:noun>
+      <maml:description>
+        <maml:para>Get AD Computer account information</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get-ADComputerReport will gather information about computer objects in Active Directory. The default is to find all objects. But you can filter on a category of Server or Desktop. The filtering is done based on the operating system value.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ADComputerReport</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Enter an AD conmputer identity. Wildcard are allowed.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Category</maml:name>
+          <maml:description>
+            <maml:para>Filter by the operating system.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Any</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Server</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Desktop</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="RunAs">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Specify an alternate credential. This will be used to query the domain and all domain controllers.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Location</maml:name>
+          <maml:description>
+            <maml:para>Filter by location.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SearchBase</maml:name>
+          <maml:description>
+            <maml:para>Enter the distinguished name of the top-level container or organizational unit.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dc, domaincontroller">
+          <maml:name>Server</maml:name>
+          <maml:description>
+            <maml:para>Specify a domain controller to query for a list of domain controllers.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Category</maml:name>
+        <maml:description>
+          <maml:para>Filter by the operating system.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="RunAs">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Specify an alternate credential. This will be used to query the domain and all domain controllers.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Location</maml:name>
+        <maml:description>
+          <maml:para>Filter by location.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Enter an AD conmputer identity. Wildcard are allowed.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SearchBase</maml:name>
+        <maml:description>
+          <maml:para>Enter the distinguished name of the top-level container or organizational unit.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dc, domaincontroller">
+        <maml:name>Server</maml:name>
+        <maml:description>
+          <maml:para>Specify a domain controller to query for a list of domain controllers.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>ADComputerInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADComputerReport
+
+Name            Description           Location IPAddress       LastLogonDate
+----            -----------           -------- ---------       -------------
+DOM1       HQ domain controllers       hqdc    192.168.3.10    3/26/2021 3:12...
+DOM2       HQ domain controllers       hqdc    192.168.3.11    3/26/2021 3:21...
+Mail01
+SRV1       corp resource server        hqdc    192.168.3.50    3/26/2021 10:4...
+SRV2                                  Omaha    192.168.3.51    3/26/2021 10:4...
+...</dev:code>
+        <dev:remarks>
+          <maml:para>If you are running in a PowerShell console, domain controllers and member servers will be highlighted with an ANSI sequence.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ADComputerReport -Name srv1 | select *
+
+
+Name              : SRV1
+DNSHostname       : SRV1.Company.Pri
+Description       : corp resource server
+OperatingSystem   : Windows Server 2016 Standard Evaluation
+IsServer          : True
+Location          : hqdc
+LastLogonDate     : 3/26/2021 10:45:27 AM
+IPAddress         : 192.168.3.50
+Created           : 1/25/2021 1:33:02 PM
+Modified          : 3/26/2021 9:04:03 PM
+DistinguishedName : CN=SRV1,CN=Computers,DC=Company,DC=Pri</dev:code>
+        <dev:remarks>
+          <maml:para>Get all report properties.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADDomainControllerHealth</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-ADDepartment</command:name>
       <command:verb>Get</command:verb>
       <command:noun>ADDepartment</command:noun>
@@ -1361,24 +1599,17 @@ Samantha Smith SamanthaS Sales       CN=SamanthaS,OU=Sales,DC=Company,DC=Pri</de
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-ADGroupReport  -ExcludeBuiltIn | Format-Table -View age
 
-Name                 Members Created                 Modified                            Age
-----                 ------- -------                 --------                            ---
-IT                         5 1/25/2021 1:32:44 PM    3/15/2021 5:42:50 PM           17:04:02
-Sales                      3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:23
-Marketing                  3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:24
-Accounting                 3 1/25/2021 1:32:44 PM    3/4/2021 9:25:39 AM         12.01:21:14
-JEA Operators              4 1/25/2021 1:32:44 PM    1/28/2021 11:34:57 AM       46.23:11:56
-Web Servers                1 1/25/2021 1:32:45 PM    3/15/2021 5:42:33 PM           17:04:20
-DevOpsPrimary              0 1/25/2021 4:47:53 PM    1/27/2021 10:35:11 AM       48.00:11:42
-DevOpsBackup               3 1/25/2021 4:48:02 PM    3/16/2021 10:12:01 AM          00:34:52
-Payroll Managers           0 1/26/2021 10:12:34 AM   1/26/2021 10:12:34 AM       49.00:34:19
-ThetaDL                    1 2/16/2021 8:32:36 AM    3/16/2021 9:43:32 AM           01:03:21
-StrategyDL                 0 2/16/2021 9:03:12 AM    3/15/2021 5:45:07 PM           17:01:46
-SecOpAdmin                 2 2/24/2021 12:37:28 PM   2/24/2021 12:39:15 PM       19.22:07:38
-FocusOne                  16 2/24/2021 3:27:58 PM    3/16/2021 9:43:32 AM           01:03:21
-SupportTech                2 2/26/2021 6:12:51 PM    3/15/2021 5:43:03 PM           17:03:51
-DL-Test                    4 3/3/2021 1:54:01 PM     3/16/2021 9:43:32 AM           01:03:22
-DL-Test2                   1 3/3/2021 1:55:13 PM     3/3/2021 2:01:50 PM         12.20:45:04</dev:code>
+Name       Members Created                 Modified                            Age
+----       ------- -------                 --------                            ---
+IT               5 1/25/2021 1:32:44 PM    3/15/2021 5:42:50 PM           17:04:02
+Sales            3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:23
+Marketing        3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:24
+Accounting       3 1/25/2021 1:32:44 PM    3/4/2021 9:25:39 AM         12.01:21:14
+JEA Operators    4 1/25/2021 1:32:44 PM    1/28/2021 11:34:57 AM       46.23:11:56
+Web Servers      1 1/25/2021 1:32:45 PM    3/15/2021 5:42:33 PM           17:04:20
+DevOpsPrimary    0 1/25/2021 4:47:53 PM    1/27/2021 10:35:11 AM       48.00:11:42
+DevOpsBackup     3 1/25/2021 4:48:02 PM    3/16/2021 10:12:01 AM          00:34:52
+...</dev:code>
         <dev:remarks>
           <maml:para>If your console supports it, Distribution Lists will be displayed in green, and a member count of 0 will be displayed in red.</maml:para>
         </dev:remarks>
@@ -1416,6 +1647,10 @@ Marketing                               3 Security        Global      OU=Marketi
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Get-ADGroupUser</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-ADGroupReport</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
@@ -3391,6 +3626,339 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>New-ADGroupReport</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>ADGroupReport</command:noun>
+      <maml:description>
+        <maml:para>Create an HTML report of AD groups</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>New-ADGroupReport will create an HTML report of specified groups from Active Directory. This function is based on Get-ADGroupReport and converts the output to an HTML file. You can specify a CSS file or use the default from the module.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-ADGroupReport</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Enter an AD Group name. Wildcards are allowed.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CSSUri</maml:name>
+          <maml:description>
+            <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>groupreport.css</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Category</maml:name>
+          <maml:description>
+            <maml:para>Filter on the group category.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">All</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Distribution</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Security</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="RunAs">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Specify an alternate credential.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>EmbedCSS</maml:name>
+          <maml:description>
+            <maml:para>Embed the CSS file into the HTML document head. You can only embed from a file, not a URL.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExcludeBuiltIn</maml:name>
+          <maml:description>
+            <maml:para>Exclude BuiltIn and Users containers.  Domain Users, Domain Guests, and Domain Computers are always excluded regardless of this parameter.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>FilePath</maml:name>
+          <maml:description>
+            <maml:para>Specify the output HTML file.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ReportTitle</maml:name>
+          <maml:description>
+            <maml:para>Enter the name of the report to be displayed in the web browser</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>AD Group Report</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Scope</maml:name>
+          <maml:description>
+            <maml:para>Filter on group scope</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Any</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">DomainLocal</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Global</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Universal</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SearchBase</maml:name>
+          <maml:description>
+            <maml:para>Enter the distinguished name of the top-level container or organizational unit.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dc, domaincontroller">
+          <maml:name>Server</maml:name>
+          <maml:description>
+            <maml:para>Specify a domain controller to query.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CSSUri</maml:name>
+        <maml:description>
+          <maml:para>Specify the path the CSS file. If you don't specify one, the default module file will be used.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>groupreport.css</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Category</maml:name>
+        <maml:description>
+          <maml:para>Filter on the group category.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="RunAs">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Specify an alternate credential.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>EmbedCSS</maml:name>
+        <maml:description>
+          <maml:para>Embed the CSS file into the HTML document head. You can only embed from a file, not a URL.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExcludeBuiltIn</maml:name>
+        <maml:description>
+          <maml:para>Exclude BuiltIn and Users containers.  Domain Users, Domain Guests, and Domain Computers are always excluded regardless of this parameter.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>FilePath</maml:name>
+        <maml:description>
+          <maml:para>Specify the output HTML file.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Enter an AD Group name. Wildcards are allowed.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ReportTitle</maml:name>
+        <maml:description>
+          <maml:para>Enter the name of the report to be displayed in the web browser</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>AD Group Report</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Scope</maml:name>
+        <maml:description>
+          <maml:para>Filter on group scope</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SearchBase</maml:name>
+        <maml:description>
+          <maml:para>Enter the distinguished name of the top-level container or organizational unit.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dc, domaincontroller">
+        <maml:name>Server</maml:name>
+        <maml:description>
+          <maml:para>Specify a domain controller to query.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.IO.File</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-ADGroupReport -excludeBuiltIn -embedCSS -server dom2 -category security -filepath c:\work\secgroup.html</dev:code>
+        <dev:remarks>
+          <maml:para>This example will create a new HTML report of all Security groups, excluding the built-in groups. Disabled user accounts will be highlighted in red since the command is using the module's CSS file, which is also being embedded. User detail will pop-up when the mouse hovers over the user's distinguishedname.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ADGroupReport</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Open-ADReportingToolsHelp</command:name>
       <command:verb>Open</command:verb>
       <command:noun>ADReportingToolsHelp</command:noun>
@@ -3573,6 +4141,7 @@ Date             : 3/26/2021 4:15:00 PM</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command will display your domain in a tree view at the console. By default, Show-DomainTree will use color-coded ANSI formatting. The default display uses the organizational unit names. Although, you can use the distinguishedname of each branch. If you use -Containers, containers like Users will be included.</maml:para>
+      <maml:para>NOTE: This command will only run in a console host session. It will not run in the PowerShell ISE or VSCode.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

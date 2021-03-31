@@ -4,13 +4,13 @@
 
 ![ActiveDirectory](images/2PopulatedDomain01.png)
 
-This module contains a collection of PowerShell tools that you can use to generate reports and gather information about your Active Directory domain. Many of these commands will require the ActiveDirectory module, which you can get by installing the Remote Server Administration Tools (RSAT) for Active Directory on Windows 10.
+This module contains a collection of PowerShell tools that you can use to generate reports and gather information about your Active Directory domain. Many of these commands will require the ActiveDirectory module, which you can get by installing the [Remote Server Administration Tools (RSAT)](https://docs.microsoft.com/troubleshoot/windows-server/system-management-components/remote-server-administration-tools) for Active Directory on Windows 10.
 
 ```powershell
 Get-WindowsCapability -Online -Name RSAT.Active* | Add-WindowsCapability -online
 ```
 
-The assumption is that you will run these commands with administrator credentials from a Windows 10 desktop. You should not need console access to a domain controller. These commands are for working with a local Active Directory infrastructure, not anything in Azure.
+The assumption is that you will run these commands with administrator credentials from a Windows 10 desktop. You should not need console access to a domain controller. Athough some module commands will use PowerShell remoting over WSMAN to gather information. These commands are designed to work with a **local** Active Directory infrastructure, not anything in Azure.
 
 ## Installation
 
@@ -41,11 +41,21 @@ The ADReportingTools focuses primarily on working with Active Directory users, g
 
 ## Module Commands
 
+The commands in this module, and may of the supporting files, are intended to be run from a PowerShell console host session. If you run some commands in the PwoerShell ISE or VS Code, you may see a warning about an incompatibility or your may have a poor experience. *There is no intention of making this module 100% compatible with the ISE or VSCode.*
+
 ### [Get-ADReportingTools](docs/Get-ADReportingTools.md)
 
 `Get-ADReportingTools` is a meta-command. Run this command to get a formatted list of available commands in the ADReportingTools module.
 
 ![ADReportingTools](images/get-adreportingtools.png)
+
+### [Open-ADReportingToolsHelp](docs/Open-ADReportingToolsHelp.md)
+
+All module documentation, including this README and command help, has been compiled into a PDF. Run `Open-ADReportingToolsHelp` to view the file.
+
+![ADReportingToolsHelp](images/open-adreportingtoolshelp.png)
+
+The command will launch the application associated with PDF files.
 
 ### Users
 
@@ -109,7 +119,7 @@ SID               : S-1-5-21-493037332-564925384-1585924867-1105
 
 The user's distinguished name is always included in the output.
 
-### [Get-ADDepartment](docs/Get-ADDepartment.md)
+#### [Get-ADDepartment](docs/Get-ADDepartment.md)
 
 A related command is `Get-ADDepartment`. This command will get members of a given department. When you import the ADReportingTools module, it will define a global variable called `ADReportingHash,` which is a hashtable. The variable has a key called `Departments`. This variable is used in an argument completer for the `Department` parameter so that you can tab-complete the parameter value.
 
@@ -167,6 +177,14 @@ Distribution groups will be shown in green and member counts of 0 in red. The Ag
 
 ![adcomputers](images/ComputerAccount01.png)
 
+### [Get-ADComputerReport](docs/Get-ADComputerReport.md)
+
+`Get-ADComputerReport` will gather information about computer objects in Active Directory.
+
+![get-adcomputerreport](images/get-adcomputerreport.png)
+
+If you are running in a PowerShell console, domain controllers and member servers will be highlighted with an ANSI sequence. The default behavior is to find all objects. But you can filter on a category of Server or Desktop. The filtering is done based on the operating system value.
+
 #### [Get-ADDomainControllerHealth](docs/Get-ADDomainControllerHealth.md)
 
 `Get-ADDomainControllerHealth` is intended to give you a quick summary of the overall health of your Active Directory domain controllers. The concept of "health" is based on the following:
@@ -200,13 +218,13 @@ This simple command will give you a snapshot-sized summary of your Active Direct
 
 ![Get-ADSummary](images/get-adsummary.png)
 
-### [Get-NTDSInfo](docs/Get-NTDSInfo.md)
+#### [Get-NTDSInfo](docs/Get-NTDSInfo.md)
 
 `Get-NTDSInfo` will query a domain controller using PowerShell remoting to get information about the NTDS.dit and related files. You might use this to track the size of the file or to check on backups. A high log count might indicate a backup is needed.
 
 ![Get-NTDSInfo](images/get-ntdsinfo.png)
 
-### [Get-ADBackupStatus](docs/Get-ADBackupStatus.md)
+#### [Get-ADBackupStatus](docs/Get-ADBackupStatus.md)
 
 There aren't any explicit PowerShell commands to tell if Active Directory has been backed up. One indirect approach is to use the command-line tool `repadmin.exe`. This command has a `/showbackup` parameter which will indicate when the different Active Directory partitions have been backed up. This command is a PowerShell wrapper for `repadmin.exe` that runs on the specified domain controller in a PowerShell remoting session.
 
@@ -260,7 +278,7 @@ Show-DomainTree will display your domain in a tree view at the console. By defau
 
 #### [New-ADDomainReport](docs/New-ADDomainReport.md)
 
-`New-ADDomainReport` will create an HTML report of your domain. The report layout is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be table of recursive group members. You should get detail about users and computers if you hover the mouse over the distinguished name. The report includes javascript to enable collapsible regions.
+`New-ADDomainReport` will create an HTML report of your domain. The report layout is by container and organizational unit. Underneath each branch will be a table display of users, computers, and groups. Beneath each group will be a table of recursive group members. You should get detail about users and computers if you hover the mouse over the distinguished name. The report includes javascript to enable collapsible regions.
 
 ![sample report](images/samplereport.png)
 
@@ -276,7 +294,17 @@ The module's CSS file can be found in the [reports](reports/domainreport.css) fo
 
 You can view the default CSS file [here](reports/changereport.css). A complete sample report can be found [here](reports/samplechange.html).
 
-## Format and Type Extensions
+#### [New-ADGroupReport](docs/New-ADGroupReport.md)
+
+New-ADGroupReport will create an HTML report of specified groups from Active Directory. This function is based on Get-ADGroupReport and converts the output to an HTML file. You can specify a CSS file or use the default from the module.
+
+![sample group report](images/samplegroupreport.png)
+
+Disabled user accounts will be highlighted in red when using the default CSS file from the module. User detail will pop-up when the mouse hovers over the user's distinguishedname.
+
+A complete sample report can be found [here](reports/samplegroup.html).
+
+## Formats, Type Extensions, and Other Features
 
 The module includes format and type extensions to simplify using the commands in the Active Directory module. The extensions are automatically imported into your PowerShell session when you import the ADReportingTools module.
 
@@ -333,22 +361,55 @@ Set-ADReportingToolsOptions DistributionList -ANSI "$([char]0x1b)[38;5;50m"
 
 This change is only for the duration of your PowerShell session. Add the command to a PowerShell profile script to make it more permanent.
 
-:octocat: If you would like to see what ANSI sequences look like, install the [PSScriptTools](https://github.com/jdhitsolutions/PSScriptTools/blob/master/README.md) module from the PowerShell Gallery and use [Show-ANSISequence](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Show-ANSISequence.md).
+![octocat](images/octocat.png) If you would like to see what ANSI sequences look like, install the [PSScriptTools](https://github.com/jdhitsolutions/PSScriptTools/blob/master/README.md) module from the PowerShell Gallery and use [Show-ANSISequence](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Show-ANSISequence.md).
+
+### ADReportingHash
+
+Several module configuration details are storing in a hashtable called `$ADReportingHash`. Here's a sample.
+
+```powershell
+Name                           Value
+----                           -----
+Handle                         System.Management.Automation.PowerShellAsyncResult
+Note                           This hashtable is used by the ADReportingTools module. Do not delete.
+BackupLimit                    3
+Departments                    {Accounting, Consumer Affairs, Customer Service, Dev...}
+LastUpdated                    3/29/2021 5:54:23 PM
+DomainControllers              {DOM1.Company.Pri, DOM2.Company.Pri}
+```
+
+Some of these items, such as the list of Departments and Domain Controllers, are gathered when you import the module. On import, a background runspace is invoked that uses a synchronized hashtable to surface information to your session.
+
+### Argument Completers
+
+One way the data from `$ADReportingHash` is used is as argument completers. The `Department` parameter from `Get-ADDepartment`is one example. Of course, you need to wait until the background runspace is complete before this will give you any values.
+
+All commands in this module, as well as the Get commands from the Active Directory module, that have a `Server` parameter, will use the DomainController list as argument completers. Note that the domain controller names are stored in their DNS format.
+
+### CSS Files
+
+The HTML report commands rely on CSS for formatting. In some cases, CSS is defined in the function and embedded into the HTML file. Other CSS is imported from sample files in the Reports directory of this module. If you would like to define your own CSS, it is recommended you use the samples as templates for your own work. You might also need to view the source code of specific functions to see what style settings are being defined.
+
+You are always welcome to create your own function or script based on code from this module.
 
 ## Future Work
 
-These are items I'm considering adding to the module:
+These are items under consideration and likely to be added to the module:
 
-- Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy)
-- Store `ADReportingToolsOptions` in a JSON file.
+- Get-ADPasswordPending (look at Get-ADUserResultantPasswordPolicy).
+- An HTML computer report.
+- Enhanced output from `Search-ADAccount`. This might be several commands.
+- Add logo support to the HTML reporting functions.
+- Get items by site or location.
+- Get items ManagedBy.
+- Get newest created items or items created since a given date.
 
-### Magical Thinking
+These are items that I'm dreaming about and may add at some point in the future:
 
-These are items that I'm dreaming about:
-
-- a toolset to build HTML reports on the fly
-- a WPF based OU browser or a simplified version of ADUC
+- A toolset to build HTML reports on the fly based on default formatting.
+- A WPF-based OU browser or a simplified version of ADUC.
+- A WPF-based password reporting tool.
 
 I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
-last updated *2021-03-29 15:29:03Z*
+last updated *2021-03-31 13:24:11Z*

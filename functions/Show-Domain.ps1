@@ -223,7 +223,7 @@ $date $tzname
     $footer
   }
   else {
-    Write-Host "This command should be run in a PowerShell Console host." -ForegroundColor magenta
+    Write-Host "This command should be run in a PowerShell Console host. It will NOT run in the PowerShell ISE or VS Code." -ForegroundColor magenta
   }
   Write-Verbose "Ending $($myinvocation.MyCommand)"
 }

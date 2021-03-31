@@ -1,26 +1,6 @@
 #commands to manage ADReportingTools options
 
-#define color options
-
-#use $([char]0x1b) because it will work in Windows PowerShell and PowerShell 7.
-
-$ADReportingToolsOptions = @{
-    DistributionList   = "$([char]0x1b)[92m"
-    Alert              = "$([char]0x1b)[91m"
-    Warning            = "$([char]0x1b)[38;5;220m"
-    Universal          = "$([char]0x1b)[38;5;170m"
-    DomainLocal        = "$([char]0x1b)[38;5;191m"
-    Other              = "$([char]0x1b)[38;5;212m"
-    Protected          = "$([char]0x1b)[38;5;199m"
-    Container          = "$([char]0x1b)[38;5;1456m"
-    OrganizationalUnit = "$([char]0x1b)[38;5;191m"
-    DomainDNS          = "$([char]0x1b)[1;4;38;5;227m"
-    UserClass          = "$([char]0x1b)[30;104m"
-    GroupClass         = "$([char]0x1b)[30;48;5;94m"
-    ComputerClass      = "$([char]0x1b)[30;48;5;50m"
-    IsDC               = "$([char]0x1b)[38;5;155m"
-    IsServer           = "$([char]0x1b)[38;5;50m"
-}
+# color options are stored in $ADReportingToolsOptions which is defined in the root module
 
 function Get-ADReportingToolsOptions {
     [cmdletbinding()]

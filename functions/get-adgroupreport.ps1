@@ -11,16 +11,16 @@ Function Get-ADGroupReport {
         [string]$Name = "*",
         [Parameter(HelpMessage = "Enter the distinguished name of the top level container or organizational unit.")]
         [ValidateScript( {
-                $testDN = $_
-                Try {
-                    [void](Get-ADObject -Identity $_ -ErrorAction Stop)
-                    $True
-                }
-                Catch {
-                    Write-Warning "Failed to verify $TestDN as a valid searchbase."
-                    Throw $_.Exception.message
-                    $False
-                }
+            $testDN = $_
+            Try {
+                [void](Get-ADObject -Identity $_ -ErrorAction Stop)
+                $True
+            }
+            Catch {
+                Write-Warning "Failed to verify $TestDN as a valid searchbase."
+                Throw $_.Exception.message
+                $False
+            }
             })]
         [string]$SearchBase,
         [Parameter(HelpMessage = "Filter on the group category")]

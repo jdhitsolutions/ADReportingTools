@@ -51,24 +51,17 @@ If your PowerShell host supports it, Disabled user accounts will display the dis
 ```powershell
 PS C:\> Get-ADGroupReport  -ExcludeBuiltIn | Format-Table -View age
 
-Name                 Members Created                 Modified                            Age
-----                 ------- -------                 --------                            ---
-IT                         5 1/25/2021 1:32:44 PM    3/15/2021 5:42:50 PM           17:04:02
-Sales                      3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:23
-Marketing                  3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:24
-Accounting                 3 1/25/2021 1:32:44 PM    3/4/2021 9:25:39 AM         12.01:21:14
-JEA Operators              4 1/25/2021 1:32:44 PM    1/28/2021 11:34:57 AM       46.23:11:56
-Web Servers                1 1/25/2021 1:32:45 PM    3/15/2021 5:42:33 PM           17:04:20
-DevOpsPrimary              0 1/25/2021 4:47:53 PM    1/27/2021 10:35:11 AM       48.00:11:42
-DevOpsBackup               3 1/25/2021 4:48:02 PM    3/16/2021 10:12:01 AM          00:34:52
-Payroll Managers           0 1/26/2021 10:12:34 AM   1/26/2021 10:12:34 AM       49.00:34:19
-ThetaDL                    1 2/16/2021 8:32:36 AM    3/16/2021 9:43:32 AM           01:03:21
-StrategyDL                 0 2/16/2021 9:03:12 AM    3/15/2021 5:45:07 PM           17:01:46
-SecOpAdmin                 2 2/24/2021 12:37:28 PM   2/24/2021 12:39:15 PM       19.22:07:38
-FocusOne                  16 2/24/2021 3:27:58 PM    3/16/2021 9:43:32 AM           01:03:21
-SupportTech                2 2/26/2021 6:12:51 PM    3/15/2021 5:43:03 PM           17:03:51
-DL-Test                    4 3/3/2021 1:54:01 PM     3/16/2021 9:43:32 AM           01:03:22
-DL-Test2                   1 3/3/2021 1:55:13 PM     3/3/2021 2:01:50 PM         12.20:45:04
+Name       Members Created                 Modified                            Age
+----       ------- -------                 --------                            ---
+IT               5 1/25/2021 1:32:44 PM    3/15/2021 5:42:50 PM           17:04:02
+Sales            3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:23
+Marketing        3 1/25/2021 1:32:44 PM    3/16/2021 9:52:29 AM           00:54:24
+Accounting       3 1/25/2021 1:32:44 PM    3/4/2021 9:25:39 AM         12.01:21:14
+JEA Operators    4 1/25/2021 1:32:44 PM    1/28/2021 11:34:57 AM       46.23:11:56
+Web Servers      1 1/25/2021 1:32:45 PM    3/15/2021 5:42:33 PM           17:04:20
+DevOpsPrimary    0 1/25/2021 4:47:53 PM    1/27/2021 10:35:11 AM       48.00:11:42
+DevOpsBackup     3 1/25/2021 4:48:02 PM    3/16/2021 10:12:01 AM          00:34:52
+...
 ```
 
 If your console supports it, Distribution Lists will be displayed in green, and a member count of 0 will be displayed in red.
@@ -238,6 +231,8 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-ADGroupUser](Get-ADGroupUser.md)
+
+[New-ADGroupReport](New-ADGroupReport.md)
 
 [Get-ADGroup]()
 

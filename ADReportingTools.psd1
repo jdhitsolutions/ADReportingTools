@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1.0'
+ModuleVersion = '1.2.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -35,7 +35,7 @@ PowerShellVersion = '5.1'
 # PowerShellHostName = ''
 
 # Minimum version of the PowerShell host required by this module
-# PowerShellHostVersion = ''
+PowerShellHostVersion = '5.1'
 
 # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
 # DotNetFrameworkVersion = ''
@@ -88,7 +88,7 @@ FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADF
 'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
 'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName','New-ADChangeReport',
 'Get-ADReportingToolsOptions','Set-ADReportingToolsOptions','Get-ADDepartment','Get-ADComputerReport', 'Get-NTDSInfo',
-'Get-ADBackupStatus','Open-ADReportingToolsHelp'
+'Get-ADBackupStatus','Open-ADReportingToolsHelp','New-ADGroupReport'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 #CmdletsToExport = ''
@@ -123,7 +123,7 @@ PrivateData = @{
         ProjectUri = 'https://github.com/jdhitsolutions/ADReportingTools'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+         IconUri = 'https://raw.githubusercontent.com/jdhitsolutions/ADReportingTools/main/images/2PopulatedDomain01.png'
 
         # ReleaseNotes of this module
         ReleaseNotes = 'See the changelog at https://github.com/jdhitsolutions/ADReportingTools/blob/main/Changelog.md'

@@ -2,11 +2,11 @@ Function Get-ADComputerReport {
     [cmdletbinding()]
     [OutputType("ADComputerInfo")]
     Param (
-        [parameter(Position = 0, HelpMessage = "Enter an AD user identity. Wildcard are allowed.", ValueFromPipeline)]
+        [parameter(Position = 0, HelpMessage = "Enter an AD computer identity. Wildcard are allowed.", ValueFromPipeline)]
         [validatenotnullorEmpty()]
         [string]$Name= "*",
 
-        [Parameter(HelpMessage = "Filter by operating system")]
+        [Parameter(HelpMessage = "Filter by the operating system")]
         [ValidateSet("Any","Server","Desktop")]
         [string]$Category = "Any",
 
@@ -15,7 +15,7 @@ Function Get-ADComputerReport {
         [ValidateNotNullOrEmpty()]
         [string]$Location,
 
-        [Parameter(HelpMessage = "Enter the distinguished name of the top level container or organizational unit.")]
+        [Parameter(HelpMessage = "Enter the distinguished name of the top-level container or organizational unit.")]
         [string]$SearchBase,
 
         [Parameter(HelpMessage = "Specify a domain controller to query for a list of domain controllers.")]

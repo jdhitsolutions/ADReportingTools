@@ -27,12 +27,12 @@ header:
   padding: [0,3,5,3]
   recto:
     right:
-      content: 'v1.1.0'
+      content: 'v1.2.0'
     left:
       content: 'ADReportingTools Help Manual'
   verso:
     right:
-      content: 'v1.1.0'
+      content: 'v1.2.0'
     left:
       content: 'ADReportingTools Help Manual'
 footer:

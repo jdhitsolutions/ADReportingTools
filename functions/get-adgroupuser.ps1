@@ -31,7 +31,7 @@ Function Get-ADGroupUser {
         if ($group) {
             $members = $group | Get-ADGroupMember -Recursive
 
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($members.count) members in total."
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($members.name.count) members in total."
             #get details about each group member
             $getParams = @{
                 properties = 'PasswordLastSet', 'Description', 'Title', 'Displayname', 'Department'
