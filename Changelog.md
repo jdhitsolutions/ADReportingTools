@@ -2,6 +2,17 @@
 
 This is a summary of major changes in the ADReportingTools module since it was released as a 1.0 product.
 
+## 1.3.0
+
++ Added `ThreadJob` as a required module. ([Issue #25](https://github.com/jdhitsolutions/ADReportingTools/issues/25))
++ Changed `$ADReportingToolsOptions` to an `[ordered]` hashtable and added the ANSI reset sequence at the end. Now, if you look at $ADReportingToolsOptions`, your console will reset.
++ Modified `Get-ADReportingToolsOptions` to filter out keys I'm using for reference information when users access `$ADReportingToolsOptions` directly.
++ Added function `Get-ADManager` and custom format file `admanager.format.ps1xml`.
++ Modified `Get-ADComputerReport` to include `Enabled` and `ManagedBy` properties.
++ Added a table view called `Managed` to `adcomputerreport.format.ps1xml`.
++ Added missing online help links.
++ Updated `README.md`.
+
 ## 1.2.0
 
 + Revised help for `Show-DomainTree` to indicate it must be run in a console session and not the PowerShell ISE. (([Issue #23](https://github.com/jdhitsolutions/ADReportingTools/issues/23)))

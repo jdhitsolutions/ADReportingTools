@@ -1,7 +1,7 @@
 
 # dot source functions
-Get-ChildItem -path $PSScriptRoot\Functions\*.ps1 |
-Foreach-Object {
+Get-ChildItem -Path $PSScriptRoot\Functions\*.ps1 |
+ForEach-Object {
     . $_.FullName
 }
 
@@ -9,14 +9,14 @@ Foreach-Object {
 Update-TypeData -TypeName ADBranchMember -MemberType AliasProperty -MemberName DN -Value DistinguishedName -Force
 
 Update-TypeData -TypeName "ADDomainControllerHealth" -MemberType ScriptProperty -MemberName "ServiceAlert" -Value {
-    $list = "Stopped","StartPending","StopPending","ContinuePending","PausePending","Paused"
-    if ($this.services.state.where({$list -contains $_})) {
+    $list = "Stopped", "StartPending", "StopPending", "ContinuePending", "PausePending", "Paused"
+    if ($this.services.state.where( { $list -contains $_ })) {
         $True
     }
     Else {
         $False
     }
-} -force
+} -Force
 
 #endregion
 
@@ -26,7 +26,8 @@ $ADUserReportingConfiguration = Get-Content $PSScriptRoot\configurations\aduser-
 
 #use $([char]0x1b) because it will work in Windows PowerShell and PowerShell 7.
 
-$ADReportingToolsOptions = @{
+$ADReportingToolsOptions = [ordered]@{
+    Note               = "Use Get-ADReportingToolsOptions and Set-ADReportingToolsOptions"
     DistributionList   = "$([char]0x1b)[92m"
     Alert              = "$([char]0x1b)[91m"
     Warning            = "$([char]0x1b)[38;5;220m"
@@ -42,6 +43,7 @@ $ADReportingToolsOptions = @{
     ComputerClass      = "$([char]0x1b)[30;48;5;50m"
     IsDC               = "$([char]0x1b)[38;5;155m"
     IsServer           = "$([char]0x1b)[38;5;50m"
+    Reset              = "$([char]0x1b)[0m"
 }
 
 #endregion
@@ -54,10 +56,10 @@ $newRunspace.ApartmentState = "STA"
 $newRunspace.ThreadOptions = "ReuseThread"
 [void]$newRunspace.Open()
 $Global:ADReportingHash = [hashtable]::Synchronized(@{
-        Note        = "This hashtable is used by the ADReportingTools module. Do not delete."
-        Departments = @()
+        Note              = "This hashtable is used by the ADReportingTools module. Do not delete."
+        Departments       = @()
         DomainControllers = @()
-        BackupLimit = 3
+        BackupLimit       = 3
     }
 )
 $newRunspace.SessionStateProxy.SetVariable("ADReportingHash", $ADReportingHash)
@@ -65,8 +67,8 @@ $newRunspace.SessionStateProxy.SetVariable("ADReportingHash", $ADReportingHash)
 $psCmd = [PowerShell]::Create()
 
 [void]$pscmd.AddScript( {
-    #this code will run in the background upon module import. Values will populate
-    #the synchronized hashtable.
+        #this code will run in the background upon module import. Values will populate
+        #the synchronized hashtable.
         $global:ADReportingHash.Departments = Get-ADUser -Filter "Department -like '*'" -Properties Department | Select-Object -ExpandProperty Department -Unique | Sort-Object
         $global:ADReportingHash.DomainControllers = (Get-ADDomain).ReplicaDirectoryServers
 
@@ -115,21 +117,21 @@ Register-ArgumentCompleter -CommandName Get-ADDepartment -ParameterName Departme
 }
 
 #Add auto complete for SERVER parameter to these commands
-$cmds = 'Get-ADBranch','Get-ADCanonicalUser','Get-ADComputerReport','Get-ADDepartment','Get-ADDomainControllerHealth','Get-ADFSMO','Get-ADGroupR
-eport','Get-ADGroupUser','Get-ADSiteDetail','Get-ADSiteSummary','Get-ADSummary','Get-ADUserCategory','New-ADChangeReport','New-ADDomain
-Report','New-ADGroupReport','Show-DomainTree','Get-ADAccountAuthorizationGroup','Get-ADAccountResultantPasswordReplicationPolicy','Get-
-ADAuthenticationPolicy','Get-ADAuthenticationPolicySilo','Get-ADCentralAccessPolicy','Get-ADCentralAccessRule','Get-ADClaimTransformPol
-icy','Get-ADClaimType','Get-ADComputer','Get-ADComputerServiceAccount','Get-ADDefaultDomainPasswordPolicy','Get-ADDomain','Get-ADDomain
-Controller','Get-ADDomainControllerPasswordReplicationPolicy','Get-ADDomainControllerPasswordReplicationPolicyUsage','Get-ADFineGrained
-PasswordPolicy','Get-ADFineGrainedPasswordPolicySubject','Get-ADForest','Get-ADGroup','Get-ADGroupMember','Get-ADObject','Get-ADOptiona
-lFeature','Get-ADOrganizationalUnit','Get-ADPrincipalGroupMembership','Get-ADReplicationAttributeMetadata','Get-ADReplicationConnection
-','Get-ADReplicationQueueOperation','Get-ADReplicationSite','Get-ADReplicationSiteLink','Get-ADReplicationSiteLinkBridge','Get-ADReplic
-ationSubnet','Get-ADResourceProperty','Get-ADResourcePropertyList','Get-ADResourcePropertyValueType','Get-ADRootDSE','Get-ADServiceAcco
-unt','Get-ADTrust','Get-ADUser','Get-ADUserResultantPasswordPolicy'
+$cmds = 'Get-ADBranch', 'Get-ADCanonicalUser', 'Get-ADComputerReport', 'Get-ADDepartment', 'Get-ADDomainControllerHealth', 'Get-ADFSMO', 'Get-ADGroupR
+eport', 'Get-ADGroupUser', 'Get-ADSiteDetail', 'Get-ADSiteSummary', 'Get-ADSummary', 'Get-ADUserCategory', 'New-ADChangeReport', 'New-ADDomain
+Report', 'New-ADGroupReport', 'Show-DomainTree', 'Get-ADAccountAuthorizationGroup', 'Get-ADAccountResultantPasswordReplicationPolicy', 'Get-
+ADAuthenticationPolicy', 'Get-ADAuthenticationPolicySilo', 'Get-ADCentralAccessPolicy', 'Get-ADCentralAccessRule', 'Get-ADClaimTransformPol
+icy', 'Get-ADClaimType', 'Get-ADComputer', 'Get-ADComputerServiceAccount', 'Get-ADDefaultDomainPasswordPolicy', 'Get-ADDomain', 'Get-ADDomain
+Controller', 'Get-ADDomainControllerPasswordReplicationPolicy', 'Get-ADDomainControllerPasswordReplicationPolicyUsage', 'Get-ADFineGrained
+PasswordPolicy', 'Get-ADFineGrainedPasswordPolicySubject', 'Get-ADForest', 'Get-ADGroup', 'Get-ADGroupMember', 'Get-ADObject', 'Get-ADOptiona
+lFeature', 'Get-ADOrganizationalUnit', 'Get-ADPrincipalGroupMembership', 'Get-ADReplicationAttributeMetadata', 'Get-ADReplicationConnection
+', 'Get-ADReplicationQueueOperation', 'Get-ADReplicationSite', 'Get-ADReplicationSiteLink', 'Get-ADReplicationSiteLinkBridge', 'Get-ADReplic
+ationSubnet', 'Get-ADResourceProperty', 'Get-ADResourcePropertyList', 'Get-ADResourcePropertyValueType', 'Get-ADRootDSE', 'Get-ADServiceAcco
+unt', 'Get-ADTrust', 'Get-ADUser', 'Get-ADUserResultantPasswordPolicy'
 
 foreach ($cmd in $cmds) {
 
-    Register-ArgumentCompleter -CommandName $cmd  -ParameterName Server -ScriptBlock {
+    Register-ArgumentCompleter -CommandName $cmd -ParameterName Server -ScriptBlock {
         param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
 
         $global:ADReportingHash.DomainControllers | Where-Object { $_ -like "$WordToComplete*" } |
@@ -140,7 +142,7 @@ foreach ($cmd in $cmds) {
     }
 }
 
-Export-ModuleMember -Variable ADUserReportingConfiguration,ADReportingToolsOptions,ADReportingDepartments
+Export-ModuleMember -Variable ADUserReportingConfiguration, ADReportingToolsOptions, ADReportingDepartments
 
 #endregion
 

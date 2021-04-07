@@ -4,14 +4,14 @@ Function Get-ADComputerReport {
     Param (
         [parameter(Position = 0, HelpMessage = "Enter an AD computer identity. Wildcard are allowed.", ValueFromPipeline)]
         [validatenotnullorEmpty()]
-        [string]$Name= "*",
+        [string]$Name = "*",
 
         [Parameter(HelpMessage = "Filter by the operating system")]
-        [ValidateSet("Any","Server","Desktop")]
+        [ValidateSet("Any", "Server", "Desktop")]
         [string]$Category = "Any",
 
         [Parameter(HelpMessage = "Filter by location")]
-        [ArgumentCompleter({(Get-ADSiteSummary).subnetLocation})]
+        [ArgumentCompleter( { (Get-ADSiteSummary).subnetLocation })]
         [ValidateNotNullOrEmpty()]
         [string]$Location,
 
@@ -29,8 +29,9 @@ Function Get-ADComputerReport {
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
 
-        $properties = "DNSHostname", "OperatingSystem", "LastLogonDate", "Created", "Modified", "Location", "Description", "IPv4Address"
-        [void]$PSBoundParameters.Add("Properties",$Properties)
+        $properties = "DNSHostname", "OperatingSystem", "LastLogonDate", "Created",
+        "Modified", "Location", "Description", "IPv4Address", "Enabled", "ManagedBy"
+        [void]$PSBoundParameters.Add("Properties", $Properties)
         [void]$PSBoundParameters.Remove("Category")
         [void]$PSBoundParameters.Remove("location")
 
@@ -53,7 +54,7 @@ Function Get-ADComputerReport {
         }
 
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Searching with filter $filter"
-        $PSBoundParameters.Add("filter",$filter)
+        $PSBoundParameters.Add("filter", $filter)
 
         $computers = Get-ADComputer @PSBoundParameters
         if ($computers) {
@@ -72,6 +73,8 @@ Function Get-ADComputerReport {
                     IPAddress         = $computer.IPv4Address
                     Created           = $computer.Created
                     Modified          = $computer.Modified
+                    Enabled           = $computer.Enabled
+                    ManagedBy         = $computer.ManagedBy
                     DistinguishedName = $computer.DistinguishedName
                 }
 

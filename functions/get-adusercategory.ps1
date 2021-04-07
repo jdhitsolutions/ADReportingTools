@@ -3,6 +3,7 @@
 
 Function Get-ADUserCategory {
     [cmdletbinding(DefaultParameterSetName = "filter")]
+    [OutputType("ADUserCategory")]
     Param(
         [parameter(Position = 0, Mandatory, HelpMessage = "Enter an AD user identity", ParameterSetName = "id")]
         [validatenotnullorEmpty()]

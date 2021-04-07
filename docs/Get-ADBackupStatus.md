@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: http://bit.ly/3fPV1AE
 schema: 2.0.0
 ---
 
@@ -14,7 +14,8 @@ Get an Active Directory backup status
 ## SYNTAX
 
 ```yaml
-Get-ADBackupStatus [-DomainController] <String[]> [-Credential <PSCredential>] [<CommonParameters>]
+Get-ADBackupStatus [-DomainController] <String[]> [-Credential <PSCredential>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

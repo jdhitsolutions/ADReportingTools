@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADManager</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <Text>Name            : </Text>
+              <ExpressionBinding>
+                <ScriptBlock>
+                   if ($host.name -match 'console' -AND (-not $_.Enabled)) {
+                    <!-- show disabled accounts in red-->
+                    $dn = "$($ADReportingToolsOptions.alert)$($_.DistinguishedName)$([char]0x1b)[0m"
+                    $name = "$($ADReportingToolsOptions.alert)$($_.Name)$([char]0x1b)[0m"
+                  }
+                  else {
+                    $dn = $_.DistinguishedName
+                    $name = $_.Name
+                  }
+                  "{0} [{1}]" -f $dn,$name
+        </ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Text>Title           : </Text>
+              <ExpressionBinding>
+                <PropertyName>Title</PropertyName>
+              </ExpressionBinding>
+              <NewLine />
+              <Text>Description     : </Text>
+              <ExpressionBinding>
+                <PropertyName>Description</PropertyName>
+              </ExpressionBinding>
+              <NewLine />
+              <Frame>
+                <CustomItem>
+                  <ExpressionBinding>
+                    <ScriptBlock>"Direct Reports  : {0}" -f ($_.DirectReports | Measure-Object).count</ScriptBlock>
+                  </ExpressionBinding>
+                  <ExpressionBinding>
+                    <ScriptBlock>
+                      <!-- show disabled accounts with a red name-->
+                      $_.DirectReports | Sort-Object -property DistinguishedName | Format-Table | Out-String
+                      </ScriptBlock>
+                  </ExpressionBinding>
+                </CustomItem>
+              </Frame>
+              <NewLine />
+              <ExpressionBinding>
+                <ScriptBlock>"Managed Objects : {0}" -f ($_.ManagedObjects | Measure-Object).count</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine/><NewLine/>
+              <Frame>
+              <LeftIndent>1</LeftIndent>
+                <CustomItem>
+                <Text>Computer</Text>
+
+                  <ExpressionBinding>
+                    <ScriptBlock>
+                    <!-- Because of the ANSI formatting, I need to manually re-create the default formatting for managed computer objects-->
+                        $mo = ($_.ManagedObjects).Where({$_.Class -eq 'Computer'}) | Sort-Object -property Name
+                        if ($mo.name) {
+                        $out = foreach ($item in $mo) {
+                            if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $item.DNSHostName)) {
+                                $name ="$($ADReportingToolsOptions.IsDC)$($item.Name.padright(15,' '))$([char]0x1b)[0m"
+                              }
+                              elseif ($host.name -match 'Console' -AND ($item.OperatingSystem -match 'server')) {
+                                $name = "$($ADReportingToolsOptions.IsServer)$($item.Name.padright(15,' '))$([char]0x1b)[0m"
+                              }
+                              else {
+                                $name = $item.Name.Padright(15,' ')
+                              }
+
+                            $location = ($item.location -replace "^$null$", ' ').PadRight(11, ' ')
+                            $IP = ($item.IPAddress -replace "^$null$", ' ').PadRight(15, ' ')
+                            $Desc = ($item.Description -replace "^$null$", ' ')
+                            if ($item.OperatingSystem) {
+                                $OS = $item.OperatingSystem.Substring(0, 20).PadRight(22, ' ')
+                            }
+                            else {
+                                $OS = ($item.OperatingSystem -replace "^$null$", ' ').PadRight(22, ' ')
+                            }
+
+                            if ($host.name -match "console" -AND (-Not $item.Enabled)) {
+                                $dn = "$($ADReportingToolsOptions.alert)$($item.DistinguishedName)$([char]0x1b)[0m"
+                            }
+                            else {
+                                $dn = $item.DistinguishedName
+                            }
+
+                            $s = New-Object Text.StringBuilder
+                            $g = "    {0} [{1}]" -f $dn, $item.DNSHostName
+                            [void]$s.AppendLine($g)
+                            $h = "{0}{1}{2}{3}{4}" -f "Name".padright(15, ' '), "Location".PadRight(11, ' '), "IPAddress".PadRight(15, ' '), "OperatingSystem".PadRight(22, ' '), "Description"
+                            [void]$s.AppendLine($h)
+                            $div = "{0}{1}{2}{3}{4}" -f ("Name" -replace "\w", "-").PadRight(15, ' '), ("Location" -replace "\w", "-").PadRight(11, ' '), ("IPAddress" -replace "\w", "-").PadRight(15, ' '), ("OperatingSystem" -replace "\w", "-").padright(22, ' '), ("Description" -replace "\w", "-")
+                            [void]$s.AppendLine($div)
+                            $data = "{0}{1}{2}{3}{4}" -f $Name, $location, $IP, $OS, $Desc
+                            [void]$s.AppendLine($data)
+                            [void]$s.AppendLine()
+                            $s.ToString()
+                        }
+                        "`n`n$($out | Out-String)"
+                        }
+                      </ScriptBlock>
+                  </ExpressionBinding>
+                  <NewLine/>
+                </CustomItem>
+              </Frame>
+               <Frame>
+              <LeftIndent>1</LeftIndent>
+                <CustomItem>
+                <Text>OrganizationalUnit</Text>
+                <NewLine/>
+                  <ExpressionBinding>
+                    <ScriptBlock>
+                     $($_.ManagedObjects).Where({$_.Class -eq 'OrganizationalUnit'}) | Sort-Object -property Name | Out-String
+                    </ScriptBlock>
+                  </ExpressionBinding>
+                </CustomItem>
+                </Frame>
+               <Frame>
+              <LeftIndent>1</LeftIndent>
+                <CustomItem>
+                <Text>Group</Text>
+                <NewLine/>
+                  <ExpressionBinding>
+                    <ScriptBlock>
+                    $($_.ManagedObjects).Where({$_.Class -eq 'group'}) | Sort-Object -property Name | Out-String
+                    </ScriptBlock>
+                  </ExpressionBinding>
+                  <NewLine/>
+                </CustomItem>
+                </Frame>
+
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <!--Created 04/05/2021 10:29:48 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADDirect</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+        if ($host.name -match 'console' -AND (-not $_.Enabled)) {
+          <!-- show disabled accounts in red-->
+          $dn = "$($ADReportingToolsOptions.alert)$($_.DistinguishedName)$([char]0x1b)[0m"
+          $name = "$($ADReportingToolsOptions.alert)$($_.Name)$([char]0x1b)[0m"
+        }
+        else {
+          $dn = $_.DistinguishedName
+          $name = $_.name
+        }
+        "{0} [{1}]" -f $dn,$name
+        </ScriptBlock>
+        <Label>User</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>DisplayName</Label>
+            <Width>20</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+            <Width>30</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Title</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Department</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>DisplayName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Department</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 04/05/2021 14:25:01 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADManaged.organizationalUnit</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+         if ($host.name -match "console" -AND (-Not ($_.protected))) {
+           "$($ADReportingToolsOptions.Alert)$($_.DistinguishedName)$([char]0x1b)[0m"
+         }
+         else {
+          $_. DistinguishedName
+         }
+         </ScriptBlock>
+        <Label>DistinguishedName</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+            <Width>40</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 04/05/2021 14:33:54 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADManaged.group</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+            if ($host.name -match 'console' -AND $_.Scope -eq 'Universal') {
+               $grpScope= "$($ADReportingToolsOptions.Universal)$($_.Scope)$([char]0x1b)[0m"
+                }
+          elseif ($host.name -match 'console' -AND $_.Scope -eq 'DomainLocal') {
+              $grpScope = "$($ADReportingToolsOptions.DomainLocal)$($_.Scope)$([char]0x1b)[0m"
+                }
+                else {
+                $grpScope = $_.Scope
+            }
+             if ($host.name -match 'console' -AND $_.Category -eq 'Distribution') {
+              $grpCategory = "$($ADReportingToolsOptions.DistributionList)$($_.Category)$([char]0x1b)[0m"
+              }
+            else {
+              $grpCategory = $_.Category
+            }
+          "{0} [{1}|{2}]" -f $_.DistinguishedName,$grpScope,$grpCategory
+            </ScriptBlock>
+        <Label>Group</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>30</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+            <Width>50</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 04/05/2021 14:50:46 by COMPANY\artd-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ADManaged.computer</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+          if ($host.name -match "console" -AND (-Not $_.Enabled)) {
+            $dn = "$($ADReportingToolsOptions.alert)$($_.DistinguishedName)$([char]0x1b)[0m"
+          }
+          else {
+           $dn =  $_.DistinguishedName
+          }
+         "{0} [{1}]" -f $dn,$_.DNSHostName
+        </ScriptBlock>
+        <Label>Computer</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Location</Label>
+            <Width>11</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IPAddress</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>OperatingSystem</Label>
+            <Width>32</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                 <ScriptBlock>
+                if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                  "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND ($_.OperatingSystem -match 'server')) {
+                  "$($ADReportingToolsOptions.IsServer)$($_.Name)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IPAddress</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>OperatingSystem</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

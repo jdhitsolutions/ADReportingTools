@@ -8,7 +8,7 @@
 RootModule = 'ADReportingTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.2.0'
+ModuleVersion = '1.3.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -47,7 +47,7 @@ PowerShellHostVersion = '5.1'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-# RequiredModules = @()
+RequiredModules = @("ThreadJob")
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -77,7 +77,8 @@ FormatsToProcess = @(
 'formats\addepartmentmember.format.ps1xml',
 'formats\adcomputerreport.format.ps1xml',
 'formats\adntds.format.ps1xml',
-'formats\adbackup.format.ps1xml'
+'formats\adbackup.format.ps1xml',
+'formats\admanager.format.ps1xml'
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
@@ -88,7 +89,7 @@ FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADF
 'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
 'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName','New-ADChangeReport',
 'Get-ADReportingToolsOptions','Set-ADReportingToolsOptions','Get-ADDepartment','Get-ADComputerReport', 'Get-NTDSInfo',
-'Get-ADBackupStatus','Open-ADReportingToolsHelp','New-ADGroupReport'
+'Get-ADBackupStatus','Open-ADReportingToolsHelp','New-ADGroupReport','Get-ADManager'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 #CmdletsToExport = ''

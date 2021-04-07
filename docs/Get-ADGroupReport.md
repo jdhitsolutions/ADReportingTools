@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3dBUcZq
 schema: 2.0.0
 ---
 
@@ -15,7 +15,8 @@ Create a custom group report
 
 ```yaml
 Get-ADGroupReport [[-Name] <String>] [-SearchBase <String>][-Category <String>]
-[-Scope <String>] [-ExcludeBuiltIn] [-Server <String>] [-Credential <PSCredential>] [<CommonParameters>]
+[-Scope <String>] [-ExcludeBuiltIn] [-Server <String>]
+[-Credential <PSCredential>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -237,3 +238,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Get-ADGroup]()
 
 [Get-ADGroupMember]()
+
+[Get-ADManager](Get-ADManager.md)

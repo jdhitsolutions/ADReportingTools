@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3dFHB7E
 schema: 2.0.0
 ---
 
@@ -14,7 +14,8 @@ Get AD Computer account information
 ## SYNTAX
 
 ```yaml
-Get-ADComputerReport [[-Name] <String>] [-Category <String>] [-Location <String>] [-SearchBase <String>] [-Server <String>]
+Get-ADComputerReport [[-Name] <String>] [-Category <String>]
+[-Location <String>] [-SearchBase <String>] [-Server <String>]
 [-Credential <PSCredential>] [<CommonParameters>]
 ```
 
@@ -182,3 +183,7 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-ADDomainControllerHealth](Get-ADDomainControllerHealth.md)
+
+[Get-ADManager](Get-ADManager.md)
+
+[Get-ADComputer]()

@@ -177,13 +177,21 @@ Distribution groups will be shown in green and member counts of 0 in red. The Ag
 
 ![adcomputers](images/ComputerAccount01.png)
 
-### [Get-ADComputerReport](docs/Get-ADComputerReport.md)
+#### [Get-ADComputerReport](docs/Get-ADComputerReport.md)
 
 `Get-ADComputerReport` will gather information about computer objects in Active Directory.
 
 ![get-adcomputerreport](images/get-adcomputerreport.png)
 
-If you are running in a PowerShell console, domain controllers and member servers will be highlighted with an ANSI sequence. The default behavior is to find all objects. But you can filter on a category of Server or Desktop. The filtering is done based on the operating system value.
+If you are running in a PowerShell console, domain controllers and member servers will be highlighted with an ANSI sequence. Disabled computer accounts will be displayed in red. The default command behavior is to find all computer objects. But you can search name or filter on a category of Server or Desktop. The filtering is based on the operating system value.
+
+The associated formatting for this command has several named table views. You should sort on the key property first. You can try commands like this:
+
+```powershell
+Get-ADComputerReport | Sort OperatingSystem | Format-Table -view os
+Get-ADComputerReport | Sort location | Format-Table -view location
+Get-ADComputerReport | Sort ManagedBy | Format-Table -view managed
+```
 
 #### [Get-ADDomainControllerHealth](docs/Get-ADDomainControllerHealth.md)
 
@@ -269,6 +277,23 @@ The command output also has a second formatted view.
 `Get-ADSiteDetail` will present a summary report of your Active Directory sites with a bit more detail. This command will show the site description, associated subnets, and when the site object was created and last modified. Information is displayed in a formatted table.
 
 ![Get-ADSiteDetail](images/get-adsitedetail.png)
+
+#### [Get-ADManager](docs/Get-ADManager.md)
+
+In Active Directory, you can designate a manager for users and objects. From the manager account's perspective, users are designated as DirectReports, and items such as Computers, Groups, and OrganizationalUnits are referred to as ManagedObjects. `Get-ADManager` is a simple way to get a manager account and view everything that they manage. The default is to get all users and all objects, but you can filter using command parameters.
+
+![direct reports](images/admanager-direct.png)
+
+If you are running in a PowerShell console host, the default output will be colorized with ANSI escape sequences from `$ADReportingToolsOptions`. The following items will be highlighted with color
+
+- Disabled accounts
+- Domain controller names
+- Member server names
+- Universal group scope
+- DomainLocal group scope
+- Distribution group category
+
+![managed objects](images/admanager-managed.png)
 
 #### [Show-DomainTree](docs/Show-DomainTree.md)
 
@@ -412,4 +437,4 @@ These are items that I'm dreaming about and may add at some point in the future:
 
 I welcome suggestions, feedback, and comments in the module repository's [Discussion](https://github.com/jdhitsolutions/ADReportingTools/discussions) section.
 
-last updated *2021-03-31 13:24:11Z*
+last updated *2021-04-07 12:23:19Z*

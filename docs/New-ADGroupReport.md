@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3uthsPX
 schema: 2.0.0
 ---
 
@@ -15,7 +15,8 @@ Create an HTML report of AD groups
 
 ```yaml
 New-ADGroupReport [[-Name] <String>] [-SearchBase <String>]
-[-Category <String>] [-Scope <String>] [-ExcludeBuiltIn] -FilePath <String> [-ReportTitle <String>] [-CSSUri <String>] [-EmbedCSS] [-Server <String>]
+[-Category <String>] [-Scope <String>] [-ExcludeBuiltIn] -FilePath <String>
+-ReportTitle <String>] [-CSSUri <String>] [-EmbedCSS] [-Server <String>]
 [-Credential <PSCredential>] [<CommonParameters>]
 ```
 

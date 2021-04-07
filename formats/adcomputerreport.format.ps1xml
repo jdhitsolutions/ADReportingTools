@@ -49,7 +49,10 @@ https://github.com/jdhitsolutions/PSScriptTools
             <TableColumnItems>
               <TableColumnItem>
                 <ScriptBlock>
-                if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                  if ($host.name -match 'Console' -AND (-Not $_.Enabled)) {
+                  "$($ADReportingToolsOptions.Alert)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
                   "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
                 }
                 elseif ($host.name -match 'Console' -AND $_.IsServer ) {
@@ -121,8 +124,11 @@ https://github.com/jdhitsolutions/PSScriptTools
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-              <ScriptBlock>
-                if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                <ScriptBlock>
+                    if ($host.name -match 'Console' -AND (-Not $_.Enabled)) {
+                  "$($ADReportingToolsOptions.Alert)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
                   "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
                 }
                 elseif ($host.name -match 'Console' -AND $_.IsServer ) {
@@ -189,8 +195,11 @@ https://github.com/jdhitsolutions/PSScriptTools
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-              <ScriptBlock>
-                if ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                <ScriptBlock>
+                if ($host.name -match 'Console' -AND (-Not $_.Enabled)) {
+                  "$($ADReportingToolsOptions.Alert)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
                   "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
                 }
                 elseif ($host.name -match 'Console' -AND $_.IsServer ) {
@@ -209,6 +218,82 @@ https://github.com/jdhitsolutions/PSScriptTools
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>DistinguishedName</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 04/06/2021 15:24:05 by COMPANY\artd-->
+      <Name>managed</Name>
+      <ViewSelectedBy>
+        <TypeName>ADComputerInfo</TypeName>
+      </ViewSelectedBy>
+        <GroupBy>
+        <PropertyName>Managedby</PropertyName>
+        <Label>Managed</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Location</Label>
+            <Width>11</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LastLogonDate</Label>
+            <Width>22</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Modified</Label>
+            <Width>22</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                         <ScriptBlock>
+                if ($host.name -match 'Console' -AND (-Not $_.Enabled)) {
+                  "$($ADReportingToolsOptions.Alert)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND ($ADReportingHash.DomainControllers -contains $_.DNSHostName)) {
+                  "$($ADReportingToolsOptions.IsDC)$($_.Name)$([char]0x1b)[0m"
+                }
+                elseif ($host.name -match 'Console' -AND $_.IsServer ) {
+                  "$($ADReportingToolsOptions.IsServer)$($_.Name)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Location</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LastLogonDate</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Modified</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

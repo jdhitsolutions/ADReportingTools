@@ -14,7 +14,9 @@ Get an AD user account using a canonical name.
 ## SYNTAX
 
 ```yaml
-Get-ADCanonicalUser [-Name] <String> [-Properties <String[]>] [-IncludeDeletedObjects] [-Server <String>] [-Credential <PSCredential>] [<CommonParameters>]
+Get-ADCanonicalUser [-Name] <String> [-Properties <String[]>]
+-IncludeDeletedObjects] [-Server <String>] [-Credential <PSCredential>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

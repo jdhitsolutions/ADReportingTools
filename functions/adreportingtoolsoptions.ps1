@@ -8,7 +8,9 @@ function Get-ADReportingToolsOptions {
     param ()
 
     if (Get-Variable -Name ADReportingToolsOptions) {
-        $ADReportingToolsOptions.GetEnumerator() | ForEach-Object {
+        # April 2, 2021 filter out Note and Reset JDH
+        $ADReportingToolsOptions.GetEnumerator() | Where-Object { $_.Key -notmatch "Note|Reset"} |
+        ForEach-Object {
             [pscustomobject]@{
                 PSTypename = "ADReportingToolsOption"
                 Name       = $_.key
@@ -27,7 +29,6 @@ function Set-ADReportingToolsOptions {
     param (
         [Parameter(Position = 0, Mandatory, HelpMessage = "Specify an option.")]
         [ValidateNotNullOrEmpty()]
-        #[ValidateSet("DistributionList","Alert","Warning")]
         [ArgumentCompleter( { (Get-ADReportingToolsOptions).Name })]
         [string]$Name,
         [Parameter(Mandatory, HelpMessage = "Specify the opening ANSI sequence.")]

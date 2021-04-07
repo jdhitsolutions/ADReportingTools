@@ -14,7 +14,8 @@ Get a listing of members in an AD branch.
 ## SYNTAX
 
 ```yaml
-Get-ADBranch [-SearchBase] <String> [-ObjectClass <String[]>] [-IncludeDeletedObjects] [-ExcludeContainers] [-Server <String>]
+Get-ADBranch [-SearchBase] <String> [-ObjectClass <String[]>]
+[-IncludeDeletedObjects] [-ExcludeContainers] [-Server <String>]
 [-Credential <PSCredential>] [<CommonParameters>]
 ```
 

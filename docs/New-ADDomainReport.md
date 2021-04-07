@@ -15,7 +15,8 @@ Create an HTML report of your domain.
 
 ```yaml
 New-ADDomainReport [[-Name] <String>] -FilePath <String>
-[-ReportTitle <String>] [-CSSUri <String>] [-EmbedCSS] [-Server <String>] [-Credential <PSCredential>] [<CommonParameters>]
+[-ReportTitle <String>] [-CSSUri <String>] [-EmbedCSS] [-Server <String>]
+[-Credential <PSCredential>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
