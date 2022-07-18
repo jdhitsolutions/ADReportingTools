@@ -1,7 +1,7 @@
 ---
 external help file: ADReportingTools-help.xml
 Module Name: ADReportingTools
-online version:
+online version: https://bit.ly/3gf6iKM
 schema: 2.0.0
 ---
 

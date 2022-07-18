@@ -16,7 +16,7 @@ https://github.com/jdhitsolutions/PSScriptTools
       </ViewSelectedBy>
       <GroupBy>
         <ScriptBlock>
-        if ($host.name -match 'console') {
+        if ($host.name -match 'console|code') {
           "$($ADreportingToolsOptions.IsServer)$($_.Verb)$([char]0x1b)[0m"
         }
         else {

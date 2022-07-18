@@ -37,7 +37,7 @@ The ADReportingTools module is built on this framework. The goal is to create a 
 The ADReportingTools focuses primarily on working with Active Directory users, groups, and computers. The module includes commands designed to be true reporting commands. As the module name suggests, module commands are intended to **_get_** information from Active Directory. This module is not designed to manage it. There are **no** commands to set, create, or remove anything from Active Directory.
 
 :warning:
-**These commands have not been tested in a large domain environment, or one with cross-domain trusts and/or nested groups that cross domains. If you have used the ActiveDirectory modules in the past and had poor performance due to these types of circumstances, the modules in this command most likely won't perform any better.**
+**These commands have not been tested in a large domain environment, or one with cross-domain trusts and/or nested groups that cross domains. If you have used the ActiveDirectory modules in the past and had poor performance due to these types of circumstances, the modules in this command most likely won't perform any better because they are still relying on the same Active Directory cmdlets..**
 
 ## Module Commands
 
@@ -159,7 +159,7 @@ Or you can use the default list view.
 
 ![Get-ADGroupUser list](images/get-adgroupuser-list.png)
 
-#### [GetADGroupReport](docs/Get-ADGroupReport.md)
+#### [Get-ADGroupReport](docs/Get-ADGroupReport.md)
 
 `Get-ADGroupReport` will create a custom report for a group showing members. `Get-ADGroupUser` is intended to display group membership details `Get-ADGroupReport` focuses on the group, although members are also displayed. Members are always gathered recursively. You can filter for specific types of groups. You can also opt to exclude groups under CN=Users and CN=BuiltIn. The groups "Domain Users", "Domain Computers", and "Domain Guests" are always excluded from this command.
 
@@ -297,7 +297,7 @@ If you are running in a PowerShell console host, the default output will be colo
 
 #### [Show-DomainTree](docs/Show-DomainTree.md)
 
-Show-DomainTree will display your domain in a tree view at the console. By default, the function will use color-coded ANSI formatting, assuming your PowerShell console supports it. The default display uses the organizational unit names. Although, you can use the distinguishedname of each branch. If you use -Containers, containers like Users will be included.
+`Show-DomainTree` will display your domain in a tree view at the console. By default, the function will use color-coded ANSI formatting, assuming your PowerShell console supports it. The default display uses the organizational unit names. Although, you can use the distinguishedname of each branch. If you use -Containers, containers like Users will be included.
 
 ![Show-DomainTree](images/show-domaintree.png)
 
@@ -321,7 +321,7 @@ You can view the default CSS file [here](reports/changereport.css). A complete s
 
 #### [New-ADGroupReport](docs/New-ADGroupReport.md)
 
-New-ADGroupReport will create an HTML report of specified groups from Active Directory. This function is based on Get-ADGroupReport and converts the output to an HTML file. You can specify a CSS file or use the default from the module.
+`New-ADGroupReport` will create an HTML report of specified groups from Active Directory. This function is based on `Get-ADGroupReport` and converts the output to an HTML file. You can specify a CSS file or use the default from the module.
 
 ![sample group report](images/samplegroupreport.png)
 
@@ -426,8 +426,7 @@ These are items under consideration and likely to be added to the module:
 - Enhanced output from `Search-ADAccount`. This might be several commands.
 - Add logo support to the HTML reporting functions.
 - Get items by site or location.
-- Get items ManagedBy.
-- Get newest created items or items created since a given date.
+- Get newest created item(s) created since a given date.
 
 These are items that I'm dreaming about and may add at some point in the future:
 

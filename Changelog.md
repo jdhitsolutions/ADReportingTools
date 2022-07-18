@@ -2,6 +2,13 @@
 
 This is a summary of major changes in the ADReportingTools module since it was released as a 1.0 product.
 
+## 1.4.0
+
++ Added missing online help links.
++ Cleaned up module manifest
++ Fixed typo. ([Issue #27](https://github.com/jdhitsolutions/ADReportingTools/issues/27))
++ Updated `README.md`.
+
 ## 1.3.0
 
 + Added `ThreadJob` as a required module. ([Issue #25](https://github.com/jdhitsolutions/ADReportingTools/issues/25))

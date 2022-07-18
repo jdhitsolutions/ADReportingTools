@@ -142,7 +142,12 @@ foreach ($cmd in $cmds) {
     }
 }
 
-Export-ModuleMember -Variable ADUserReportingConfiguration, ADReportingToolsOptions, ADReportingDepartments
+$FunctionsToExport = 'Show-DomainTree','Get-ADUserAudit','Get-ADSummary','Get-ADFSMO','Get-ADSiteSummary','Get-ADSiteDetail',
+'Get-ADGroupUser','Get-ADBranch','Get-ADDomainControllerHealth','New-ADDomainReport','Get-ADReportingTools','Get-ADCanonicalUser',
+'Get-ADUserCategory','Get-ADGroupReport','Split-DistinguishedName','New-ADChangeReport',
+'Get-ADReportingToolsOptions','Set-ADReportingToolsOptions','Get-ADDepartment','Get-ADComputerReport', 'Get-NTDSInfo',
+'Get-ADBackupStatus','Open-ADReportingToolsHelp','New-ADGroupReport','Get-ADManager'
+Export-ModuleMember -function $FunctionsToExport -Variable ADUserReportingConfiguration, ADReportingToolsOptions, ADReportingDepartments
 
 #endregion
 
