@@ -2191,6 +2191,10 @@ Managed Objects : 6
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3gf6iKM</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ADGroupReport</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
